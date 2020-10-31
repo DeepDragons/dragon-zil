@@ -6,12 +6,15 @@
         <div class="burger_text">Menu</div>
       </div>
     </div>
-    <a href="/" class="brand w-nav-brand">
+    <VLink
+      href="/"
+      class="brand w-nav-brand"
+    >
       <div class="logo_wrap w-clearfix">
         <div class="logo_img_wrap"></div>
-        <div class="logo_text">Dragon ETH</div>
+        <div class="logo_text">Dragon ZIL</div>
       </div>
-    </a>
+    </VLink>
     <nav class="nav-menu w-nav-menu">
       <div class="flex_wrap">
         <div class="links_block">
@@ -25,16 +28,33 @@
               </div>
             </div>
           </div>
-          <VLink href="/buy" class="nav_link w-nav-link">
+          <VLink
+            href="/buy"
+            class="nav_link w-nav-link"
+          >
             Buy
           </VLink>
-          <VLink href="/dragons" class="nav_link w-nav-link">
+          <VLink
+            href="/dragons"
+            class="nav_link w-nav-link"
+          >
             My dragons
           </VLink>
+          <VLink
+            href="/"
+            class="nav_link w-nav-link disabled"
+          >
+            Marketplace
+          </VLink>
+          <VLink
+            href="/"
+            class="nav_link w-nav-link disabled"
+          >
+            Gen Lab
+          </VLink>
         </div>
-        <a
-          name="reftoapp"
-          href="https://eth.dragoneth.com"
+        <VLink
+          href="/buy"
           class="nav_btn w-button"
         >
           <span class="nb_span_01">
@@ -43,7 +63,7 @@
           <span class="nb_span_02">
             egg
           </span>
-        </a>
+        </VLink>
       </div>
     </nav>
   </div>
@@ -61,5 +81,13 @@ export default {
 </script>
 
 <style>
-
+.disabled {
+  opacity: 0.5;
+  cursor: progress;
+}
+.disabled:hover {
+  color: #fff;
+  text-decoration: none;
+  text-shadow: none;
+}
 </style>

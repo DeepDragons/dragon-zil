@@ -29,13 +29,12 @@
             Because Dragons are no Kitties.
           </div>
         </div>
-        <a
-          name="reftoapp"
-          href="https://eth.dragoneth.com"
+        <VLink
+          href="/buy"
           class="btn_primary hero_btn w-button"
         >
-          Give. Me. Theegg.
-        </a>
+          ZLP Airdrop
+        </VLink>
         <a href="#about" class="scroll_sign w-inline-block" />
       </div>
     </div>
@@ -43,8 +42,13 @@
 </template>
 
 <script>
+import VLink from '@/components/VLink'
+
 export default {
-  name: 'header'
+  name: 'header',
+  components: {
+    VLink
+  }
 }
 </script>
 
@@ -54,6 +58,10 @@ export default {
 }
 .dragon_right_wrap {
   animation: move_02 3.5s steps(76) infinite
+}
+
+.btn_primary {
+  text-transform: none;
 }
 @keyframes move_01 {
   from {
