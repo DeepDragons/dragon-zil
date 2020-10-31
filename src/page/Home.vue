@@ -5,9 +5,9 @@
 </template>
 
 <script>
-import NavBar from './components/NavBar'
-import Header from './components/Header'
-import Footer from './components/Footer'
+import NavBar from '@/components/NavBar'
+import Header from '@/components/Header'
+import Footer from '@/components/Footer'
 
 export default {
   name: 'App',
@@ -20,7 +20,4 @@ export default {
 </script>
 
 <style>
-body {
-  background-color: rgba(6, 18, 34, 0.95);
-}
 </style>

@@ -25,33 +25,12 @@
               </div>
             </div>
           </div>
-          <a href="/" class="nav_link w-nav-link">
-            Where am I? 
-          </a>
-          <a
-            href="#about"
-            class="nav_link w-nav-link"
-          >
-            What&#x27;s going on?
-          </a>
-          <a
-            href="#how-it-work"
-            class="nav_link w-nav-link"
-          >
-            How does it work?
-          </a>
-          <a
-            href="#roadmap"
-            class="nav_link w-nav-link"
-          >
-            Our Roadmap
-          </a>
-          <a
-            href="#friends"
-            class="nav_link w-nav-link"
-          >
-            Referral Program
-          </a>
+          <VLink href="/buy" class="nav_link w-nav-link">
+            Buy
+          </VLink>
+          <VLink href="/dragons" class="nav_link w-nav-link">
+            My dragons
+          </VLink>
         </div>
         <a
           name="reftoapp"
@@ -64,9 +43,6 @@
           <span class="nb_span_02">
             egg
           </span>
-          <span class="text-span">
-            eth
-          </span>
         </a>
       </div>
     </nav>
@@ -74,8 +50,13 @@
 </template>
 
 <script>
+import VLink from '@/components/VLink'
+
 export default {
-  name: 'NavBar'
+  name: 'NavBar',
+  components: {
+    VLink
+  }
 }
 </script>
 
