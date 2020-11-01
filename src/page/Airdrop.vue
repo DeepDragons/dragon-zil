@@ -76,11 +76,12 @@ hr {
 .container, .container0 {
   display: flex;
   justify-content: space-evenly;
+  align-items: center;
 
   width: 100vw;
   height: 100vh;
 
-  padding-top: 5%;
+  padding-bottom: 10%;
 
   font-family: 'Fira Sans';
 }
