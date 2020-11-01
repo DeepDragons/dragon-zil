@@ -11,7 +11,7 @@
         >
       </div>
       <form>
-        <h2 class="title purple uppercase">
+        <h2 class="title purple uppercase center">
           <span class="yelow">
             256
           </span>
@@ -25,17 +25,15 @@
         <p class="egg-price purple">
           Price of last egg: 0.00498 <span class="yelow">ZIL</span>
         </p>
-        <br>
         <p class="egg-price purple">
           Price of next egg: 0.00518 <span class="yelow">ZIL</span>
         </p>
-        <br>
         <p class="cost purple">
           The cost of each new egg will be increased by: 0.0001 <span class="yelow">ZIL</span>
         </p>
         <hr>
         <h3 class="purple">
-          Current Price: 0.00508 <span>ZIL</span>
+          Current Price: 0.00508 <span class="yelow">ZIL</span>
         </h3>
         <br>
         <br>
@@ -57,7 +55,7 @@
             </label>
           </div>
           <a
-            class="nav_btn w-button"
+            class="nav_btn w-button buy"
           >
             Buy
           </a>
@@ -89,8 +87,15 @@ export default {
 </script>
 
 <style>
+hr {
+  border-radius: 100px;
+  border-color: #8973d7;
+}
 .bgr_00 {
   opacity: 0.2;
+}
+.buy {
+  min-width: 150px;
 }
 .container, .container0 {
   display: flex;
@@ -153,6 +158,7 @@ export default {
   font-size: 35px;
   line-height: 24px;
   font-weight: 700;
+  padding-bottom: 20px;
 }
 .egg-price {
   font-size: 20px;
@@ -175,5 +181,8 @@ export default {
 }
 .yelow {
   color: #d0ab2f;
+}
+.center {
+  text-align: center;
 }
 </style>
