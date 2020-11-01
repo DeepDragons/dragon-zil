@@ -1,24 +1,37 @@
 const express = require('express');
-const { Zilliqa } = require('@zilliqa-js/zilliqa');
 const router = express();
+const zilliqa = require('../zilliqa');
 
-const isDev = process.env.NODE_ENV === 'production';
-const mainnet = 'https://api.zilliqa.com';
-const testnet = 'https://dev-api.zilliqa.com';
-const provider = isDev ? mainnet : testnet;
-const zilliqa = new Zilliqa(provider);
-
-zilliqa.wallet.addByPrivateKey(process.env.PRIVATE_KEY);
-
-router.get('/:address', (req, res) => {
+router.get('/:address', async (req, res) => {
   const { address } = req.params;
-  const hashBytes = Buffer.from(address, 'hex');
-  const signature = zilliqa.wallet.defaultAccount.signTransaction(hashBytes);
 
-  return res.status(200).json({
-    signature,
-    msg: address
-  });
+  if (!zilliqa.validation.isAddress(address)) {
+    return res.status(400).json({
+      code: 0,
+      error: 'incorect address format.'
+    })
+  }
+
+  try {
+    const balance = await zilliqa.checkbalance(address);
+    const isValid = zilliqa.isValidbalance(balance);
+
+    if (!isValid) {
+      return res.status(301).json({
+        code: 1,
+        error: 'ZLP balance less than need for claim'
+      });
+    }
+
+    const payload = zilliqa.signMessage(address);
+  
+    return res.status(200).json(payload);
+  } catch (err) {
+    return res.status(400).json({
+      code: 2,
+      error: 'Bad requests parmas'
+    });
+  }
 });
 
 module.exports = router;
