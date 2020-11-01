@@ -15,48 +15,27 @@
           <span class="yelow">
             256
           </span>
-          eggs sold
+          eggs
         </h2>
         <hr>
-        <h3 class="title pink">
-          Price
-        </h3>
         <br>
         <p class="egg-price purple">
-          Price of last egg: 0.00498 <span class="yelow">ZIL</span>
+          ZIlPay wallet airdrop, buy tokens on <a
+            href="https://zilswap.io/swap"
+            target="_blank"
+            class="nav_link link"
+          >zilswap</a>
         </p>
+        <br>
         <p class="egg-price purple">
-          Price of next egg: 0.00518 <span class="yelow">ZIL</span>
-        </p>
-        <p class="cost purple">
-          The cost of each new egg will be increased by: 0.0001 <span class="yelow">ZIL</span>
+          If you have got <span class="pink">2000</span> <span class="yelow">ZLP</span> you can get egg for free.
         </p>
         <hr>
-        <h3 class="purple">
-          Current Price: 0.00508 <span class="yelow">ZIL</span>
-        </h3>
-        <br>
         <div class="form">
-          <div class="inputs">
-            <label class="input-label pink">
-              <input
-                type="number"
-                min="1"
-              >
-              Number of eggs
-            </label>
-            <span class="separator"/>
-            <label class="input-label pink">
-              <input
-                type="number"
-              >
-              Price
-            </label>
-          </div>
           <a
             class="nav_btn w-button buy"
           >
-            Buy
+            Get
           </a>
         </div>
       </form>
@@ -128,6 +107,9 @@ hr {
 .inputs {
   display: flex;
   justify-content: space-between;
+}
+.link {
+  padding: 0;
 }
 .egg {
   z-index: 10;

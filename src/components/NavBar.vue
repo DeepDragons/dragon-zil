@@ -35,6 +35,12 @@
             Buy
           </VLink>
           <VLink
+            href="/airdrop"
+            class="nav_link w-nav-link"
+          >
+            AirDrop
+          </VLink>
+          <VLink
             href="/dragons"
             class="nav_link w-nav-link"
           >
