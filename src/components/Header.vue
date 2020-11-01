@@ -30,7 +30,7 @@
           </div>
         </div>
         <VLink
-          href="/buy"
+          href="/airdrop"
           class="btn_primary hero_btn w-button"
         >
           ZLP Airdrop
