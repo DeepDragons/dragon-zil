@@ -68,17 +68,38 @@
       </div>
     </nav>
   </div>
+  <Modal
+    title="ZilPay"
+    name="no-zipay"
+  >
+    <div class="hasnt-zilpay">
+      <p class="info">
+        Did you install ZIlPay wallet?
+      </p>
+      <br>
+      <a href="https://zilpay.xyz/" target="_blank">
+        <img
+          src="/img/zilpay.svg"
+          alt="zilpaylogo"
+          height="150"
+          width="150"
+        >
+      </a>
+    </div>
+  </Modal>
 </template>
 
 <script>
 import VLink from '@/components/VLink'
+import Modal from '@/components/Modal'
 import ZilPayMixin from '@/mixins/zilpay'
 
 export default {
   name: 'NavBar',
   mixins: [ZilPayMixin],
   components: {
-    VLink
+    VLink,
+    Modal
   },
   data() {
     return {
@@ -88,7 +109,7 @@ export default {
   methods: {
     async connect() {
       try {
-        await this.__connect()
+        this.__connect()
         const zilpay = await this.__getZilPay()
 
         this.address = this.__trim(zilpay.wallet.defaultAccount.bech32)
@@ -129,5 +150,17 @@ export default {
 }
 .w-button {
   text-transform: none;
+}
+.hasnt-zilpay, .modal__footer {
+  min-width: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.info {
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: 700;
+  color: #8973d7;
 }
 </style>

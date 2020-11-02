@@ -142,6 +142,7 @@ hr {
   width: 100vw;
   height: 100vh;
 
+  padding-top: 5%;
   padding-bottom: 10%;
 
   font-family: 'Fira Sans';

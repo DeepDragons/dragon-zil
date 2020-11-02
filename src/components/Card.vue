@@ -3,6 +3,7 @@
     <div class="Card-content">
       <img
         :src="imgSrc"
+        onerror="this.onerror=null; this.src='https://res.cloudinary.com/dragonseth/image/upload/sub.png'"
         alt="img-dragon"
         width="250"
         height="250"

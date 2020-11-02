@@ -1,3 +1,5 @@
+import MicroModal from 'micromodal'
+
 export default {
   data() {
     return {
@@ -16,6 +18,7 @@ export default {
         const i = setInterval(() => {
           if (k >= 10) {
             clearInterval(i)
+            MicroModal.show('no-zipay')
             return reject('ZilPay inot installed')
           }
           
@@ -76,14 +79,17 @@ export default {
     async __connect() {
       const zilPay = await this.__getZilPay()
 
-      if (zilPay.wallet.isConnect) {
+      if (zilPay.wallet.isConnect && zilPay.wallet.isEnable) {
         return true
       }
 
-      return await zilPay.wallet.connect()
+      const connected = await zilPay.wallet.connect()
+
+      return connected
     },
     async __getTokenPrice() {
       const zilPay = await this.__getZilPay()
+      this.__connect()
       const { result } = await zilPay
         .blockchain
         .getSmartContractSubState(this.__crowdSale, 'current_price')
