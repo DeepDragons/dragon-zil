@@ -43,6 +43,7 @@
                 v-model="count"
                 type="number"
                 min="1"
+                max="10"
               >
               Number of eggs
             </label>
@@ -51,6 +52,8 @@
               <input
                 v-model="amount"
                 :step="amountStep"
+                :min="amountStep"
+                :max="amountStep * 10"
                 type="number"
               >
               Price
@@ -166,6 +169,9 @@ hr {
   line-height: 19px;
   text-align: center;
   text-transform: uppercase;
+
+  width: 100%;
+  min-width: 150px;
 }
 .inputs {
   display: flex;

@@ -89,7 +89,15 @@ export default {
     },
     async __net() {
       const zilPay = await this.__getZilPay()
-      const { net } = zilPay.wallet
+      let { net } = zilPay.wallet
+
+      if (!net) {
+        net = await new Promise((resolve) => {
+          setTimeout(() => {
+            resolve(zilPay.wallet.net)
+          }, 500)
+        })
+      }
 
       if (net !== this.__netwrok) {
         MicroModal.show('no-netwrok')

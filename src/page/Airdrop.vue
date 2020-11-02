@@ -13,7 +13,7 @@
       <form>
         <h2 class="title purple uppercase center">
           <span class="yelow">
-            256
+            {{ totalSupply }}
           </span>
           eggs
         </h2>
@@ -38,6 +38,13 @@
           >
             Get
           </a>
+          <br>
+          <p
+            v-show="balanceError"
+            class="error"
+          >
+            You haven't got so much ZLP tokens, try buy on <a class="nav_link" href="https://zilswap.io">ZilSwap</a>
+          </p>
         </div>
       </form>
     </div>
@@ -61,7 +68,9 @@ export default {
   },
   data() {
     return {
-      value: 1
+      value: 1,
+      totalSupply: 0,
+      balanceError: false
     }
   },
   methods: {
@@ -69,18 +78,27 @@ export default {
       try {
         const zilPay = await this.__getZilPay()
         const address = zilPay.wallet.defaultAccount.base16
-        const { data } = await axios.post('/sign/' + address)
+        const res = await axios
+          .post('/sign/' + address)
 
-        await this.__callAirDrop(data)
+        await this.__callAirDrop(res.data)
       } catch (err) {
-        console.error(err)
+        if (err.response && err.response.data.code === 1) {
+          this.balanceError = true
+        }
+        console.log(err)
       }
     },
     async onAirdrop() {
-      const payload = await this.getSignature()
+      this.balanceError = false
 
-      console.log(payload)
+      await this.getSignature()
     }
+  },
+  mounted() {
+    this
+      .__getTotalSupply()
+      .then(totalSupply => this.totalSupply = totalSupply)
   }
 }
 </script>
@@ -107,6 +125,13 @@ hr {
   padding-bottom: 10%;
 
   font-family: 'Fira Sans';
+}
+.error {
+  line-height: 24px;
+  font-weight: 700;
+  color: #ff0074;
+  font-size: 16px;
+  text-align: center;
 }
 .container0 {
   max-width: 1200px;
