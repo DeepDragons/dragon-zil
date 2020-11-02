@@ -15,6 +15,10 @@ app.use(bodyParser.json({ limit: '1mb' }));
 
 app.use(express.static(path.join(__dirname, '../', './dist')));
 
+app.get('/*', function(req, res){
+  res.sendFile(path.join(__dirname, '../', './dist', './index.html'));
+}); 
+
 app.use(signRouter);
 
 app.listen(port, () => {
