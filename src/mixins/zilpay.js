@@ -3,6 +3,7 @@ import MicroModal from 'micromodal'
 export default {
   data() {
     return {
+      __netwrok: 'testnet',
       __crowdSale: '0x114c689342a3659175CAad2532A97DC16B8a9eA8',
       __DragonZIL: '0xC73fbD9374Be35F506f513372deFf4E81706d318'
     }
@@ -37,6 +38,11 @@ export default {
       const contract = contracts.at(this.__crowdSale)
       const amount = utils.units.toQa('0', utils.units.Units.Zil)
       const gasPrice = utils.units.toQa('2000', utils.units.Units.Li)
+      const isNet = await this.__net()
+
+      if (!isNet) {
+        return false
+      }
 
       return await contract.call(
         'AirDrop',
@@ -65,6 +71,11 @@ export default {
       const contract = contracts.at(this.__crowdSale)
       const amount = utils.units.toQa(_amount, utils.units.Units.Zil)
       const gasPrice = utils.units.toQa('2000', utils.units.Units.Li)
+      const isNet = await this.__net()
+
+      if (!isNet) {
+        return false
+      }
 
       return await contract.call(
         'Buy',
@@ -75,6 +86,18 @@ export default {
           gasLimit: utils.Long.fromNumber(9000)
         }
       )
+    },
+    async __net() {
+      const zilPay = await this.__getZilPay()
+      const { net } = zilPay.wallet
+
+      if (net !== this.__netwrok) {
+        MicroModal.show('no-netwrok')
+
+        return false
+      }
+
+      return true
     },
     async __connect() {
       const zilPay = await this.__getZilPay()
@@ -89,7 +112,14 @@ export default {
     },
     async __getTokenPrice() {
       const zilPay = await this.__getZilPay()
-      this.__connect()
+
+      await this.__connect()
+      const isNet = await this.__net()
+
+      if (!isNet) {
+        return false
+      }
+
       const { result } = await zilPay
         .blockchain
         .getSmartContractSubState(this.__crowdSale, 'current_price')
@@ -98,6 +128,12 @@ export default {
     },
     async __getTotalSupply() {
       const zilPay = await this.__getZilPay()
+      const isNet = await this.__net()
+
+      if (!isNet) {
+        return false
+      }
+
       const { result } = await zilPay
         .blockchain
         .getSmartContractSubState(this.__DragonZIL, 'total_supply')

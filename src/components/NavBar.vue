@@ -87,6 +87,25 @@
       </a>
     </div>
   </Modal>
+    <Modal
+    title="ZilPay"
+    name="no-netwrok"
+  >
+    <div class="hasnt-zilpay">
+      <p class="info">
+        Please change to <span>{{ __netwrok }}</span>
+      </p>
+      <br>
+      <a href="https://zilpay.xyz/" target="_blank">
+        <img
+          src="/img/zilpay.svg"
+          alt="zilpaylogo"
+          height="150"
+          width="150"
+        >
+      </a>
+    </div>
+  </Modal>
 </template>
 
 <script>
@@ -162,5 +181,8 @@ export default {
   line-height: 24px;
   font-weight: 700;
   color: #8973d7;
+}
+.info > span {
+  color: #e83e8c;
 }
 </style>
