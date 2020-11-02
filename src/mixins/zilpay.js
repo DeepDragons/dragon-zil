@@ -90,6 +90,14 @@ export default {
 
       return result['current_price']
     },
+    async __getTotalSupply() {
+      const zilPay = await this.__getZilPay()
+      const { result } = await zilPay
+        .blockchain
+        .getSmartContractSubState(this.__DragonZIL, 'total_supply')
+
+      return result['total_supply']
+    },
     __trim(string, length = 6) {
       if (!string) {
         return null

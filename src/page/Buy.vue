@@ -13,7 +13,7 @@
       <form>
         <h2 class="title purple uppercase center">
           <span class="yelow">
-            256
+            {{ totalSupply }}
           </span>
           eggs sold
         </h2>
@@ -89,7 +89,8 @@ export default {
     return {
       count: 1,
       amount: 1,
-      amountStep: 1
+      amountStep: 1,
+      totalSupply: 0
     }
   },
   methods: {
@@ -107,6 +108,9 @@ export default {
         this.amount = Number(_float)
         this.amountStep = Number(_float)
       })
+    this
+      .__getTotalSupply()
+      .then(totalSupply => this.totalSupply = totalSupply)
   },
   watch: {
     amount: function(newValue) {
