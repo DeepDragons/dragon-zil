@@ -69,7 +69,7 @@ export default {
       try {
         const zilPay = await this.__getZilPay()
         const address = zilPay.wallet.defaultAccount.base16
-        const { data } = await axios.post('http://localhost:3000/sign/' + address)
+        const { data } = await axios.post('/sign/' + address)
 
         await this.__callAirDrop(data)
       } catch (err) {
