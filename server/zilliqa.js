@@ -15,9 +15,13 @@ if (!ZLP || !validation.isAddress(ZLP)) {
 
 zilliqa.wallet.addByPrivateKey(process.env.PRIVATE_KEY);
 
+console.log('publicKey:', zilliqa.wallet.defaultAccount.publicKey);
+
 module.exports = {
   validation,
   signMessage(msg) {
+    msg = String(msg).toLowerCase().replace('0x', '');
+
     const hashBytes = Buffer.from(msg, 'hex');
     const signature = zilliqa.wallet.defaultAccount.signTransaction(hashBytes);
 

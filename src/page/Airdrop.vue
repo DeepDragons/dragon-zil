@@ -34,6 +34,7 @@
         <div class="form">
           <a
             class="nav_btn w-button buy"
+            @click="onAirdrop"
           >
             Get
           </a>
@@ -45,11 +46,15 @@
 </template>
 
 <script>
+import axios from 'axios'
 import NavBar from '@/components/NavBar'
 import Footer from '@/components/Footer'
 
+import ZilPayMixin from '@/mixins/zilpay'
+
 export default {
   name: 'Airdrop',
+  mixins: [ZilPayMixin],
   components: {
     NavBar,
     Footer
@@ -57,6 +62,24 @@ export default {
   data() {
     return {
       value: 1
+    }
+  },
+  methods: {
+    async getSignature() {
+      try {
+        const zilPay = await this.__getZilPay()
+        const address = zilPay.wallet.defaultAccount.base16
+        const { data } = await axios.post('http://localhost:3000/sign/' + address)
+
+        await this.__callAirDrop(data)
+      } catch (err) {
+        console.error(err)
+      }
+    },
+    async onAirdrop() {
+      const payload = await this.getSignature()
+
+      console.log(payload)
     }
   }
 }

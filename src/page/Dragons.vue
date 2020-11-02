@@ -5,6 +5,7 @@
       <Card
         v-for="(item, index) of list"
         :key="index"
+        :id="index + 1"
       />
     </div>
   </div>

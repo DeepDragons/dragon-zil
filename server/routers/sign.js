@@ -2,7 +2,7 @@ const express = require('express');
 const router = express();
 const zilliqa = require('../zilliqa');
 
-router.get('/:address', async (req, res) => {
+router.post('/:address', async (req, res) => {
   const { address } = req.params;
 
   if (!zilliqa.validation.isAddress(address)) {

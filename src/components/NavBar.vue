@@ -59,17 +59,12 @@
             Gen Lab
           </VLink>
         </div>
-        <VLink
-          href="/buy"
+        <a
           class="nav_btn w-button"
+          @click="connect"
         >
-          <span class="nb_span_01">
-            buy an
-          </span>
-          <span class="nb_span_02">
-            egg
-          </span>
-        </VLink>
+          {{ address }}
+        </a>
       </div>
     </nav>
   </div>
@@ -77,11 +72,47 @@
 
 <script>
 import VLink from '@/components/VLink'
+import ZilPayMixin from '@/mixins/zilpay'
 
 export default {
   name: 'NavBar',
+  mixins: [ZilPayMixin],
   components: {
     VLink
+  },
+  data() {
+    return {
+      address: 'wallet connect'
+    }
+  },
+  methods: {
+    async connect() {
+      try {
+        await this.__connect()
+        const zilpay = await this.__getZilPay()
+
+        this.address = this.__trim(zilpay.wallet.defaultAccount.bech32)
+      } catch (err) {
+        console.error(err)
+      }
+    }
+  },
+  mounted() {
+    this
+      .__getZilPay()
+      .then((zilpay) => {
+        if (zilpay.wallet.defaultAccount) {
+          this.address = this.__trim(zilpay.wallet.defaultAccount.bech32)
+
+          return this.address
+        }
+
+        setTimeout(() => {
+          if (zilpay.wallet.defaultAccount.bech32) {
+            this.address = this.__trim(zilpay.wallet.defaultAccount.bech32)
+          }
+        }, 500)
+      })
   }
 }
 </script>
@@ -95,5 +126,8 @@ export default {
   color: #fff;
   text-decoration: none;
   text-shadow: none;
+}
+.w-button {
+  text-transform: none;
 }
 </style>

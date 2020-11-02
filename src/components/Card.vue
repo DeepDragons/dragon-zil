@@ -2,7 +2,7 @@
   <div class="Card">
     <div class="Card-content">
       <img
-        src="https://res.cloudinary.com/dragoneth/image/upload/egg_5.png"
+        :src="imgSrc"
         alt="img-dragon"
         width="250"
         height="250"
@@ -13,7 +13,22 @@
 
 <script>
 export default {
-  name: 'Card'
+  name: 'Card',
+  props: {
+    id: {
+      type: Number
+    }
+  },
+  data() {
+    return {
+      url: 'https://res.cloudinary.com/dragoneth/image/upload'
+    }
+  },
+  computed: {
+    imgSrc() {
+      return `${this.url}/egg_${this.id}.png`
+    }
+  }
 }
 </script>
 
