@@ -40,6 +40,7 @@
           <div class="inputs">
             <label class="input-label pink">
               <input
+                v-model="count"
                 type="number"
                 min="1"
               >
@@ -48,6 +49,8 @@
             <span class="separator"/>
             <label class="input-label pink">
               <input
+                v-model="amount"
+                :step="amountStep"
                 type="number"
               >
               Price
@@ -55,6 +58,7 @@
           </div>
           <a
             class="nav_btn w-button buy"
+            @click="buy"
           >
             Buy
           </a>
@@ -66,18 +70,50 @@
 </template>
 
 <script>
+import Big from 'big.js'
+
 import NavBar from '@/components/NavBar'
 import Footer from '@/components/Footer'
+import ZilPayMixin from '@/mixins/zilpay'
+
+const _qa = Big(10 ** 12)
 
 export default {
   name: 'Buy',
+  mixins: [ZilPayMixin],
   components: {
     NavBar,
     Footer
   },
   data() {
     return {
-      value: 1
+      count: 1,
+      amount: 1,
+      amountStep: 1
+    }
+  },
+  methods: {
+    async buy() {
+      await this.__buy(String(this.amount))
+    }
+  },
+  mounted() {
+    this
+      .__getTokenPrice()
+      .then(price => {
+        const _price = Big(price)
+        const _float = _price.div(_qa)
+
+        this.amount = Number(_float)
+        this.amountStep = Number(_float)
+      })
+  },
+  watch: {
+    amount: function(newValue) {
+      this.count = Number(newValue) / Number(this.amountStep)
+    },
+    count: function(newValue) {
+      this.amount = Number(newValue) * Number(this.amountStep)
     }
   }
 }

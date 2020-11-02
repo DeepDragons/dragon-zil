@@ -82,6 +82,14 @@ export default {
 
       return await zilPay.wallet.connect()
     },
+    async __getTokenPrice() {
+      const zilPay = await this.__getZilPay()
+      const { result } = await zilPay
+        .blockchain
+        .getSmartContractSubState(this.__crowdSale, 'current_price')
+
+      return result['current_price']
+    },
     __trim(string, length = 6) {
       if (!string) {
         return null
