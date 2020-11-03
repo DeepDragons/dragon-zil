@@ -18,6 +18,9 @@ export default {
   props: {
     id: {
       type: Number
+    },
+    stage: {
+      type: Number
     }
   },
   data() {
@@ -27,7 +30,9 @@ export default {
   },
   computed: {
     imgSrc() {
-      return `${this.url}/egg_${this.id}.png`
+      const stage = this.stage === 0 ? 'egg' : 'dragon'
+
+      return `${this.url}/${stage}_${this.id}.png`
     }
   }
 }

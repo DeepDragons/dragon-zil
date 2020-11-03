@@ -3,8 +3,9 @@
   <div class="dragons">
     <div class="dragons-container">
       <Card
-        v-for="(item, index) of list"
+        v-for="(item, index) of keys"
         :key="index"
+        :stage="Number(list[item])"
         :id="index + 1"
       />
     </div>
@@ -17,8 +18,11 @@ import NavBar from '@/components/NavBar'
 import Footer from '@/components/Footer'
 import Card from '@/components/Card'
 
+import ZilPayMixin from '@/mixins/zilpay'
+
 export default {
   name: 'Dragons',
+  mixins: [ZilPayMixin],
   components: {
     NavBar,
     Footer,
@@ -26,8 +30,23 @@ export default {
   },
   data() {
     return {
-      list: Array(5).fill()
+      list: []
     }
+  },
+  computed: {
+    keys() {
+      return Object.keys(this.list)
+    }
+  },
+  methods: {
+    async loadTokens() {
+      const tokens = await this.__getTokensIds()
+
+      this.list = tokens
+    }
+  },
+  mounted() {
+    this.loadTokens()
   }
 }
 </script>
@@ -38,11 +57,11 @@ export default {
   justify-content: center;
 
   width: 100vw;
-  height: 100vh;
 
   font-family: 'Fira Sans';
 
   margin-top: 100px;
+  margin-bottom: 100px;
 }
 
 .dragons-container {
