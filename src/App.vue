@@ -10,14 +10,13 @@
 </template>
 
 <script>
-import { inject, computed, ref } from 'vue'
+import { computed, ref } from 'vue'
 import { useRoute } from 'vue-router'
 
 export default {
   name: 'App',
   setup() {
     const route = useRoute()
-    const state = inject('state')
     const viewName = ref('default')
 
     const currentLocation = computed(() => {
@@ -27,7 +26,6 @@ export default {
 
     return {
       currentLocation,
-      state,
       viewName
     }
   }

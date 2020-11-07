@@ -17,7 +17,7 @@ export default {
   name: 'Card',
   props: {
     id: {
-      type: Number
+      type: [Number, String]
     },
     stage: {
       type: Number
