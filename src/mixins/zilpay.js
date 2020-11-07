@@ -4,8 +4,8 @@ export default {
   data() {
     return {
       __netwrok: 'testnet',
-      __crowdSale: '0xC07bd718e7573fB59Fb79657E05d78f50113951B',
-      __DragonZIL: '0xdF837Fb50a2cc15AE329f5C3C8CCE25B2C5b18E3'
+      __crowdSale: '0x652a83577b7b85769DD96bcEF483102070D691A6',
+      __DragonZIL: '0x7f1FeC8b4e141AB082A61Ba657dD4c1E4769181c'
     }
   },
   methods: {
@@ -61,7 +61,7 @@ export default {
         {
           amount,
           gasPrice,
-          gasLimit: utils.Long.fromNumber(9000)
+          gasLimit: utils.Long.fromNumber(50000)
         }
       )
     },
@@ -83,7 +83,7 @@ export default {
         {
           amount,
           gasPrice,
-          gasLimit: utils.Long.fromNumber(9000)
+          gasLimit: utils.Long.fromNumber(50000)
         }
       )
     },
@@ -133,6 +133,20 @@ export default {
         .getSmartContractSubState(this.__crowdSale, 'current_price')
 
       return result['current_price']
+    },
+    async __getIncrementer() {
+      const zilPay = await this.__getZilPay()
+      const isNet = await this.__net()
+
+      if (!isNet) {
+        return false
+      }
+
+      const { result } = await zilPay
+        .blockchain
+        .getSmartContractSubState(this.__crowdSale, 'incrementer')
+
+      return result['incrementer']
     },
     async __getTotalSupply() {
       const zilPay = await this.__getZilPay()

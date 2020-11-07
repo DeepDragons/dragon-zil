@@ -23,17 +23,17 @@
         </h3>
         <br>
         <p class="egg-price purple">
-          Price of last egg: 0.00498 <span class="yelow">ZIL</span>
+          Price of last egg: {{ old }} <span class="yelow">ZIL</span>
         </p>
         <p class="egg-price purple">
-          Price of next egg: 0.00518 <span class="yelow">ZIL</span>
+          Price of next egg: {{ next }} <span class="yelow">ZIL</span>
         </p>
         <p class="cost purple">
-          The cost of each new egg will be increased by: 0.0001 <span class="yelow">ZIL</span>
+          The cost of each new egg will be increased by: {{ Number(incrementer) }} <span class="yelow">ZIL</span>
         </p>
         <hr>
         <h3 class="purple">
-          Current Price: 0.00508 <span class="yelow">ZIL</span>
+          Current Price: {{ amountStep }} <span class="yelow">ZIL</span>
         </h3>
         <br>
         <div class="form">
@@ -78,6 +78,7 @@ import Big from 'big.js'
 import NavBar from '@/components/NavBar'
 import Footer from '@/components/Footer'
 import ZilPayMixin from '@/mixins/zilpay'
+import toLocaleString from '@/filters/to-locale-string'
 
 const _qa = Big(10 ** 12)
 
@@ -93,7 +94,20 @@ export default {
       count: 1,
       amount: 1,
       amountStep: 1,
-      totalSupply: 0
+      totalSupply: 0,
+      incrementer: 0
+    }
+  },
+  computed: {
+    old() {
+      const amount = Number(this.amountStep) - Number(this.incrementer)
+
+      return toLocaleString(amount.toFixed(5))
+    },
+    next() {
+      const amount = Number(this.amountStep) + Number(this.incrementer)
+
+      return toLocaleString(amount.toFixed(5))
     }
   },
   methods: {
@@ -110,6 +124,11 @@ export default {
 
         this.amount = Number(_float)
         this.amountStep = Number(_float)
+      })
+    this
+      .__getIncrementer()
+      .then((incrementer) => {
+        this.incrementer = Big(incrementer).div(_qa)
       })
     this
       .__getTotalSupply()
@@ -152,6 +171,7 @@ hr {
 }
 .container0 {
   max-width: 1200px;
+  flex-wrap: wrap;
 }
 .input-label {
   display: flex;

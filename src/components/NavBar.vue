@@ -1,6 +1,15 @@
 <template>
-  <div class="navbar_fixed w-nav">
-    <div class="menu_button w-nav-button">
+  <div
+    data-collapse="medium"
+    data-animation="over-left"
+    data-duration="400"
+    data-w-id="563dd592-c922-2a09-1ab2-d33f54dfb545"
+    class="navbar_fixed w-nav"
+  >
+    <div
+      class="menu_button w-nav-button"
+      @click="showmenu"
+    >
       <div class="burger_image"></div>
       <div class="burger_text_wrap">
         <div class="burger_text">Menu</div>
@@ -15,11 +24,14 @@
         <div class="logo_text">Dragon ZIL</div>
       </div>
     </VLink>
-    <nav class="nav-menu w-nav-menu">
+    <nav :class="isShow ? 'nav-menu w-nav-menu w--nav-menu-open' : 'nav-menu w-nav-menu'">
       <div class="flex_wrap">
         <div class="links_block">
           <div class="close_btn_wrap">
-            <div class="menu_button close w-nav-button">
+            <div
+              class="menu_button close w-nav-button"
+              @click="showmenu"
+            >
               <div class="burger_image cross" />
               <div class="burger_text_wrap">
                 <div class="burger_text">
@@ -122,10 +134,14 @@ export default {
   },
   data() {
     return {
-      address: 'wallet connect'
+      address: 'wallet connect',
+      isShow: false
     }
   },
   methods: {
+    showmenu() {
+      this.isShow = !this.isShow
+    },
     async connect() {
       try {
         this.__connect()
