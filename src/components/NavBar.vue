@@ -62,7 +62,7 @@
             to="/"
             class="nav_link w-nav-link disabled"
           >
-            Marketplace
+            Fights
           </router-link>
           <router-link
             to="/"

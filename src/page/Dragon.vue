@@ -2,14 +2,14 @@
   <NavBar />
   <div class="dragon container">
     <Card
-      :stage="0"
+      :stage="stage"
       :id="tokenId"
     />
     <div>
       <canvas
         id="combat"
         width="800"
-        height="400"
+        height="500"
       />
     </div>
   </div>
@@ -17,8 +17,6 @@
 </template>
 
 <script>
-import { useRoute } from 'vue-router'
-
 import Card from '@/components/Card'
 import Footer from '@/components/Footer'
 import NavBar from '@/components/NavBar'
@@ -34,11 +32,12 @@ export default {
     NavBar,
     Footer
   },
-  setup() {
-    const route = useRoute()
-
-    return {
-      tokenId: route.params.id
+  computed: {
+    tokenId() {
+      return this.$route.params.id
+    },
+    stage() {
+      return Number(this.$route.params.stage)
     }
   },
   methods: {
