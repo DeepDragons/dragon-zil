@@ -46,7 +46,7 @@ export default {
       let ctx = window.document.getElementById('combat')
       let label = 'Combat gens'
       let dataSet = this.__parseGens(
-        this.id, values, label,
+        this.tokenId, values, label,
         '#7568B0', '#f261ee'
       );
       let options = {
