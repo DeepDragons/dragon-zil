@@ -29,7 +29,7 @@ const routes = [
     component: Dragons
   },
   {
-    path: '/dragon/:id(.*)',
+    path: '/dragon/:id(.*)/:stage(.*)',
     name: 'Dragon',
     component: Dragon
   },

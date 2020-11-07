@@ -148,6 +148,21 @@ export default {
 
       return result['incrementer']
     },
+    async __getCombatGen(id) {
+      const zilPay = await this.__getZilPay()
+      const isNet = await this.__net()
+      const field = 'token_gen_battle'
+
+      if (!isNet) {
+        return false
+      }
+
+      const { result } = await zilPay
+        .blockchain
+        .getSmartContractSubState(this.__DragonZIL, field, [String(id)])
+
+      return result[field][String(id)]
+    },
     async __getTotalSupply() {
       const zilPay = await this.__getZilPay()
       const isNet = await this.__net()
