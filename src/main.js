@@ -1,29 +1,10 @@
-import { createApp, h } from 'vue'
-import NotFound from './page/404'
+import { createApp } from 'vue'
 
-import routes from './routers';
+import router from './router-view';
+import App from './App';
 
-const Router = {
-  data: () => ({
-    currentRoute: window.location.pathname
-  }),
+const app = createApp(App)
 
-  computed: {
-    ViewComponent () {
-      const matchingPage = routes[this.currentRoute] || NotFound
-      return matchingPage
-    }
-  },
+app.use(router)
 
-  render () {
-    return h(this.ViewComponent)
-  },
-
-  created () {
-    window.addEventListener('popstate', () => {
-      this.currentRoute = window.location.pathname
-    })
-  }
-}
-
-createApp(Router).mount('#app')
+app.mount('#app')

@@ -2,12 +2,16 @@
   <NavBar />
   <div class="dragons">
     <div class="dragons-container">
-      <Card
+      <router-link
         v-for="(item, index) of keys"
         :key="index"
-        :stage="Number(list[item])"
-        :id="index + 1"
-      />
+        :to="`/dragon/${index + 1}`"
+      >
+        <Card
+          :stage="Number(list[item])"
+          :id="index + 1"
+        />
+      </router-link>
     </div>
   </div>
   <Footer />

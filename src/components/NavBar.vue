@@ -15,15 +15,15 @@
         <div class="burger_text">Menu</div>
       </div>
     </div>
-    <VLink
-      href="/"
+    <router-link
+      to="/"
       class="brand w-nav-brand"
     >
       <div class="logo_wrap w-clearfix">
         <div class="logo_img_wrap"></div>
         <div class="logo_text">Dragon ZIL</div>
       </div>
-    </VLink>
+    </router-link>
     <nav :class="isShow ? 'nav-menu w-nav-menu w--nav-menu-open' : 'nav-menu w-nav-menu'">
       <div class="flex_wrap">
         <div class="links_block">
@@ -40,36 +40,36 @@
               </div>
             </div>
           </div>
-          <VLink
-            href="/buy"
+          <router-link
+            to="/buy"
             class="nav_link w-nav-link"
           >
             Buy
-          </VLink>
-          <VLink
-            href="/airdrop"
+          </router-link>
+          <router-link
+            to="/airdrop"
             class="nav_link w-nav-link"
           >
             AirDrop
-          </VLink>
-          <VLink
-            href="/dragons"
+          </router-link>
+          <router-link
+            to="/dragons"
             class="nav_link w-nav-link"
           >
             My dragons
-          </VLink>
-          <VLink
-            href="/"
+          </router-link>
+          <router-link
+            to="/"
             class="nav_link w-nav-link disabled"
           >
             Marketplace
-          </VLink>
-          <VLink
-            href="/"
+          </router-link>
+          <router-link
+            to="/"
             class="nav_link w-nav-link disabled"
           >
             Gen Lab
-          </VLink>
+          </router-link>
         </div>
         <a
           class="nav_btn w-button"
@@ -121,7 +121,6 @@
 </template>
 
 <script>
-import VLink from '@/components/VLink'
 import Modal from '@/components/Modal'
 import ZilPayMixin from '@/mixins/zilpay'
 
@@ -129,7 +128,6 @@ export default {
   name: 'NavBar',
   mixins: [ZilPayMixin],
   components: {
-    VLink,
     Modal
   },
   data() {

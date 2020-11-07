@@ -29,12 +29,12 @@
             Because Dragons are no Kitties.
           </div>
         </div>
-        <VLink
-          href="/airdrop"
+        <router-link
+          to="/airdrop"
           class="btn_primary hero_btn w-button"
         >
           ZLP Airdrop
-        </VLink>
+        </router-link>
         <a href="#about" class="scroll_sign w-inline-block" />
       </div>
     </div>
@@ -42,13 +42,9 @@
 </template>
 
 <script>
-import VLink from '@/components/VLink'
 
 export default {
-  name: 'header',
-  components: {
-    VLink
-  }
+  name: 'header'
 }
 </script>
 
