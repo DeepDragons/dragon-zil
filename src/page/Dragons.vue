@@ -3,13 +3,13 @@
   <div class="dragons">
     <div class="dragons-container">
       <router-link
-        v-for="(item, index) of keys"
-        :key="index"
-        :to="`/dragon/${index + 1}`"
+        v-for="(item) of keys"
+        :key="item"
+        :to="{ name: 'Dragon', params: { id: item } }"
       >
         <Card
           :stage="Number(list[item])"
-          :id="index + 1"
+          :id="item"
         />
       </router-link>
     </div>
