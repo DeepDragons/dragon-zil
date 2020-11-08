@@ -1,16 +1,35 @@
 <template>
   <NavBar />
-  <div class="dragon container">
-    <Card
-      :stage="stage"
-      :id="tokenId"
-    />
-    <div class="radar">
-      <canvas
-        id="combat"
-        :width="width"
-        height="450"
+  <div class="dragon-page">
+    <div class="top-panel">
+      <button class="nav_btn w-button top-btn">
+        hatch egg
+      </button>
+      <button class="nav_btn w-button top-btn">
+        suicide
+      </button>
+      <button class="nav_btn w-button top-btn">
+        transfer
+      </button>
+      <button
+        class="nav_btn w-button top-btn"
+        disabled
+      >
+        fight
+      </button>
+    </div>
+    <div class="dragon container">
+      <Card
+        :stage="stage"
+        :id="tokenId"
       />
+      <div class="radar">
+        <canvas
+          id="combat"
+          :width="width"
+          height="450"
+        />
+      </div>
     </div>
   </div>
   <Footer />
@@ -91,13 +110,25 @@ export default {
 .container {
   display: flex;
   justify-content: center;
-  align-items: center;
-  margin-top: 40px;
   width: 100%;
   height: 100%;
-  min-height: 100vh;
+}
+.dragon-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.top-btn {
+  text-transform: uppercase;
+}
+.top-panel {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
 
-  padding-top: 10%;
+  margin-top: 100px;
+  width: 100%;
+  max-width: 900px;
 }
 .dragon > .Card > .Card-content {
   width: 400px;
@@ -106,7 +137,11 @@ export default {
   box-shadow: 0 0 40px #d528d0;
 }
 .radar {
-  margin: 100px;
+  margin: 50px;
+}
+
+button[disabled] {
+  opacity: 0.6;
 }
 
 @media (max-width: 650px) {
