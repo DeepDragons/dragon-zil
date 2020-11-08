@@ -5,7 +5,8 @@ export default {
     return {
       __netwrok: 'testnet',
       __crowdSale: '0x19b340dA856dd4A01C98890Fe0c6126Ccefd5cC4',
-      __DragonZIL: '0x6265534367c8217E794C114dFaA0fB498ffA3e11'
+      __DragonZIL: '0x6265534367c8217E794C114dFaA0fB498ffA3e11',
+      __listOfToken: []
     }
   },
   methods: {
@@ -279,15 +280,15 @@ export default {
       const { result } = await zilPay
         .blockchain
         .getSmartContractSubState(this.__DragonZIL, 'tokens_owner_stage', [address])
-      
+
       if (!result || !result['tokens_owner_stage'] || !result['tokens_owner_stage'][address]) {
         return {}
       }
 
       try {
-        const listOfToken = result['tokens_owner_stage'][address]
+        this.__listOfToken = result['tokens_owner_stage'][address]
 
-        return listOfToken
+        return this.__listOfToken
       } catch (err) {
         return {}
       }

@@ -154,7 +154,22 @@ export default {
   },
   mounted() {
     this
-      .__getCombatGen(this.tokenId)
+      .__getTokensIds()
+      .then((tokens) => {
+        const curernt_stage = Number(tokens[this.tokenId])
+
+        if (curernt_stage !== Number(this.stage)) {
+          this.$router.push({
+            name: 'Dragon',
+            params: {
+              id: this.tokenId,
+              stage: curernt_stage
+            }
+          })
+        }
+
+        return this.__getCombatGen(this.tokenId)
+      })
       .then((gens) => {
         this.values= this.__genParse(gens)
 
