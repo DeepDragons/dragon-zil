@@ -99,7 +99,7 @@
       </a>
     </div>
   </Modal>
-    <Modal
+  <Modal
     title="ZilPay"
     name="no-netwrok"
   >

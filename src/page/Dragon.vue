@@ -15,7 +15,10 @@
       >
         suicide
       </button>
-      <button class="nav_btn w-button top-btn">
+      <button
+        class="nav_btn w-button top-btn"
+        @click="transferModal"
+      >
         transfer
       </button>
       <button
@@ -40,12 +43,38 @@
     </div>
   </div>
   <Footer />
+  <Modal
+    title="Transfer"
+    name="transfer"
+  >
+    <div class="transfer-modal">
+      <h2 class="dis">
+        Send #{{ tokenId }}.
+      </h2>
+      <label class="recipient">
+        <input
+          v-model="recipientAddress"
+          type="text"
+          placeholder="Address of the recipient"
+        >
+      </label>
+      <button
+        class="nav_btn w-button top-btn danger-btn"
+        :disabled="!isValidAddress"
+        @click="toTransfer"
+      >
+        Transfer
+      </button>
+    </div>
+  </Modal>
 </template>
 
 <script>
+import MicroModal from 'micromodal'
 import Card from '@/components/Card'
 import Footer from '@/components/Footer'
 import NavBar from '@/components/NavBar'
+import Modal from '@/components/Modal'
 
 import ZilPayMixin from '@/mixins/zilpay'
 import RadarMixin from '@/mixins/radar'
@@ -61,12 +90,14 @@ export default {
   components: {
     Card,
     NavBar,
-    Footer
+    Footer,
+    Modal
   },
   data() {
     return {
       width: width,
-      values: []
+      values: [],
+      recipientAddress: ''
     }
   },
   computed: {
@@ -75,6 +106,15 @@ export default {
     },
     stage() {
       return Number(this.$route.params.stage)
+    },
+    isValidAddress() {
+      if (!this.recipientAddress) {
+        return false
+      }
+
+      const { isBech32 } = window.zilPay.utils.validation
+
+      return isBech32(this.recipientAddress)
     }
   },
   methods: {
@@ -99,6 +139,17 @@ export default {
       }
       this.radarChartData.datasets[0] = dataSet
       this.__generateCharts(ctx, options)
+    },
+    transferModal() {
+      MicroModal.show('transfer')
+    },
+    async toTransfer() {
+      const { fromBech32Address } = window.zilPay.crypto
+      const address = fromBech32Address(this.recipientAddress)
+
+      await this.__transfer(address, this.tokenId)
+
+      document.querySelectorAll('#transfer')[0].classList.remove('is-open')
     }
   },
   mounted() {
@@ -132,6 +183,12 @@ export default {
   color: #dc3545;
   border-color: #dc3545;
 }
+.danger-btn:hover {
+  color: #fff;
+  background-color: #dc3545;
+  border-color: #dc3545;
+  box-shadow: 0 16px 23px -13px #dc3545;
+}
 .top-panel {
   display: flex;
   justify-content: space-evenly;
@@ -149,6 +206,26 @@ export default {
 }
 .radar {
   margin: 50px;
+}
+.recipient, .dis {
+  color: #8973d7;
+}
+
+.recipient > input{
+  padding: 10px 19px;
+  align-self: center;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #dc3545;
+  background-color: transparent;
+  font-family: 'Open Sans',sans-serif;
+  line-height: 19px;
+  text-align: center;
+  width: 100%;
+}
+.recipient > *::-webkit-input-placeholder {
+  color: #dc3545;
+  opacity: 0.6;
 }
 
 button[disabled] {

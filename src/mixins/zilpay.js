@@ -115,6 +115,39 @@ export default {
         }
       )
     },
+    async __transfer(address, token_id) {
+      const zilPay = await this.__getZilPay()
+      const { contracts, utils } = zilPay
+      const contract = contracts.at(this.__DragonZIL)
+      const amount = utils.units.toQa('0', utils.units.Units.Zil)
+      const gasPrice = utils.units.toQa('2000', utils.units.Units.Li)
+      const isNet = await this.__net()
+
+      if (!isNet) {
+        return false
+      }
+
+      return await contract.call(
+        'transfer',
+        [
+          {
+            vname: 'to',
+            type: 'ByStr20',
+            value: address
+          },
+          {
+            vname: 'token_id',
+            type: 'Uint256',
+            value: String(token_id)
+          }
+        ],
+        {
+          amount,
+          gasPrice,
+          gasLimit: utils.Long.fromNumber(50000)
+        }
+      )
+    },
     async __burn(token_id) {
       const zilPay = await this.__getZilPay()
       const { contracts, utils } = zilPay
