@@ -142,7 +142,7 @@ export default {
     },
     async connect() {
       try {
-        this.__connect()
+        await this.__connect()
         const zilpay = await this.__getZilPay()
 
         this.address = this.__trim(zilpay.wallet.defaultAccount.bech32)

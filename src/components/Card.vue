@@ -7,6 +7,9 @@
         alt="img-dragon"
       >
     </div>
+    <div class="card-title logo_text">
+      #{{ id }}
+    </div>
   </div>
 </template>
 
@@ -30,7 +33,7 @@ export default {
   },
   computed: {
     imgSrc() {
-      return cloudinary.image(`${this.stage}_${this.id}.webp`).src
+      return cloudinary.image(`${this.stage}_${this.id}.png`).src
     }
   }
 }
@@ -41,6 +44,13 @@ export default {
   flex: 0 0 auto;
   width: auto;
   max-width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.card-title {
+  color: #e83e8c;
 }
 .Card-content {
   border-radius: 100%;

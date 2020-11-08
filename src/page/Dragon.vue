@@ -5,11 +5,11 @@
       :stage="stage"
       :id="tokenId"
     />
-    <div>
+    <div class="radar">
       <canvas
         id="combat"
-        width="800"
-        height="500"
+        :width="width"
+        height="450"
       />
     </div>
   </div>
@@ -24,6 +24,11 @@ import NavBar from '@/components/NavBar'
 import ZilPayMixin from '@/mixins/zilpay'
 import RadarMixin from '@/mixins/radar'
 
+let width = 450
+
+if (window.innerWidth <= 650) {
+  width = 250
+}
 export default {
   name: 'Dragon',
   mixins: [RadarMixin, ZilPayMixin],
@@ -31,6 +36,12 @@ export default {
     Card,
     NavBar,
     Footer
+  },
+  data() {
+    return {
+      width: width,
+      values: []
+    }
   },
   computed: {
     tokenId() {
@@ -41,11 +52,11 @@ export default {
     }
   },
   methods: {
-    paintChart(values) {
+    paintChart() {
       let ctx = window.document.getElementById('combat')
       let label = 'Combat gens'
       let dataSet = this.__parseGens(
-        this.tokenId, values, label,
+        this.tokenId, this.values, label,
         '#7568B0', '#f261ee'
       );
       let options = {
@@ -68,9 +79,9 @@ export default {
     this
       .__getCombatGen(this.tokenId)
       .then((gens) => {
-        const parsed = this.__genParse(gens)
+        this.values= this.__genParse(gens)
 
-        this.paintChart(parsed)
+        this.paintChart()
       })
   }
 }
@@ -85,11 +96,25 @@ export default {
   width: 100%;
   height: 100%;
   min-height: 100vh;
+
+  padding-top: 10%;
 }
 .dragon > .Card > .Card-content {
   width: 400px;
   height: 400px;
 
   box-shadow: 0 0 40px #d528d0;
+}
+.radar {
+  margin: 100px;
+}
+
+@media (max-width: 650px) {
+  .dragon > .Card > .Card-content {
+    width: 250px;
+    height: 250px;
+
+    margin-top: 100px;
+  }
 }
 </style>
