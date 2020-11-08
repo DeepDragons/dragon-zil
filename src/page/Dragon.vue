@@ -2,10 +2,17 @@
   <NavBar />
   <div class="dragon-page">
     <div class="top-panel">
-      <button class="nav_btn w-button top-btn">
+      <button
+        v-show="stage === 0"
+        class="nav_btn w-button top-btn"
+        @click="__nextStage(tokenId)"
+      >
         hatch egg
       </button>
-      <button class="nav_btn w-button top-btn">
+      <button
+        class="nav_btn w-button top-btn danger-btn"
+        @click="__burn(tokenId)"
+      >
         suicide
       </button>
       <button class="nav_btn w-button top-btn">
@@ -120,6 +127,10 @@ export default {
 }
 .top-btn {
   text-transform: uppercase;
+}
+.danger-btn {
+  color: #dc3545;
+  border-color: #dc3545;
 }
 .top-panel {
   display: flex;

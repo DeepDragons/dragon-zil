@@ -7,9 +7,9 @@
         alt="img-dragon"
       >
     </div>
-    <div class="card-title logo_text">
+    <p class="card-title logo_text">
       #{{ id }}
-    </div>
+    </p>
   </div>
 </template>
 
