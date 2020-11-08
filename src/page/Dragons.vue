@@ -69,8 +69,9 @@ export default {
 }
 
 .dragons-container {
-  display: grid;
-  grid-template-columns: repeat(3,1fr);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   max-width: 900px;
   height: fit-content;
   grid-gap: 50px;

@@ -4,8 +4,8 @@ export default {
   data() {
     return {
       __netwrok: 'testnet',
-      __crowdSale: '0x652a83577b7b85769DD96bcEF483102070D691A6',
-      __DragonZIL: '0x7f1FeC8b4e141AB082A61Ba657dD4c1E4769181c'
+      __crowdSale: '0x19b340dA856dd4A01C98890Fe0c6126Ccefd5cC4',
+      __DragonZIL: '0x6265534367c8217E794C114dFaA0fB498ffA3e11'
     }
   },
   methods: {
@@ -215,3 +215,4 @@ export default {
     }
   }
 }
+

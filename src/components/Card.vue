@@ -11,6 +11,13 @@
 </template>
 
 <script>
+import { Cloudinary } from 'cloudinary-core' 
+
+const cloudinary = new Cloudinary({
+  cloud_name: 'dragonseth',
+  secure: true
+});
+
 export default {
   name: 'Card',
   props: {
@@ -21,16 +28,9 @@ export default {
       type: Number
     }
   },
-  data() {
-    return {
-      url: 'https://res.cloudinary.com/dragoneth/image/upload'
-    }
-  },
   computed: {
     imgSrc() {
-      const stage = this.stage === 0 ? 'egg' : 'dragon'
-
-      return `${this.url}/${stage}_${this.id}.png`
+      return cloudinary.image(`${this.stage}_${this.id}.webp`).src
     }
   }
 }
