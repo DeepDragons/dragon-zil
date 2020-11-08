@@ -170,6 +170,7 @@ export default {
 
         return this.__getCombatGen(this.tokenId)
       })
+      .catch(() => this.__getCombatGen(this.tokenId))
       .then((gens) => {
         this.values= this.__genParse(gens)
 
