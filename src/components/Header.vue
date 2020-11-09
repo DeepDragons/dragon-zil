@@ -33,7 +33,7 @@
           to="/airdrop"
           class="btn_primary hero_btn w-button"
         >
-          ZLP Airdrop
+          ZilPay Airdrop
         </router-link>
         <a href="#about" class="scroll_sign w-inline-block" />
       </div>

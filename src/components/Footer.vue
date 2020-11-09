@@ -3,7 +3,7 @@
     <div class="footer_block w-container">
       <div class="logo_footer w-clearfix">
         <div class="footer_logo_text">
-          Dragon ETH
+          Dragon ZIL
         </div>
       </div>
       <div
