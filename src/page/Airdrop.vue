@@ -9,7 +9,7 @@
           class="egg"
         >
       </div>
-      <form>
+      <div>
         <h2 class="title purple uppercase center">
           <span class="yelow">
             {{ totalSupply }}
@@ -52,7 +52,7 @@
             Your address already got eggs.
           </p>
         </div>
-      </form>
+      </div>
     </div>
   </div>
 </template>

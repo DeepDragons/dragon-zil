@@ -1,6 +1,17 @@
 <template>
   <div class="dragons">
     <div class="dragons-container">
+      <div
+        v-if="keys.length === 0"
+        class="w-message"
+      >
+        <h2 class="footer_logo_text wrong-msg">
+          You haven't got Eggs!
+        </h2>
+        <p class="wrong-des">
+          You can get it for free if you have 1000 ZLP or buy it
+        </p>
+      </div>
       <router-link
         v-for="(item) of keys"
         :key="item"
@@ -69,11 +80,26 @@ export default {
   justify-content: center;
 
   width: 100vw;
+  height: 100%;
+  min-height: 50vh;
 
   font-family: 'Fira Sans';
 
   margin-top: 100px;
   margin-bottom: 100px;
+}
+
+.wrong-msg {
+  font-size: 32px;
+  line-height: 40px;
+}
+.w-message {
+  text-align: center;
+}
+.wrong-des {
+  color: #8973d7;
+  font-size: 22px;
+  line-height: 65px;
 }
 
 .dragons-container {
