@@ -27,7 +27,7 @@
         </p>
         <br>
         <p class="egg-price purple">
-          If you have got <span class="pink">1000</span> <span class="yelow">ZLP</span> you can get egg for free.
+          If you have got <span class="pink">500</span> <span class="yelow">ZLP</span> you can get egg for free.
         </p>
         <hr>
         <div class="form">
