@@ -124,6 +124,8 @@
 import Modal from '@/components/Modal'
 import ZilPayMixin from '@/mixins/zilpay'
 
+import { changeAddress } from '@/store/wallet'
+
 export default {
   name: 'NavBar',
   mixins: [ZilPayMixin],
@@ -146,23 +148,21 @@ export default {
         const zilpay = await this.__getZilPay()
 
         this.address = this.__trim(zilpay.wallet.defaultAccount.bech32)
+
+        zilpay
+          .wallet
+          .observableAccount()
+          .subscribe((account) => {
+            changeAddress(account.bech32)
+            this.address = this.__trim(account.bech32)
+          })
       } catch (err) {
         console.error(err)
       }
     }
   },
   mounted() {
-    this
-      .__getZilPay()
-      .then((zilpay) => {
-
-        zilpay
-          .wallet
-          .observableAccount()
-          .subscribe((account) => {
-            this.address = this.__trim(account.bech32)
-          })
-      })
+    this.connect()
   }
 }
 </script>

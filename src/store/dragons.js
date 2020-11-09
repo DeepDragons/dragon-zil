@@ -13,7 +13,4 @@ DragonsPage.onCreateStore(store => {
 
 export const DragonsStore = DragonsPage
   .createStore({})
-  .on(addDragons, (state, result) => ({
-    ...state,
-    ...result
-  }))
+  .on(addDragons, (_, result) => result)

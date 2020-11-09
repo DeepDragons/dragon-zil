@@ -29,6 +29,7 @@
 <script>
 import Card from '@/components/Card'
 
+import { WalletStore } from '@/store/wallet'
 import ZilPayMixin from '@/mixins/zilpay'
 
 import {
@@ -54,12 +55,9 @@ export default {
   },
   methods: {
     async loadTokens() {
-      const keys = Object.keys(DragonsStore.getState())
-      if (keys.length > 0) {
-        return null
-      }
-
       const tokens = await this.__getTokensIds()
+
+      this.list = tokens
 
       addDragons(tokens)
     }
@@ -70,6 +68,7 @@ export default {
   mounted() {
     DragonsStore.watch((state) => this.list = state)
     this.loadTokens()
+    WalletStore.watch(() => this.loadTokens())
   }
 }
 </script>
