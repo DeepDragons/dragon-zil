@@ -29,7 +29,7 @@
     </div>
     <div class="token-des">
       <p>
-        Owner: <span>{{ owner }}</span>
+        Owner: <span>{{ showoner }}</span>
       </p>
       <p>
         DragonID: <span>#{{ tokenId }}</span>
@@ -80,6 +80,7 @@ import MicroModal from 'micromodal'
 import Card from '@/components/Card'
 import Modal from '@/components/Modal'
 
+import { WalletStore } from '@/store/wallet'
 import ZilPayMixin from '@/mixins/zilpay'
 import RadarMixin from '@/mixins/radar'
 
@@ -101,6 +102,7 @@ export default {
       values: [],
       recipientAddress: '',
       owner: null,
+      showoner: null,
       id: null
     }
   },
@@ -159,6 +161,22 @@ export default {
       await this.__transfer(address, this.tokenId)
 
       document.querySelectorAll('#transfer')[0].classList.remove('is-open')
+    },
+    checkOwner() {
+      const { base16 } = window.zilPay.wallet.defaultAccount
+      const { toBech32Address } = window.zilPay.crypto
+
+      if (!this.owner) {
+        return null
+      }
+
+      if (String(base16).toLowerCase() === String(this.owner).toLowerCase()) {
+        this.showoner = 'You'
+
+        return null
+      }
+
+      this.showoner = this.__trim(toBech32Address(this.owner))
     }
   },
   updated() {
@@ -175,6 +193,11 @@ export default {
   },
   mounted() {
     this.id = this.tokenId
+    WalletStore.watch((address) => {
+      if (address) {
+        this.checkOwner()
+      }
+    })
     this
       .__getTokensIds()
       .then((tokens) => {
@@ -201,22 +224,8 @@ export default {
         return this.__getTokenOwner(this.tokenId)
       })
       .then((owner) => {
-        if (!owner) {
-          this.owner = "hasn't owner."
-
-          return null
-        }
-
-        const { base16 } = window.zilPay.wallet.defaultAccount
-        const { toBech32Address } = window.zilPay.crypto
-
-        if (String(base16).toLowerCase() === String(owner).toLowerCase()) {
-          this.owner = 'You'
-
-          return null
-        }
-
-        this.owner = this.__trim(toBech32Address(owner))
+        this.owner = owner
+        this.checkOwner()
       })
   }
 }
