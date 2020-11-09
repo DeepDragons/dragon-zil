@@ -32,18 +32,25 @@
         </p>
         <hr>
         <div class="form">
-          <a
+          <button
             class="nav_btn w-button buy"
+            :disabled="balanceError || alreadyGotErro"
             @click="onAirdrop"
           >
             Get
-          </a>
+          </button>
           <br>
           <p
             v-show="balanceError"
             class="error"
           >
             You haven't got so much ZLP tokens, try buy on <a class="nav_link" href="https://zilswap.io">ZilSwap</a>
+          </p>
+          <p
+            v-show="alreadyGotErro"
+            class="error"
+          >
+            Your address already got eggs.
           </p>
         </div>
       </form>
@@ -70,7 +77,8 @@ export default {
     return {
       value: 1,
       totalSupply: 0,
-      balanceError: false
+      balanceError: false,
+      alreadyGotErro: false
     }
   },
   methods: {
@@ -95,7 +103,15 @@ export default {
       await this.getSignature()
     }
   },
+  updated() {
+    this
+      .__isGotDragon()
+      .then((value) => this.alreadyGotErro = value)
+  },
   mounted() {
+    this
+      .__isGotDragon()
+      .then((value) => this.alreadyGotErro = value)
     this
       .__getTotalSupply()
       .then(totalSupply => this.totalSupply = totalSupply)

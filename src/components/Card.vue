@@ -49,6 +49,11 @@ export default {
   color: #e83e8c;
 }
 .Card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
   border-radius: 100%;
   position: relative;
   transition: .5s;

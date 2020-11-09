@@ -63,7 +63,7 @@ export default {
 }
 
 .modal__container {
-  background-color: #51457b;
+  background-color: rgba(6, 18, 34, 0.95);
   padding: 30px;
   max-width: 500px;
   max-height: 100vh;

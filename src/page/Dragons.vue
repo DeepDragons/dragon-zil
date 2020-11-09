@@ -49,6 +49,9 @@ export default {
       this.list = tokens
     }
   },
+  updated() {
+    this.loadTokens()
+  },
   mounted() {
     this.loadTokens()
   }

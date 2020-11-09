@@ -297,6 +297,27 @@ export default {
         return {}
       }
     },
+    async __isGotDragon() {
+      const zilPay = await this.__getZilPay()
+      const isNet = await this.__net()
+
+      if (!isNet) {
+        return false
+      }
+
+      const { base16 } = zilPay.wallet.defaultAccount
+      const address = String(base16).toLowerCase()
+      const field = 'is_dragon_owner'
+      const { result } = await zilPay
+        .blockchain
+        .getSmartContractSubState(this.__crowdSale, field, [address])
+
+      if (!result || !result[field] || !result[field][address]) {
+        return false
+      }
+
+      return true
+    },
     __trim(string, length = 6) {
       if (!string) {
         return null
