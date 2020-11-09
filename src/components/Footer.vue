@@ -16,21 +16,16 @@
           Ask a question
         </a>
         <a
-          href="#"
-          id="btn_contract"
+          href="https://dragoneth.com/privacy"
           class="footer_link"
-        >
-          Contracts
-        </a>
-        <a
-          href="/privacy"
-          class="footer_link"
+          target="_blank"
         >
           Privacy policy
         </a>
         <a
-          href="/terms"
+          href="https://dragoneth.com/terms"
           class="footer_link"
+          target="_blank"
         >
           Terms of service
         </a>

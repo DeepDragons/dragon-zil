@@ -172,6 +172,9 @@ export default {
 </script>
 
 <style>
+.w-nav {
+  background-color: rgba(6, 18, 34, 0.95);
+}
 .disabled {
   opacity: 0.5;
   cursor: progress;

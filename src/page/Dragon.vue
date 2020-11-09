@@ -120,6 +120,11 @@ export default {
   methods: {
     paintChart() {
       let ctx = window.document.getElementById('combat')
+
+      if (!ctx) {
+        return null
+      }
+
       let label = 'Combat gens'
       let dataSet = this.__parseGens(
         this.tokenId, this.values, label,
@@ -151,6 +156,15 @@ export default {
 
       document.querySelectorAll('#transfer')[0].classList.remove('is-open')
     }
+  },
+  updated() {
+    this
+      .__getCombatGen(this.tokenId)
+      .then((gens) => {
+        this.values= this.__genParse(gens)
+
+        this.paintChart()
+      })
   },
   mounted() {
     this
@@ -210,7 +224,7 @@ export default {
   justify-content: space-evenly;
   flex-wrap: wrap;
 
-  margin-top: 100px;
+  margin-top: 150px;
   width: 100%;
   max-width: 900px;
 }

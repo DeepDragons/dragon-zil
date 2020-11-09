@@ -239,6 +239,10 @@ export default {
       return result['incrementer']
     },
     async __getCombatGen(id) {
+      if (isNaN(id)) {
+        return null
+      }
+
       const zilPay = await this.__getZilPay()
       const isNet = await this.__net()
       const field = 'token_gen_battle'
