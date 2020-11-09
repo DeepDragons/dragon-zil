@@ -1,5 +1,4 @@
 <template>
-  <NavBar />
   <div class="section_hero">
     <div class="cloud_center" />
     <div class="cloud_center_na" />
@@ -27,18 +26,12 @@
       </div>
     </div>
   </div>
-  <Footer />
 </template>
 
 <script>
-import NavBar from '@/components/NavBar'
-import Footer from '@/components/Footer'
-
 export default {
   name: 'NotFound',
   components: {
-    NavBar,
-    Footer
   }
 }
 </script>

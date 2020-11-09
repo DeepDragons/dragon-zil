@@ -72,8 +72,6 @@
 <script>
 import MicroModal from 'micromodal'
 import Card from '@/components/Card'
-import Footer from '@/components/Footer'
-import NavBar from '@/components/NavBar'
 import Modal from '@/components/Modal'
 
 import ZilPayMixin from '@/mixins/zilpay'
@@ -89,8 +87,6 @@ export default {
   mixins: [RadarMixin, ZilPayMixin],
   components: {
     Card,
-    NavBar,
-    Footer,
     Modal
   },
   data() {

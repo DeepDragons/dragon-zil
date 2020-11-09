@@ -155,17 +155,13 @@ export default {
     this
       .__getZilPay()
       .then((zilpay) => {
-        if (zilpay.wallet.defaultAccount) {
-          this.address = this.__trim(zilpay.wallet.defaultAccount.bech32)
 
-          return this.address
-        }
-
-        setTimeout(() => {
-          if (zilpay.wallet.defaultAccount.bech32) {
-            this.address = this.__trim(zilpay.wallet.defaultAccount.bech32)
-          }
-        }, 500)
+        zilpay
+          .wallet
+          .observableAccount()
+          .subscribe((account) => {
+            this.address = this.__trim(account.bech32)
+          })
       })
   }
 }

@@ -1,5 +1,4 @@
 <template>
-  <NavBar />
   <div class="dragons">
     <div class="dragons-container">
       <router-link
@@ -14,12 +13,9 @@
       </router-link>
     </div>
   </div>
-  <Footer />
 </template>
 
 <script>
-import NavBar from '@/components/NavBar'
-import Footer from '@/components/Footer'
 import Card from '@/components/Card'
 
 import ZilPayMixin from '@/mixins/zilpay'
@@ -28,8 +24,6 @@ export default {
   name: 'Dragons',
   mixins: [ZilPayMixin],
   components: {
-    NavBar,
-    Footer,
     Card
   },
   data() {

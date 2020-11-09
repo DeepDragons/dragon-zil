@@ -1,5 +1,4 @@
 <template>
-  <NavBar />
   <div class="container">
     <div class="container0">
       <div class="illustration">
@@ -69,14 +68,11 @@
       </form>
     </div>
   </div>
-  <Footer />
 </template>
 
 <script>
 import Big from 'big.js'
 
-import NavBar from '@/components/NavBar'
-import Footer from '@/components/Footer'
 import ZilPayMixin from '@/mixins/zilpay'
 import toLocaleString from '@/filters/to-locale-string'
 
@@ -85,10 +81,7 @@ const _qa = Big(10 ** 12)
 export default {
   name: 'Buy',
   mixins: [ZilPayMixin],
-  components: {
-    NavBar,
-    Footer
-  },
+  components: {},
   data() {
     return {
       count: 1,

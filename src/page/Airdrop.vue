@@ -1,5 +1,4 @@
 <template>
-  <NavBar />
   <div class="container">
     <div class="container0">
       <div class="illustration">
@@ -56,23 +55,16 @@
       </form>
     </div>
   </div>
-  <Footer />
 </template>
 
 <script>
 import axios from 'axios'
-import NavBar from '@/components/NavBar'
-import Footer from '@/components/Footer'
 
 import ZilPayMixin from '@/mixins/zilpay'
 
 export default {
   name: 'Airdrop',
   mixins: [ZilPayMixin],
-  components: {
-    NavBar,
-    Footer
-  },
   data() {
     return {
       value: 1,
