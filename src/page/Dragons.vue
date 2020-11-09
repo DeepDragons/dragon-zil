@@ -9,7 +9,7 @@
           You haven't got Eggs!
         </h2>
         <p class="wrong-des">
-          You can get it for free if you have 1000 ZLP or buy it
+          If you have got 1000 ZLP you can get an egg for free.
         </p>
       </div>
       <router-link
