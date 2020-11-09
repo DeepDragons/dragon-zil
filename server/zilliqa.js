@@ -6,7 +6,7 @@ const isDev = process.env.NODE_ENV === 'production';
 const ZLP = process.env.ZLP_CONTRACT;
 const mainnet = 'https://api.zilliqa.com';
 const testnet = 'https://dev-api.zilliqa.com';
-const provider = isDev ? mainnet : testnet;
+const provider = mainnet;
 const zilliqa = new Zilliqa(provider);
 
 if (!ZLP || !validation.isAddress(ZLP)) {
