@@ -25,7 +25,7 @@
         </div>
         <div class="hero_text">
           <div class="text-block">
-            Here, you can buy Dragons for ZIL,<br>and they will fuck, fight, mutate, and die.
+            Here, you can buy Dragons for ZIL,<br>and they will mate, fight, mutate, and die.
             Because Dragons are no Kitties.
           </div>
         </div>

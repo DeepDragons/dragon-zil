@@ -19,7 +19,7 @@
         <hr>
         <br>
         <p class="egg-price purple">
-          ZIlPay wallet airdrop, buy tokens on <a
+          ZilPay wallet airdrop, buy tokens on <a
             href="https://zilswap.io/swap"
             target="_blank"
             class="nav_link link"
