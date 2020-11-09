@@ -3,9 +3,9 @@ import MicroModal from 'micromodal'
 export default {
   data() {
     return {
-      __netwrok: 'testnet',
-      __crowdSale: '0x5F3a68E39a7317f019E9A93224bB13F23B694c7d',
-      __DragonZIL: '0x98e72b96F52aeAFA38Ee7841E9D88bbB20Bb0B67'
+      __netwrok: 'mainnet',
+      __crowdSale: '0x735FC0671B4e199aea4597aC83D9380B3B290010',
+      __DragonZIL: '0xC866d588FFbb3dfcEdc91cFad6392Bdafa3e63F6'
     }
   },
   methods: {
