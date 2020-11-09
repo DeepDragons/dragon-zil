@@ -5,8 +5,7 @@ export default {
     return {
       __netwrok: 'testnet',
       __crowdSale: '0x5F3a68E39a7317f019E9A93224bB13F23B694c7d',
-      __DragonZIL: '0x98e72b96F52aeAFA38Ee7841E9D88bbB20Bb0B67',
-      __listOfToken: []
+      __DragonZIL: '0x98e72b96F52aeAFA38Ee7841E9D88bbB20Bb0B67'
     }
   },
   methods: {
@@ -290,9 +289,7 @@ export default {
       }
 
       try {
-        this.__listOfToken = result['tokens_owner_stage'][address]
-
-        return this.__listOfToken
+        return result['tokens_owner_stage'][address]
       } catch (err) {
         return {}
       }
@@ -317,6 +314,29 @@ export default {
       }
 
       return true
+    },
+    async __getTokenOwner(tokenID) {
+      const field = 'token_owners'
+      const zilPay = await this.__getZilPay()
+      const isNet = await this.__net()
+
+      if (!isNet) {
+        return false
+      }
+
+      const { result } = await zilPay
+        .blockchain
+        .getSmartContractSubState(this.__DragonZIL, field, [tokenID])
+
+      if (!result || !result[field] || !result[field][tokenID]) {
+        return {}
+      }
+
+      try {
+        return result[field][tokenID]
+      } catch (err) {
+        return {}
+      }
     },
     __trim(string, length = 6) {
       if (!string) {

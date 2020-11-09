@@ -20,6 +20,11 @@ import Card from '@/components/Card'
 
 import ZilPayMixin from '@/mixins/zilpay'
 
+import {
+  DragonsStore,
+  addDragons
+} from '@/store/dragons'
+
 export default {
   name: 'Dragons',
   mixins: [ZilPayMixin],
@@ -28,7 +33,7 @@ export default {
   },
   data() {
     return {
-      list: []
+      list: DragonsStore.getState()
     }
   },
   computed: {
@@ -38,15 +43,21 @@ export default {
   },
   methods: {
     async loadTokens() {
+      const keys = Object.keys(DragonsStore.getState())
+      if (keys.length > 0) {
+        return null
+      }
+
       const tokens = await this.__getTokensIds()
 
-      this.list = tokens
+      addDragons(tokens)
     }
   },
   updated() {
     this.loadTokens()
   },
   mounted() {
+    DragonsStore.watch((state) => this.list = state)
     this.loadTokens()
   }
 }

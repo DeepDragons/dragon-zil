@@ -1,5 +1,4 @@
 <template>
-  <NavBar />
   <div class="dragon-page">
     <div class="top-panel">
       <button
@@ -28,7 +27,15 @@
         fight
       </button>
     </div>
-    <div class="dragon container">
+    <div class="token-des">
+      <p>
+        Owner: <span>{{ owner }}</span>
+      </p>
+      <p>
+        DragonID: <span>#{{ tokenId }}</span>
+      </p>
+    </div>
+    <div class="dragon container-dragon">
       <Card
         :stage="stage"
         :id="tokenId"
@@ -37,12 +44,11 @@
         <canvas
           id="combat"
           :width="width"
-          height="450"
+          height="410"
         />
       </div>
     </div>
   </div>
-  <Footer />
   <Modal
     title="Transfer"
     name="transfer"
@@ -93,7 +99,9 @@ export default {
     return {
       width: width,
       values: [],
-      recipientAddress: ''
+      recipientAddress: '',
+      owner: null,
+      id: null
     }
   },
   computed: {
@@ -154,15 +162,19 @@ export default {
     }
   },
   updated() {
-    this
-      .__getCombatGen(this.tokenId)
-      .then((gens) => {
-        this.values= this.__genParse(gens)
+    if (this.id !== this.tokenId) {
+      this
+        .__getCombatGen(this.tokenId)
+        .then((gens) => {
+          this.values = this.__genParse(gens)
 
-        this.paintChart()
-      })
+          this.paintChart()
+          this.id = this.tokenId
+        })
+    }
   },
   mounted() {
+    this.id = this.tokenId
     this
       .__getTokensIds()
       .then((tokens) => {
@@ -185,17 +197,52 @@ export default {
         this.values= this.__genParse(gens)
 
         this.paintChart()
+
+        return this.__getTokenOwner(this.tokenId)
+      })
+      .then((owner) => {
+        if (!owner) {
+          this.owner = "hasn't owner."
+
+          return null
+        }
+
+        const { base16 } = window.zilPay.wallet.defaultAccount
+        const { toBech32Address } = window.zilPay.crypto
+
+        if (String(base16).toLowerCase() === String(owner).toLowerCase()) {
+          this.owner = 'You'
+
+          return null
+        }
+
+        this.owner = this.__trim(toBech32Address(owner))
       })
   }
 }
 </script>
 
 <style>
-.container {
+.container-dragon {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
   width: 100%;
   height: 100%;
+  margin-bottom: 100px;
+}
+.token-des {
+  text-align: left;
+  max-width: 700px;
+  width: 100%;
+  margin-top: 50px;
+}
+.token-des > p {
+  font-family: 'Open Sans',sans-serif;
+  color: #fff;
+  font-size: 16px;
+  line-height: 22px;
+  font-weight: 400;
 }
 .dragon-page {
   display: flex;
@@ -230,8 +277,8 @@ export default {
 
   box-shadow: 0 0 40px #d528d0;
 }
-.radar {
-  margin: 50px;
+.radar, .dragon > .Card {
+  margin: 10px;
 }
 .recipient, .dis {
   color: #8973d7;
