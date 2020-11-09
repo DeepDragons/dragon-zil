@@ -79,45 +79,45 @@
         </a>
       </div>
     </nav>
+    <Modal
+      title="ZilPay"
+      name="no-zipay"
+    >
+      <div class="hasnt-zilpay">
+        <p class="info">
+          Did you install ZIlPay wallet?
+        </p>
+        <br>
+        <a href="https://zilpay.xyz/" target="_blank">
+          <img
+            src="/img/zilpay.svg"
+            alt="zilpaylogo"
+            height="150"
+            width="150"
+          >
+        </a>
+      </div>
+    </Modal>
+    <Modal
+      title="ZilPay"
+      name="no-netwrok"
+    >
+      <div class="hasnt-zilpay">
+        <p class="info">
+          Please change to <span>{{ __netwrok }}</span>
+        </p>
+        <br>
+        <a href="https://zilpay.xyz/" target="_blank">
+          <img
+            src="/img/zilpay.svg"
+            alt="zilpaylogo"
+            height="150"
+            width="150"
+          >
+        </a>
+      </div>
+  </Modal>
   </div>
-  <Modal
-    title="ZilPay"
-    name="no-zipay"
-  >
-    <div class="hasnt-zilpay">
-      <p class="info">
-        Did you install ZIlPay wallet?
-      </p>
-      <br>
-      <a href="https://zilpay.xyz/" target="_blank">
-        <img
-          src="/img/zilpay.svg"
-          alt="zilpaylogo"
-          height="150"
-          width="150"
-        >
-      </a>
-    </div>
-  </Modal>
-  <Modal
-    title="ZilPay"
-    name="no-netwrok"
-  >
-    <div class="hasnt-zilpay">
-      <p class="info">
-        Please change to <span>{{ __netwrok }}</span>
-      </p>
-      <br>
-      <a href="https://zilpay.xyz/" target="_blank">
-        <img
-          src="/img/zilpay.svg"
-          alt="zilpaylogo"
-          height="150"
-          width="150"
-        >
-      </a>
-    </div>
-  </Modal>
 </template>
 
 <script>
