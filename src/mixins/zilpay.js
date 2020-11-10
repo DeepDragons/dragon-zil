@@ -266,9 +266,9 @@ export default {
 
       const { result } = await zilPay
         .blockchain
-        .getSmartContractSubState(this.__DragonZIL, 'total_supply')
+        .getSmartContractSubState(this.__DragonZIL, 'count_supply')
 
-      return result['total_supply']
+      return result['count_supply']
     },
     async __getTokensIds() {
       const zilPay = await this.__getZilPay()
