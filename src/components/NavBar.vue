@@ -47,12 +47,6 @@
             Buy
           </router-link>
           <router-link
-            to="/airdrop"
-            class="nav_link w-nav-link"
-          >
-            AirDrop
-          </router-link>
-          <router-link
             to="/dragons"
             class="nav_link w-nav-link"
           >

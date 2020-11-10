@@ -13,6 +13,6 @@ router.use((req, res, next) => {
   next();
 });
 
-router.use('/sign', sign);
+// router.use('/sign', sign);
 
 module.exports = router;

@@ -19,11 +19,6 @@ const routes = [
     component: Buy
   },
   {
-    path: '/airdrop',
-    name: 'Airdrop',
-    component: Airdrop
-  },
-  {
     path: '/dragons',
     name: 'Dragons',
     component: Dragons
