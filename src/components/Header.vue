@@ -30,10 +30,10 @@
           </div>
         </div>
         <router-link
-          to="/airdrop"
+          to="/buy"
           class="btn_primary hero_btn w-button"
         >
-          ZilPay Airdrop
+          Buy
         </router-link>
         <a href="#about" class="scroll_sign w-inline-block" />
       </div>
