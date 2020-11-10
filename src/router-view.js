@@ -2,7 +2,6 @@ import * as VueRouter from 'vue-router'
 
 import Home from './page/Home'
 import Buy from './page/Buy'
-import Airdrop from './page/Airdrop'
 import Dragons from './page/Dragons'
 import Dragon from './page/Dragon'
 import NotFound from './page/404'
