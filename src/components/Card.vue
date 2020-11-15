@@ -35,6 +35,10 @@ export default {
   },
   methods: {
     onError(event) {
+      if (event.target.src == subURL) {
+        return null
+      }
+
       event.target.src = subURL
     }
   }
