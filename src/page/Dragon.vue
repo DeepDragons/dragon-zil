@@ -1,6 +1,9 @@
 <template>
   <div class="dragon-page">
-    <div class="top-panel">
+    <div
+      v-show="showoner == 'You'"
+      class="top-panel"
+    >
       <button
         v-show="stage === 0"
         class="nav_btn w-button top-btn"
@@ -188,6 +191,12 @@ export default {
 
           this.paintChart()
           this.id = this.tokenId
+
+          return this.__getTokenOwner(this.tokenId)
+        })
+        .then((owner) => {
+          this.owner = owner
+          this.checkOwner()
         })
     }
   },
@@ -203,7 +212,7 @@ export default {
       .then((tokens) => {
         const curernt_stage = Number(tokens[this.tokenId])
 
-        if (curernt_stage !== Number(this.stage)) {
+        if (curernt_stage !== Number(this.stage) && isNaN(Number(this.stage))) {
           this.$router.push({
             name: 'Dragon',
             params: {
@@ -257,6 +266,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 5%;
 }
 .top-btn {
   text-transform: uppercase;

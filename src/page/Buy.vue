@@ -153,12 +153,10 @@ hr {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-
-  width: 100vw;
   height: 100vh;
 
-  padding-top: 5%;
-  padding-bottom: 10%;
+  padding-top: 10%;
+  padding-bottom: 20%;
 
   font-family: 'Fira Sans';
 }

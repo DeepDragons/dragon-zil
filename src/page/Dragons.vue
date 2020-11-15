@@ -77,8 +77,6 @@ export default {
 .dragons {
   display: flex;
   justify-content: center;
-
-  width: 100vw;
   height: 100%;
   min-height: 50vh;
 

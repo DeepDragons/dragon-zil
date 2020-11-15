@@ -111,7 +111,7 @@ export default {
         {
           amount,
           gasPrice,
-          gasLimit: utils.Long.fromNumber(50000)
+          gasLimit: utils.Long.fromNumber(3000)
         }
       )
     },
@@ -144,7 +144,7 @@ export default {
         {
           amount,
           gasPrice,
-          gasLimit: utils.Long.fromNumber(50000)
+          gasLimit: utils.Long.fromNumber(9000)
         }
       )
     },
@@ -172,7 +172,7 @@ export default {
         {
           amount,
           gasPrice,
-          gasLimit: utils.Long.fromNumber(50000)
+          gasLimit: utils.Long.fromNumber(5000)
         }
       )
     },
