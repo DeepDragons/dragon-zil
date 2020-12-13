@@ -3,9 +3,9 @@ import MicroModal from 'micromodal'
 export default {
   data() {
     return {
-      __netwrok: 'mainnet',
-      __crowdSale: '0x735FC0671B4e199aea4597aC83D9380B3B290010',
-      __DragonZIL: '0xC866d588FFbb3dfcEdc91cFad6392Bdafa3e63F6'
+      __netwrok: 'testnet',
+      __crowdSale: 'zil1cryhzjdp79vvyg5y6f554r4hjyx05y2vus6f53',
+      __DragonZIL: 'zil1gfunq7gq62j86nmzkqavmfrznqh8xfr89dfqt5'
     }
   },
   methods: {
@@ -32,39 +32,6 @@ export default {
         }, 100)
       })
     },
-    async __callAirDrop(payload) {
-      const zilPay = await this.__getZilPay()
-      const { contracts, utils } = zilPay
-      const contract = contracts.at(this.__crowdSale)
-      const amount = utils.units.toQa('0', utils.units.Units.Zil)
-      const gasPrice = utils.units.toQa('2000', utils.units.Units.Li)
-      const isNet = await this.__net()
-
-      if (!isNet) {
-        return false
-      }
-
-      return await contract.call(
-        'AirDrop',
-        [
-          {
-            vname: 'address',
-            type: 'ByStr20',
-            value: `0x${payload.msg}`
-          },
-          {
-            vname: 'signature',
-            type: 'ByStr64',
-            value: `0x${payload.signature}`
-          }
-        ],
-        {
-          amount,
-          gasPrice,
-          gasLimit: utils.Long.fromNumber(50000)
-        }
-      )
-    },
     async __buy(_amount) {
       const zilPay = await this.__getZilPay()
       const { contracts, utils } = zilPay
@@ -72,9 +39,17 @@ export default {
       const amount = utils.units.toQa(_amount, utils.units.Units.Zil)
       const gasPrice = utils.units.toQa('2000', utils.units.Units.Li)
       const isNet = await this.__net()
+      let gasLimit = 5000;
 
       if (!isNet) {
         return false
+      }
+
+      if (Number(_amount) > 5) {
+        gasLimit = 3000;
+      }
+      if (Number(_amount) > 10) {
+        gasLimit = 2000;
       }
 
       return await contract.call(
@@ -83,7 +58,7 @@ export default {
         {
           amount,
           gasPrice,
-          gasLimit: utils.Long.fromNumber(50000)
+          gasLimit: utils.Long.fromNumber(gasLimit * _amount)
         }
       )
     },
@@ -100,7 +75,7 @@ export default {
       }
 
       return await contract.call(
-        'UpState',
+        'UpStage',
         [
           {
             vname: 'token_id',
@@ -128,7 +103,7 @@ export default {
       }
 
       return await contract.call(
-        'transfer',
+        'Transfer',
         [
           {
             vname: 'to',
@@ -144,7 +119,7 @@ export default {
         {
           amount,
           gasPrice,
-          gasLimit: utils.Long.fromNumber(50000)
+          gasLimit: utils.Long.fromNumber(9000)
         }
       )
     },
@@ -161,7 +136,7 @@ export default {
       }
 
       return await contract.call(
-        'burn',
+        'Burn',
         [
           {
             vname: 'token_id',
@@ -172,7 +147,7 @@ export default {
         {
           amount,
           gasPrice,
-          gasLimit: utils.Long.fromNumber(50000)
+          gasLimit: utils.Long.fromNumber(9000)
         }
       )
     },
@@ -266,9 +241,9 @@ export default {
 
       const { result } = await zilPay
         .blockchain
-        .getSmartContractSubState(this.__DragonZIL, 'count_supply')
+        .getSmartContractSubState(this.__DragonZIL, 'token_id_count')
 
-      return result['count_supply']
+      return result['token_id_count']
     },
     async __getTokensIds() {
       const zilPay = await this.__getZilPay()
