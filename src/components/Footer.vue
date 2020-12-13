@@ -30,14 +30,14 @@
           Terms of service
         </a>
         <a
-          href="https://viewblock.io/zilliqa/address/zil1wd0uqecmfcve46j9j7kg8kfcpvajjqqsy40gfu?network=mainnet&tab=code"
+          href="https://viewblock.io/zilliqa/address/zil15ks9t9ve0fp3de06w0aaum3yqz9a39jnzgalet?network=mainnet&tab=code"
           class="footer_link"
           target="_blank"
         >
           Contract CrowdSale
         </a>
         <a
-          href="https://viewblock.io/zilliqa/address/zil1epndtz8lhv7lemwfrnadvwftmtaruclkdg6fee"
+          href="https://viewblock.io/zilliqa/address/zil1apmtzy4x9729fp8du8euehttptr08yuzamfy9f"
           class="footer_link"
           target="_blank"
         >

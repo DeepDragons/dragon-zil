@@ -3,9 +3,9 @@ import MicroModal from 'micromodal'
 export default {
   data() {
     return {
-      __netwrok: 'testnet',
-      __crowdSale: 'zil1cryhzjdp79vvyg5y6f554r4hjyx05y2vus6f53',
-      __DragonZIL: 'zil1gfunq7gq62j86nmzkqavmfrznqh8xfr89dfqt5'
+      __netwrok: 'mainnet',
+      __crowdSale: 'zil15ks9t9ve0fp3de06w0aaum3yqz9a39jnzgalet',
+      __DragonZIL: 'zil1apmtzy4x9729fp8du8euehttptr08yuzamfy9f'
     }
   },
   methods: {
@@ -39,17 +39,14 @@ export default {
       const amount = utils.units.toQa(_amount, utils.units.Units.Zil)
       const gasPrice = utils.units.toQa('2000', utils.units.Units.Li)
       const isNet = await this.__net()
-      let gasLimit = 5000;
+      let gasLimit = 9000;
 
       if (!isNet) {
         return false
       }
 
       if (Number(_amount) > 5) {
-        gasLimit = 3000;
-      }
-      if (Number(_amount) > 10) {
-        gasLimit = 2000;
+        gasLimit = 9000;
       }
 
       return await contract.call(
