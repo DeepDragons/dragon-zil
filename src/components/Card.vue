@@ -2,9 +2,9 @@
   <div class="Card">
     <div class="Card-content">
       <img
-        v-if="imgSrc && !isNaN(stage) && !isNaN(id)"
         :src="imgSrc"
-        onerror="this.onerror=null; this.src='https://res.cloudinary.com/dragonseth/image/upload/sub.png'"
+        @error="onError"
+        onerror="this.onerror=null; this.src=''"
         alt="img-dragon"
       >
     </div>
@@ -15,6 +15,7 @@
 </template>
 
 <script>
+const subURL = 'https://res.cloudinary.com/dragonseth/image/upload/sub.png'
 export default {
   name: 'Card',
   props: {
@@ -30,6 +31,15 @@ export default {
   computed: {
     imgSrc() {
       return `https://res.cloudinary.com/dragonseth/image/upload/${this.stage}_${this.id}.png`
+    }
+  },
+  methods: {
+    onError(event) {
+      if (event.target.src == subURL) {
+        return null
+      }
+
+      event.target.src = subURL
     }
   }
 }

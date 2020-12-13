@@ -29,6 +29,20 @@
         >
           Terms of service
         </a>
+        <a
+          href="https://viewblock.io/zilliqa/address/zil1wd0uqecmfcve46j9j7kg8kfcpvajjqqsy40gfu?network=mainnet&tab=code"
+          class="footer_link"
+          target="_blank"
+        >
+          Contract CrowdSale
+        </a>
+        <a
+          href="https://viewblock.io/zilliqa/address/zil1epndtz8lhv7lemwfrnadvwftmtaruclkdg6fee"
+          class="footer_link"
+          target="_blank"
+        >
+          Contract DragonZIL
+        </a>
       </div>
       <div class="div-block-3">
         <div class="social_links">
@@ -83,8 +97,12 @@
 </template>
 
 <script>
+import ZilPayMixin from '@/mixins/zilpay'
+
+
 export default {
-  name: 'Footer'
+  name: 'Footer',
+  mixins: [ZilPayMixin]
 }
 </script>
 
