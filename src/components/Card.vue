@@ -15,7 +15,7 @@
 </template>
 
 <script>
-const subURL = 'https://res.cloudinary.com/dragonseth/image/upload/sub.png'
+const subURL = 'https://res.cloudinary.com/dragonseth/image/upload/v1607844286/sub.png'
 export default {
   name: 'Card',
   props: {
@@ -35,7 +35,7 @@ export default {
   },
   methods: {
     onError(event) {
-      if (event.target.src == subURL) {
+      if (event.target.src === subURL) {
         return null
       }
 
