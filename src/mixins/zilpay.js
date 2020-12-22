@@ -39,14 +39,10 @@ export default {
       const amount = utils.units.toQa(_amount, utils.units.Units.Zil)
       const gasPrice = utils.units.toQa('2000', utils.units.Units.Li)
       const isNet = await this.__net()
-      let gasLimit = 9000;
+      let gasLimit = 25000;
 
       if (!isNet) {
         return false
-      }
-
-      if (Number(_amount) > 5) {
-        gasLimit = 9000;
       }
 
       return await contract.call(
@@ -55,7 +51,7 @@ export default {
         {
           amount,
           gasPrice,
-          gasLimit: utils.Long.fromNumber(gasLimit * _amount)
+          gasLimit: utils.Long.fromNumber(gasLimit)
         }
       )
     },
