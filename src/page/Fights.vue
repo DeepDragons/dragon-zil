@@ -6,16 +6,16 @@
         class="w-message"
       >
         <h2 class="footer_logo_text wrong-msg">
-          You haven't got Eggs!
+          No One dragon on arena
         </h2>
       </div>
       <router-link
         v-for="(item) of keys"
         :key="item"
-        :to="{ name: 'Dragon', params: { id: item, stage: list[item] } }"
+        :to="{ name: 'Fight', params: { id: item } }"
       >
         <Card
-          :stage="Number(list[item])"
+          :stage="Number(1)"
           :id="item"
         />
       </router-link>
@@ -26,7 +26,6 @@
 <script>
 import Card from '@/components/Card'
 
-import { WalletStore } from '@/store/wallet'
 import ZilPayMixin from '@/mixins/zilpay'
 
 import {
@@ -51,7 +50,7 @@ export default {
     }
   },
   methods: {
-    async loadTokens() {
+    async loadFightes() {
       const tokens = await this.__getWaitingList()
 
       this.list = tokens
@@ -59,13 +58,8 @@ export default {
       addDragons(tokens)
     }
   },
-  updated() {
-    this.loadTokens()
-  },
   mounted() {
-    FightsStore.watch((state) => this.list = state)
-    this.loadTokens()
-    WalletStore.watch(() => this.loadTokens())
+    this.loadFightes()
   }
 }
 </script>

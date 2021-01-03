@@ -35,7 +35,7 @@ const routes = [
     component: Fights
   },
   {
-    path: '/fight/:id(.*)',
+    path: '/fight/:id',
     name: 'Fight',
     component: Fight
   },

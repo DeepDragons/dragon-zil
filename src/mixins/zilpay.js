@@ -5,8 +5,8 @@ export default {
     return {
       __netwrok: 'testnet',
       __crowdSale: '0xb66f0e9b6601b6b5ec13d8ee77002aa79b5618e0',
-      __DragonZIL: '0xb4f3307b19eea2a5fd88ffb3009ac33380032f88',
-      __FightPlace: '0x1c854767c4a290f6314fd4760c59aa1795895384'
+      __DragonZIL: '0x2d8748f6ee15053c026cc1d8935790b0be48d1e8',
+      __FightPlace: 'zil1ve0d50zg0p0vxm572l04jwa4zvzc0sc8mpzvx0'
     }
   },
   methods: {
@@ -270,19 +270,17 @@ export default {
       if (!isNet) {
         return false
       }
-
-      const { base16 } = zilPay.wallet.defaultAccount
-      const address = String(base16).toLowerCase()
+      const field = 'waiting_list'
       const { result } = await zilPay
         .blockchain
-        .getSmartContractSubState(this.__DragonZIL, 'waiting_list', [address])
+        .getSmartContractSubState(this.__FightPlace, field)
 
-      if (!result || !result['waiting_list'] || !result['waiting_list'][address]) {
+      if (!result || !result[field]) {
         return {}
       }
 
       try {
-        return result['waiting_list'][address]
+        return result[field]
       } catch (err) {
         return {}
       }
