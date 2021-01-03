@@ -53,8 +53,8 @@
             My dragons
           </router-link>
           <router-link
-            to="/"
-            class="nav_link w-nav-link disabled"
+            to="/fights"
+            class="nav_link w-nav-link"
           >
             Fights
           </router-link>

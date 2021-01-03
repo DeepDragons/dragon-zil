@@ -3,9 +3,10 @@ import MicroModal from 'micromodal'
 export default {
   data() {
     return {
-      __netwrok: 'mainnet',
-      __crowdSale: 'zil15ks9t9ve0fp3de06w0aaum3yqz9a39jnzgalet',
-      __DragonZIL: 'zil1apmtzy4x9729fp8du8euehttptr08yuzamfy9f'
+      __netwrok: 'testnet',
+      __crowdSale: '0xb66f0e9b6601b6b5ec13d8ee77002aa79b5618e0',
+      __DragonZIL: '0xb4f3307b19eea2a5fd88ffb3009ac33380032f88',
+      __FightPlace: '0x1c854767c4a290f6314fd4760c59aa1795895384'
     }
   },
   methods: {
@@ -22,7 +23,7 @@ export default {
             MicroModal.show('no-zipay')
             return reject('ZilPay inot installed')
           }
-          
+
           if (typeof window['zilPay'] !== 'undefined') {
             clearInterval(i)
             return resolve(window['zilPay'])
@@ -262,6 +263,58 @@ export default {
         return {}
       }
     },
+    async __getWaitingList() {
+      const zilPay = await this.__getZilPay()
+      const isNet = await this.__net()
+
+      if (!isNet) {
+        return false
+      }
+
+      const { base16 } = zilPay.wallet.defaultAccount
+      const address = String(base16).toLowerCase()
+      const { result } = await zilPay
+        .blockchain
+        .getSmartContractSubState(this.__DragonZIL, 'waiting_list', [address])
+
+      if (!result || !result['waiting_list'] || !result['waiting_list'][address]) {
+        return {}
+      }
+
+      try {
+        return result['waiting_list'][address]
+      } catch (err) {
+        return {}
+      }
+    },
+    async __placeToWaitList(token_id) {
+      const zilPay = await this.__getZilPay()
+      const { contracts, utils } = zilPay
+      const contract = contracts.at(this.__FightPlace)
+      const amount = utils.units.toQa("0", utils.units.Units.Zil)
+      const gasPrice = utils.units.toQa('2000', utils.units.Units.Li)
+      const isNet = await this.__net()
+      let gasLimit = 9000;
+
+      if (!isNet) {
+        return false
+      }
+
+      return await contract.call(
+        'WaitListAddDel',
+        [
+          {
+            vname: 'token_id',
+            type: 'Uint256',
+            value: String(token_id)
+          }
+        ],        {
+          amount,
+          gasPrice,
+          gasLimit: utils.Long.fromNumber(gasLimit)
+        }
+      )
+    },
     async __isGotDragon() {
       const zilPay = await this.__getZilPay()
       const isNet = await this.__net()
@@ -310,10 +363,10 @@ export default {
       if (!string) {
         return null
       }
-    
+
       let part0 = string.substr(0, length)
       let part1 = string.substr(length * -1)
-    
+
       return `${part0}...${part1}`
     }
   }

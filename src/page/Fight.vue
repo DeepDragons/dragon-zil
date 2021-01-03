@@ -25,7 +25,7 @@
       </button>
       <button
         class="nav_btn w-button top-btn"
-        @click="placeToWaitList"
+        disabled
       >
         fight
       </button>
@@ -153,9 +153,6 @@ export default {
       }
       this.radarChartData.datasets[0] = dataSet
       this.__generateCharts(ctx, options)
-    },
-    placeToWaitList() {
-      this.__placeToWaitList(this.tokenId)
     },
     transferModal() {
       MicroModal.show('transfer')

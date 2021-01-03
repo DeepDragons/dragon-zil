@@ -4,6 +4,8 @@ import Home from './page/Home'
 import Buy from './page/Buy'
 import Dragons from './page/Dragons'
 import Dragon from './page/Dragon'
+import Fights from './page/Fights'
+import Fight from './page/Fight'
 import NotFound from './page/404'
 
 const routes = [
@@ -26,6 +28,16 @@ const routes = [
     path: '/dragon/:id(.*)/:stage(.*)',
     name: 'Dragon',
     component: Dragon
+  },
+  {
+    path: '/fights',
+    name: 'Fights',
+    component: Fights
+  },
+  {
+    path: '/fight/:id(.*)',
+    name: 'Fight',
+    component: Fight
   },
   {
     path: '/:data(.*)',
