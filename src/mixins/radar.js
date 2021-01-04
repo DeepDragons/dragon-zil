@@ -16,11 +16,7 @@ export default {
   data() {
     return {
       attacName: 'A',
-      defName: 'D',
-      radarChartData: {
-        labels: [],
-        datasets: []
-      }
+      defName: 'D'
     }
   },
   computed: {

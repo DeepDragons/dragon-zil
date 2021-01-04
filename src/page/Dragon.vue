@@ -106,7 +106,11 @@ export default {
       recipientAddress: '',
       owner: null,
       showoner: null,
-      id: null
+      id: null,
+      radarChartData: {
+        labels: [],
+        datasets: []
+      }
     }
   },
   computed: {

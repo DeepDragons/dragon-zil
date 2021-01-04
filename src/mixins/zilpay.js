@@ -5,8 +5,8 @@ export default {
     return {
       __netwrok: 'testnet',
       __crowdSale: '0xb66f0e9b6601b6b5ec13d8ee77002aa79b5618e0',
-      __DragonZIL: '0x2d8748f6ee15053c026cc1d8935790b0be48d1e8',
-      __FightPlace: 'zil1ve0d50zg0p0vxm572l04jwa4zvzc0sc8mpzvx0'
+      __DragonZIL: '0xf5fad4a00d029fcffdd3ba262799f7fc71d64890',
+      __FightPlace: '0xb18f03c9B1F23Dd0320f17F0c105392593F9ceEd'
     }
   },
   methods: {
@@ -305,6 +305,39 @@ export default {
             vname: 'token_id',
             type: 'Uint256',
             value: String(token_id)
+          }
+        ],        {
+          amount,
+          gasPrice,
+          gasLimit: utils.Long.fromNumber(gasLimit)
+        }
+      )
+    },
+    async __fightStart(id0, id1) {
+      const zilPay = await this.__getZilPay()
+      const { contracts, utils } = zilPay
+      const contract = contracts.at(this.__FightPlace)
+      const amount = utils.units.toQa("0", utils.units.Units.Zil)
+      const gasPrice = utils.units.toQa('2000', utils.units.Units.Li)
+      const isNet = await this.__net()
+      let gasLimit = 15000;
+
+      if (!isNet) {
+        return false
+      }
+
+      return await contract.call(
+        'FightStart',
+        [
+          {
+            vname: 'who_id',
+            type: 'Uint256',
+            value: String(id0)
+          },
+          {
+            vname: 'with_id',
+            type: 'Uint256',
+            value: String(id1)
           }
         ],        {
           amount,

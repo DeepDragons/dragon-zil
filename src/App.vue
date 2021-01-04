@@ -1,12 +1,10 @@
 <template>
   <NavBar />
   <router-view :name="viewName" v-slot="{ Component, route }">
-    <keep-alive>
-      <component
-        :is="Component"
-        :key="route.name === 'repeat' ? route.path : undefined"
-      />
-    </keep-alive>
+    <component
+      :is="Component"
+      :key="route.name === 'repeat' ? route.path : undefined"
+    />
   </router-view>
   <Footer />
 </template>

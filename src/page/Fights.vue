@@ -15,7 +15,7 @@
         :to="{ name: 'Fight', params: { id: item } }"
       >
         <Card
-          :stage="Number(1)"
+          :stage="1"
           :id="item"
         />
       </router-link>
