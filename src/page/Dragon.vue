@@ -255,6 +255,7 @@ export default {
   width: 100%;
   height: 100%;
   margin-bottom: 100px;
+  padding-bottom: 100px;
 }
 .token-des {
   text-align: left;
@@ -337,6 +338,10 @@ button[disabled] {
     height: 250px;
 
     margin-top: 100px;
+  }
+
+  .token-des {
+    text-align: center;
   }
 }
 </style>

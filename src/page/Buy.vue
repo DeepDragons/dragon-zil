@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container buy-page">
     <div class="container0">
       <div class="illustration">
         <span class="shadow" />
@@ -153,7 +153,6 @@ hr {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  height: 100vh;
 
   padding-top: 10%;
   padding-bottom: 20%;
@@ -240,5 +239,10 @@ hr {
 }
 .center {
   text-align: center;
+}
+@media only screen and (max-width: 1000px) {
+  .buy-page {
+    padding-top: 200px;
+  }
 }
 </style>

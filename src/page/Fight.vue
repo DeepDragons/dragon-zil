@@ -20,7 +20,7 @@
         @click="trySelectDragon"
       />
     </div>
-    <div class="radar">
+    <div class="buttleradar">
       <canvas
         id="combatRadar"
         :width="width"
@@ -157,7 +157,7 @@ export default {
   flex-direction: column;
   align-items: center;
 }
-.radar {
+.buttleradar {
   height: 50vh;
   width: 100%;
 }

@@ -107,4 +107,10 @@ export default {
   height: fit-content;
   grid-gap: 50px;
 }
+
+@media only screen and (max-width: 1000px) {
+  .dragons-container {
+    padding-top: 50px;
+  }
+}
 </style>
