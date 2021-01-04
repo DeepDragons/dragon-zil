@@ -2,6 +2,7 @@
   <div class="Card">
     <div class="Card-content">
       <img
+        :class="{ flip }"
         :src="imgSrc"
         @error="onError"
         onerror="this.onerror=null; this.src=''"
@@ -26,6 +27,10 @@ export default {
     stage: {
       type: Number,
       required: true
+    },
+    flip: {
+      type: Boolean,
+      required: false
     }
   },
   computed: {
@@ -46,6 +51,10 @@ export default {
 </script>
 
 <style>
+img.flip {
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+}
 .Card {
   flex: 0 0 auto;
   width: auto;

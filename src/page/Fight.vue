@@ -15,6 +15,7 @@
         />
       </div>
       <Card
+        flip
         :stage="1"
         :id="selected"
         @click="trySelectDragon"
@@ -43,12 +44,32 @@
       />
     </div>
   </Modal>
+  <Modal
+    title="Transaction error"
+    name="tx-error"
+  />
+  <Modal
+    title="Winner"
+    name="dragon-winner"
+  >
+    <div class="mydragons-wrapper">
+      <Card
+        class="dragon-card"
+        :stage="1"
+        :id="winnerID"
+      />
+    </div>
+  </Modal>
+  <Loader v-if="loader">
+    Confirmation...
+  </Loader>
 </template>
 
 <script>
 import MicroModal from 'micromodal'
 import Card from '@/components/Card'
 import Modal from '@/components/Modal'
+import Loader from '@/components/Loader'
 
 import ZilPayMixin from '@/mixins/zilpay'
 import RadarMixin from '@/mixins/radar'
@@ -58,12 +79,16 @@ export default {
   mixins: [RadarMixin, ZilPayMixin],
   components: {
     Card,
+    Loader,
     Modal
   },
   data() {
     return {
       selected: null,
       myDragons: [],
+      loader: false,
+      error: null,
+      winnerID: null,
       radarChartData: {
         labels: [],
         datasets: []
@@ -138,11 +163,44 @@ export default {
       this.myGens(myGens)
       this.printChart()
     },
-    onFight() {
+    async onFight() {
+      this.loader = true
       const id0 = this.tokenId
       const id1 = this.selected
 
-      this.__fightStart(id0, id1)
+      try {
+        const tx = await this.__fightStart(id0, id1)
+
+        const inter = setInterval(() => {
+          window
+            .zilPay
+            .blockchain
+            .getTransaction(tx.TranID)
+            .then((tx) => {
+              console.log(tx)
+              const { receipt } = tx
+
+              if (receipt && receipt.exceptions) {
+                this.error = 'Error threw transactions'
+                MicroModal.show('tx-error')
+              }
+
+              if (receipt && receipt.event_logs) {
+                const event = 'FightsResultsWinLose'
+                const foundEvent = receipt.event_logs.find((e) => e._eventname === event)
+                const foundWinner = foundEvent.params.find((p) => p.vname === 'token_id_winner')
+                this.winnerID = foundWinner.value
+                MicroModal.show('dragon-winner')
+              }
+
+              this.loader = false
+              clearInterval(inter)
+            })
+            .catch(() => null)
+        }, 10000)
+      } catch {
+        this.loader = false
+      }
     }
   },
   mounted() {
