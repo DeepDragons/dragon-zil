@@ -332,14 +332,15 @@ export default {
           {
             vname: 'who_id',
             type: 'Uint256',
-            value: String(id0)
+            value: String(id1)
           },
           {
             vname: 'with_id',
             type: 'Uint256',
-            value: String(id1)
+            value: String(id0)
           }
-        ],        {
+        ],
+        {
           amount,
           gasPrice,
           gasLimit: utils.Long.fromNumber(gasLimit)

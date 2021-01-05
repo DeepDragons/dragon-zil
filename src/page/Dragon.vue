@@ -25,6 +25,7 @@
       </button>
       <button
         class="nav_btn w-button top-btn"
+        :disabled="stage < 1"
         @click="placeToWaitList"
       >
         fight
