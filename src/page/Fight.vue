@@ -219,6 +219,7 @@ export default {
 }
 .buttleradar-001 {
   width: 100%;
+  margin-bottom: 200px;
   max-width: 450px;
   max-height: 450px;
 }
