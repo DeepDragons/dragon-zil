@@ -25,7 +25,7 @@
       <canvas
         id="combatRadar"
         :width="width"
-        height="410"
+        :height="410"
       />
     </div>
   </div>
