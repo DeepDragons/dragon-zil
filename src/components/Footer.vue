@@ -37,6 +37,13 @@
           Contract CrowdSale
         </a>
         <a
+          href="https://viewblock.io/zilliqa/address/zil1qvjkueduc4rvpa78y6devycsfhsyl3c5x6dqst?network=mainnet&tab=code"
+          class="footer_link"
+          target="_blank"
+        >
+          Contract Fight
+        </a>
+        <a
           href="https://viewblock.io/zilliqa/address/zil1apmtzy4x9729fp8du8euehttptr08yuzamfy9f"
           class="footer_link"
           target="_blank"

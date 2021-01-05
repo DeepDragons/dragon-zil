@@ -3,10 +3,10 @@ import MicroModal from 'micromodal'
 export default {
   data() {
     return {
-      __netwrok: 'testnet',
-      __crowdSale: '0xb66f0e9b6601b6b5ec13d8ee77002aa79b5618e0',
-      __DragonZIL: '0xf5fad4a00d029fcffdd3ba262799f7fc71d64890',
-      __FightPlace: '0xb18f03c9B1F23Dd0320f17F0c105392593F9ceEd'
+      __netwrok: 'mainnet',
+      __crowdSale: 'zil15ks9t9ve0fp3de06w0aaum3yqz9a39jnzgalet',
+      __DragonZIL: 'zil1apmtzy4x9729fp8du8euehttptr08yuzamfy9f',
+      __FightPlace: 'zil1qvjkueduc4rvpa78y6devycsfhsyl3c5x6dqst'
     }
   },
   methods: {
