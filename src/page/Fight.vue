@@ -21,7 +21,7 @@
         @click="trySelectDragon"
       />
     </div>
-    <div class="buttleradar">
+    <div class="buttleradar-001">
       <canvas
         id="combatRadar"
         :width="width"
@@ -217,8 +217,7 @@ export default {
   flex-direction: column;
   align-items: center;
 }
-.buttleradar {
-  height: 50vh;
+.buttleradar-001 {
   width: 100%;
 }
 .fights-wrapper {
