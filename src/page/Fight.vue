@@ -24,8 +24,8 @@
     <div class="buttleradar-001">
       <canvas
         id="combatRadar"
-        :width="410"
-        :height="410"
+        :width="width"
+        height="410"
       />
     </div>
   </div>
@@ -219,6 +219,8 @@ export default {
 }
 .buttleradar-001 {
   width: 100%;
+  max-width: 450px;
+  max-height: 450px;
 }
 .fights-wrapper {
   padding: 100px;
