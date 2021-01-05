@@ -24,7 +24,7 @@
     <div class="buttleradar-001">
       <canvas
         id="combatRadar"
-        :width="width"
+        :width="410"
         :height="410"
       />
     </div>
