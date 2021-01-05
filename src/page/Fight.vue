@@ -53,11 +53,13 @@
     name="dragon-winner"
   >
     <div class="mydragons-wrapper">
-      <Card
-        class="dragon-card"
-        :stage="1"
-        :id="winnerID"
-      />
+      <router-link :to="{ name: 'Dragon', params: { id: winnerID, stage: 1 } }">
+        <Card
+          class="dragon-card"
+          :stage="1"
+          :id="winnerID"
+        />
+      </router-link>
     </div>
   </Modal>
   <Loader v-if="loader">
