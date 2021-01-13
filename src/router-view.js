@@ -7,6 +7,8 @@ import Dragon from './page/Dragon'
 import Fights from './page/Fights'
 import Fight from './page/Fight'
 import NotFound from './page/404'
+import ZLPStore from './page/ZLPStore'
+import Credits from './page/Credits'
 
 const routes = [
   {
@@ -18,6 +20,16 @@ const routes = [
     path: '/buy',
     name: 'Buy',
     component: Buy
+  },
+  {
+    path: '/store',
+    name: 'Store',
+    component: ZLPStore
+  },
+  {
+    path: '/credits',
+    name: 'Credits',
+    component: Credits
   },
   {
     path: '/dragons',

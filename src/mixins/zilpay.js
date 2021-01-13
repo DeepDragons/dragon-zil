@@ -1,12 +1,18 @@
 import MicroModal from 'micromodal'
-
+// __crowdSale: 'zil15ks9t9ve0fp3de06w0aaum3yqz9a39jnzgalet',
+// __DragonZIL: 'zil1apmtzy4x9729fp8du8euehttptr08yuzamfy9f',
+// __FightPlace: 'zil1qvjkueduc4rvpa78y6devycsfhsyl3c5x6dqst',
 export default {
   data() {
     return {
-      __netwrok: 'mainnet',
-      __crowdSale: 'zil15ks9t9ve0fp3de06w0aaum3yqz9a39jnzgalet',
-      __DragonZIL: 'zil1apmtzy4x9729fp8du8euehttptr08yuzamfy9f',
-      __FightPlace: 'zil1qvjkueduc4rvpa78y6devycsfhsyl3c5x6dqst'
+      __netwrok: 'testnet',
+      __crowdSale: '',
+      __DragonZIL: '0x23f798775ebb21b2ab7c084bdf801960a0b89370',
+      __FightPlace: '0xcec71110893b3c90cddb93c80ffde0a445a64558',
+      __CrowdSaleForZLP: '0xcd7bdc3dd91f12c16c3e9dd5b3aa38f97f686c16',
+      __GenLab: '0x027cd20d9783b861763bcb6992658ad24320e436',
+      __ZLPStore: '0xf3d9a463f586260f1fcd57b96fd13d2ef8189d8a',
+      __ZLP: '0x391d69526c78d0a2d2f51406dbb7ecdb965512a9'
     }
   },
   methods: {
@@ -390,6 +396,89 @@ export default {
       } catch (err) {
         return {}
       }
+    },
+    async __getZLPBalance() {
+      const zilPay = await this.__getZilPay()
+      const isNet = await this.__net()
+
+      if (!isNet) {
+        return false
+      }
+
+      const { base16 } = zilPay.wallet.defaultAccount
+      const address = String(base16).toLowerCase()
+      const field = 'balances';
+      const { result } = await zilPay
+        .blockchain
+        .getSmartContractSubState(this.__ZLP, field, [address])
+
+      if (!result || !result[field] || !result[field][address]) {
+        return '0'
+      }
+
+      try {
+        return result[field][address]
+      } catch (err) {
+        return '0'
+      }
+    },
+    async __getStorebalance() {
+      const zilPay = await this.__getZilPay()
+      const isNet = await this.__net()
+
+      if (!isNet) {
+        return false
+      }
+
+      const { base16 } = zilPay.wallet.defaultAccount
+      const address = String(base16).toLowerCase()
+      const field = 'address_ZLP_balance';
+      const { result } = await zilPay
+        .blockchain
+        .getSmartContractSubState(this.__ZLPStore, field, [address])
+
+      if (!result || !result[field] || !result[field][address]) {
+        return '0'
+      }
+
+      try {
+        return result[field][address]
+      } catch (err) {
+        return '0'
+      }
+    },
+    async __buyCreadits(zlpAmount) {
+      const zilPay = await this.__getZilPay()
+      const { contracts, utils } = zilPay
+      const contract = contracts.at(this.__ZLP)
+      const amount = utils.units.toQa('0', utils.units.Units.Zil)
+      const gasPrice = utils.units.toQa('2000', utils.units.Units.Li)
+      const isNet = await this.__net()
+
+      if (!isNet) {
+        return false
+      }
+
+      return await contract.call(
+        'Transfer',
+        [
+          {
+            vname: 'to',
+            type: 'ByStr20',
+            value: this.__ZLPStore
+          },
+          {
+            vname: 'amount',
+            type: 'Uint128',
+            value: zlpAmount
+          }
+        ],
+        {
+          amount,
+          gasPrice,
+          gasLimit: utils.Long.fromNumber(5000)
+        }
+      )
     },
     __trim(string, length = 6) {
       if (!string) {

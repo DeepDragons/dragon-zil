@@ -1,5 +1,4 @@
 import Chart from 'chart.js'
-import BN from 'bn.js'
 
 var defaultOptions = {
   legend: {
@@ -62,13 +61,10 @@ export default {
       return dataset
     },
     __genParse(_genNumber) {
-      let gens = '0x' + new BN(_genNumber).toString('hex')
+      let gens = String(_genNumber).split(/(..)/g);
+      gens = gens.filter(el => !isNaN(el) && el !== '').map(el => Number(el));
 
-      gens = gens.split(/(..)/g);
-      gens = gens.map(el => parseInt(el, 16));
-      gens = gens.filter(el => !isNaN(el));
-
-      return gens;
+      return gens.reverse();
     }
   }
 }

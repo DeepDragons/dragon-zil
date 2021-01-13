@@ -47,6 +47,12 @@
             Buy
           </router-link>
           <router-link
+            to="/store"
+            class="nav_link w-nav-link"
+          >
+            ZLPStore
+          </router-link>
+          <router-link
             to="/dragons"
             class="nav_link w-nav-link"
           >
@@ -59,18 +65,26 @@
             Fights
           </router-link>
           <router-link
-            to="/"
-            class="nav_link w-nav-link disabled"
+            to="/gen-lab"
+            class="nav_link w-nav-link"
           >
             Gen Lab
           </router-link>
         </div>
-        <a
-          class="nav_btn w-button"
-          @click="connect"
-        >
-          {{ address }}
-        </a>
+        <div class="nav-buttons-wrapper">
+          <a
+            class="nav_btn w-button"
+            @click="connect"
+          >
+            {{ address }}
+          </a>
+          <router-link
+            to="/credits"
+            class="nav_btn w-button"
+          >
+            {{ zlps }} Credits
+          </router-link>
+        </div>
       </div>
     </nav>
     <Modal
@@ -129,7 +143,8 @@ export default {
   data() {
     return {
       address: 'wallet connect',
-      isShow: false
+      isShow: false,
+      zlps: 0
     }
   },
   methods: {
@@ -152,6 +167,15 @@ export default {
           })
       } catch (err) {
         console.error(err)
+      }
+
+      const zlps = await this.__getStorebalance()
+      const _zlps = Number(zlps) / 1000000000000000000
+      
+      if (_zlps < 1) {
+        this.zlps = _zlps.toFixed(13)
+      } else {
+        this.zlps = _zlps.toLocaleString()
       }
     }
   },
@@ -191,5 +215,14 @@ export default {
 }
 .info > span {
   color: #e83e8c;
+}
+.nav-buttons-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.nav-buttons-wrapper > .nav_btn {
+  margin-left: 5px;
 }
 </style>

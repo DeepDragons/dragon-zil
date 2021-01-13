@@ -179,7 +179,6 @@ export default {
             .blockchain
             .getTransaction(tx.TranID)
             .then((tx) => {
-              console.log(tx)
               const { receipt } = tx
 
               if (receipt && receipt.exceptions) {
