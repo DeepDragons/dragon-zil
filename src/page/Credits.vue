@@ -113,6 +113,10 @@ export default {
 
               if (receipt && receipt.exceptions) {
                 MicroModal.show('buy-error')
+                this.loader = false
+                clearInterval(inter)
+
+                return null
               }
 
               if (receipt) {

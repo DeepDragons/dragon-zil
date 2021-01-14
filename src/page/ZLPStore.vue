@@ -1,30 +1,24 @@
 <template>
   <div class="container buy-page">
     <div class="container0">
+      <div class="illustration">
+        <span class="shadow" />
+        <img
+          src="/images/buy-egg-q.png"
+          alt="egg"
+          class="egg"
+        >
+      </div>
       <form>
         <h2 class="title purple uppercase center">
           <span class="yelow">
-            432423
+            {{ zlps }}
           </span>
           Credits
         </h2>
         <hr>
-        <h3 class="title pink">
-          ZLP Price
-        </h3>
-        <br>
-        <p class="egg-price purple">
-          Price of last egg: 333 <span class="yelow">ZLP</span>
-        </p>
-        <p class="egg-price purple">
-          Price of next egg: 334 <span class="yelow">ZLP</span>
-        </p>
-        <p class="cost purple">
-          The cost of each new egg will be increased by: 0.002 <span class="yelow">ZLP</span>
-        </p>
-        <hr>
         <h3 class="purple">
-          Current Price: 335 <span class="yelow">ZIL</span>
+          Current Price: {{ onePrice }} <span class="yelow">Credits</span>
         </h3>
         <br>
         <div class="form">
@@ -42,9 +36,9 @@
             <label class="input-label pink">
               <input
                 v-model="amount"
-                :step="amountStep"
-                :min="amountStep"
-                :max="amountStep * 10"
+                :step="onePrice"
+                :min="onePrice"
+                :max="onePrice * 15"
                 type="number"
               >
               Price
@@ -60,11 +54,120 @@
       </form>
     </div>
   </div>
+  <Modal
+    title="Bought Eggs"
+    name="bought-eggs"
+  >
+    <p class="purple Credits_p">
+      You have just bought {{ count }} <span>Eggs</span>
+    </p>
+  </Modal>
+  <Modal
+    title="Transaction error"
+    name="tx-error"
+  />
+  <Modal
+    title="Fail buy"
+    name="buy-egg-error"
+  >
+    <p class="danger Credits_p">
+      Your transaction has failed
+    </p>
+  </Modal>
+  <Loader v-if="loader">
+    Confirmation...
+  </Loader>
 </template>
 
 <script>
+import MicroModal from 'micromodal'
+import ZilPayMixin from '@/mixins/zilpay'
+import Loader from '@/components/Loader'
+import Modal from '@/components/Modal'
+
 export default {
-  name: 'ZLPStore'
+  name: 'ZLPStore',
+  mixins: [ZilPayMixin],
+  components: {
+    Modal,
+    Loader
+  },
+  data() {
+    return {
+      loader: false,
+      onePrice: 0,
+      count: 0,
+      amount: 0,
+      zlps: 0
+    }
+  },
+  methods: {
+    async updatePrice() {
+      const price = await this.__getZLPDragonPrice()
+
+      this.onePrice = price / (10**18)
+      this.amount = this.onePrice
+      this.count = 1
+    },
+    async updateCredits() {
+      const zlps = await this.__getStorebalance()
+      const _zlps = Number(zlps) / 1000000000000000000
+      
+      if (_zlps < 1) {
+        this.zlps = _zlps.toFixed(13)
+      } else {
+        this.zlps = _zlps.toLocaleString()
+      }
+    },
+    async buy() {
+      this.loader = true
+      try {
+        const tx = await this.__buyForZLP(this.count)
+
+        const inter = setInterval(() => {
+          window
+            .zilPay
+            .blockchain
+            .getTransaction(tx.TranID)
+            .then((tx) => {
+              const { receipt } = tx
+
+              if (receipt && receipt.exceptions) {
+                MicroModal.show('buy-egg-error')
+                this.loader = false
+                clearInterval(inter)
+                return null
+              }
+
+              if (receipt) {
+                MicroModal.show('bought-eggs')
+                this.updateCredits()
+              }
+
+              this.loader = false
+              clearInterval(inter)
+            })
+            .catch(() => null)
+        }, 10000)
+      } catch {
+        this.loader = false
+      }
+    }
+  },
+  watch: {
+    amount: function(newValue) {
+      if (newValue) {
+        this.count = Number(newValue) / Number(this.onePrice)
+      }
+    },
+    count: function(newValue) {
+      this.amount = Number(newValue) * Number(this.onePrice)
+    }
+  },
+  mounted() {
+    this.updatePrice()
+    this.updateCredits()
+  }
 }
 </script>
 

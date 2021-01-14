@@ -480,6 +480,51 @@ export default {
         }
       )
     },
+    async __getZLPDragonPrice() {
+      const zilPay = await this.__getZilPay()
+      const field = 'current_price'
+
+      await this.__connect()
+      const isNet = await this.__net()
+
+      if (!isNet) {
+        return false
+      }
+
+      const { result } = await zilPay
+        .blockchain
+        .getSmartContractSubState(this.__CrowdSaleForZLP, field)
+
+      return result[field]
+    },
+    async __buyForZLP(count) {
+      const zilPay = await this.__getZilPay()
+      const { contracts, utils } = zilPay
+      const contract = contracts.at(this.__CrowdSaleForZLP)
+      const amount = utils.units.toQa('0', utils.units.Units.Zil)
+      const gasPrice = utils.units.toQa('2000', utils.units.Units.Li)
+      const isNet = await this.__net()
+
+      if (!isNet) {
+        return false
+      }
+
+      return await contract.call(
+        'BuyForZLP',
+        [
+          {
+            vname: 'amount',
+            type: 'Uint32',
+            value: String(count)
+          }
+        ],
+        {
+          amount,
+          gasPrice,
+          gasLimit: utils.Long.fromNumber(9000)
+        }
+      )
+    },
     __trim(string, length = 6) {
       if (!string) {
         return null
