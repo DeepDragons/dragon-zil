@@ -481,6 +481,36 @@ export default {
         }
       )
     },
+    async __withdrawCreadits() {
+      const zilPay = await this.__getZilPay()
+      const { contracts, utils } = zilPay
+      const contract = contracts.at(this.__ZLPStore)
+      const amount = utils.units.toQa('0', utils.units.Units.Zil)
+      const gasPrice = utils.units.toQa('2000', utils.units.Units.Li)
+      const isNet = await this.__net()
+
+      if (!isNet) {
+        return false
+      }
+
+      const { base16 } = zilPay.wallet.defaultAccount
+
+      return await contract.call(
+        'WithdrawZLP',
+        [
+          {
+            vname: 'to',
+            type: 'ByStr20',
+            value: base16
+          }
+        ],
+        {
+          amount,
+          gasPrice,
+          gasLimit: utils.Long.fromNumber(5000)
+        }
+      )
+    },
     async __getZLPDragonPrice() {
       const zilPay = await this.__getZilPay()
       const field = 'current_price'

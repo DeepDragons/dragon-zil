@@ -19,20 +19,22 @@
           min="1"
           type="number"
         >
-        Amount ZLP
+        Amount
       </label>
-      <a
-        class="nav_btn w-button buy Credits_Button"
-        @click="buy"
-      >
-        Transfer
-      </a>
-      <a
-        class="nav_btn w-button buy Credits_Button"
-        @click="buy"
-      >
-        Wisdraw
-      </a>
+      <div class="Credits__buttons">
+        <a
+          class="nav_btn w-button buy Credits_Button"
+          @click="buy"
+        >
+          Transfer
+        </a>
+        <a
+          class="nav_btn w-button buy Credits_Button"
+          @click="withdraw"
+        >
+          Withdraw all
+        </a>
+      </div>
     </form>
   </div>
   <Modal
@@ -139,6 +141,9 @@ export default {
       } catch {
         this.loader = false
       }
+    },
+    async withdraw() {
+      await this.__withdrawCreadits()
     }
   },
   mounted() {
@@ -162,7 +167,10 @@ export default {
 
   height: 80vh;
 }
-
+.Credits__buttons {
+  display: flex;
+  justify-content: space-between;
+}
 .Credits__form {
   display: flex;
   flex-direction: column;
