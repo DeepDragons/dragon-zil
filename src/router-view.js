@@ -9,6 +9,7 @@ import Fight from './page/Fight'
 import NotFound from './page/404'
 import ZLPStore from './page/ZLPStore'
 import Credits from './page/Credits'
+import GenLab from './page/GenLab'
 
 const routes = [
   {
@@ -20,6 +21,11 @@ const routes = [
     path: '/buy',
     name: 'Buy',
     component: Buy
+  },
+  {
+    path: '/gen-lab/:id',
+    name: 'GenLab',
+    component: GenLab
   },
   {
     path: '/store',

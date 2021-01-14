@@ -28,8 +28,15 @@
         :disabled="stage < 1"
         @click="placeToWaitList"
       >
-        fight
+        To Arena
       </button>
+      <router-link
+        v-show="stage >= 1"
+        class="nav_btn w-button top-btn Dragon__gens"
+        :to="{ name: 'GenLab', params: { id: tokenId } }"
+      >
+        GenLab
+      </router-link>
     </div>
     <div class="token-des">
       <p>
@@ -311,7 +318,24 @@ export default {
 .recipient, .dis {
   color: #8973d7;
 }
-
+.Dragon__gens {
+  border-color: rgb(32, 201, 151);
+  background-color: transparent;
+  color: rgb(32, 201, 151);
+  background-position: 0 -85px;
+  padding-left: 44px;
+  background-image: url(/img/icons.svg);
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  height: 40px;
+}
+.Dragon__gens:hover {
+  border-color: rgb(32, 201, 151);
+  background-color: rgb(32, 201, 151);
+  box-shadow: 0 16px 23px -13px rgb(32, 201, 151);
+  color: #fff;
+}
 .recipient > input{
   padding: 10px 19px;
   align-self: center;

@@ -64,7 +64,7 @@ export default {
       let gens = String(_genNumber).split(/(..)/g);
       gens = gens.filter(el => !isNaN(el) && el !== '').map(el => Number(el));
 
-      return gens.reverse();
+      return gens.reverse().slice(0, 21);
     }
   }
 }

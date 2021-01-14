@@ -25,7 +25,13 @@
         class="nav_btn w-button buy Credits_Button"
         @click="buy"
       >
-        Buy
+        Transfer
+      </a>
+      <a
+        class="nav_btn w-button buy Credits_Button"
+        @click="buy"
+      >
+        Wisdraw
       </a>
     </form>
   </div>

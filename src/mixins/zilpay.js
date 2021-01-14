@@ -1,4 +1,5 @@
 import MicroModal from 'micromodal'
+import BN from 'bn.js'
 // __crowdSale: 'zil15ks9t9ve0fp3de06w0aaum3yqz9a39jnzgalet',
 // __DragonZIL: 'zil1apmtzy4x9729fp8du8euehttptr08yuzamfy9f',
 // __FightPlace: 'zil1qvjkueduc4rvpa78y6devycsfhsyl3c5x6dqst',
@@ -522,6 +523,91 @@ export default {
           amount,
           gasPrice,
           gasLimit: utils.Long.fromNumber(9000)
+        }
+      )
+    },
+    async __getGenPrice(id) {
+      const zilPay = await this.__getZilPay()
+      const field0 = 'price_multiplicator'
+      const field1 = 'start_price'
+      const field2 = 'use_count'
+
+      await this.__connect()
+      const isNet = await this.__net()
+
+      if (!isNet) {
+        return false
+      }
+
+      const getPriceMultiplicator = async () => {
+        const { result } = await zilPay
+          .blockchain
+          .getSmartContractSubState(this.__GenLab, field0)
+
+        return result[field0]
+      }
+      const getStartPrice = async () => {
+        const { result } = await zilPay
+          .blockchain
+          .getSmartContractSubState(this.__GenLab, field1)
+
+        return result[field1]
+      }
+      const getUseCount = async () => {
+        const { result } = await zilPay
+          .blockchain
+          .getSmartContractSubState(this.__GenLab, field2, [String(id)])
+
+        return result[field2][String(id)]
+      }
+      const [priceMultiplicator, startPrice, useCount] = await Promise.all([
+        getPriceMultiplicator(),
+        getStartPrice(),
+        getUseCount()
+      ])
+      const _priceMultiplicator = new BN(priceMultiplicator)
+      const _startPrice = new BN(startPrice)
+      const _useCount = new BN(useCount)
+      const _multiplicator = _priceMultiplicator.pow(_useCount)
+      const _amount = _startPrice.mul(_multiplicator)
+
+      return String(_amount)
+    },
+    async __changeGen(genNum, tokenID) {
+      const zilPay = await this.__getZilPay()
+      const { contracts, utils } = zilPay
+      const contract = contracts.at(this.__GenLab)
+      const amount = utils.units.toQa('0', utils.units.Units.Zil)
+      const gasPrice = utils.units.toQa('2000', utils.units.Units.Li)
+      const isNet = await this.__net()
+
+      if (!isNet) {
+        return false
+      }
+
+      return await contract.call(
+        'ChangeGen',
+        [
+          {
+            vname: 'token_id',
+            type: 'Uint256',
+            value: String(tokenID)
+          },
+          {
+            vname: 'gen_num',
+            type: 'Uint256',
+            value: String(genNum)
+          },
+          {
+            vname: 'new_value',
+            type: 'Uint256',
+            value: String(99)
+          }
+        ],
+        {
+          amount,
+          gasPrice,
+          gasLimit: utils.Long.fromNumber(5000)
         }
       )
     },

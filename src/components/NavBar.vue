@@ -64,12 +64,6 @@
           >
             Fights
           </router-link>
-          <router-link
-            to="/gen-lab"
-            class="nav_link w-nav-link"
-          >
-            Gen Lab
-          </router-link>
         </div>
         <div class="nav-buttons-wrapper">
           <a
@@ -80,7 +74,7 @@
           </a>
           <router-link
             to="/credits"
-            class="nav_btn w-button"
+            class="nav_btn w-button credits__btn"
           >
             {{ zlps }} Credits
           </router-link>
@@ -224,5 +218,15 @@ export default {
 }
 .nav-buttons-wrapper > .nav_btn {
   margin-left: 5px;
+}
+.credits__btn {
+  color: #7F3BD6;
+  border-color: #7F3BD6;
+}
+.credits__btn:hover {
+  color: #fff;
+  background-color: #7F3BD6;
+  border-color: #7F3BD6;
+  box-shadow: 0 16px 23px -13px #7F3BD6;
 }
 </style>
