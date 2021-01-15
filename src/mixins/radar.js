@@ -20,8 +20,8 @@ export default {
   },
   computed: {
     __combatGensLabels() {
-      let amountAttackGens = 16
-      let amountAllGens = 32
+      let amountAttackGens = 10
+      let amountAllGens = 21
       let array = []
 
       for (let index = 0; index < amountAllGens; index++) {
