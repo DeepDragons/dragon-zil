@@ -51,7 +51,7 @@
           Contract DragonZIL
         </a>
         <a
-          href="https://viewblock.io/zilliqa/address/zil14ngrk64zvrzfxu8v3tglevmr0evlghdly0pwp4"
+          href="https://viewblock.io/zilliqa/address/0x6eF3Fc25dDB5E5c28C6d7C7B03c1081d3eb65C49"
           class="footer_link"
           target="_blank"
         >
