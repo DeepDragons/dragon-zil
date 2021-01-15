@@ -1,19 +1,17 @@
 import MicroModal from 'micromodal'
 import BN from 'bn.js'
-// __crowdSale: 'zil15ks9t9ve0fp3de06w0aaum3yqz9a39jnzgalet',
-// __DragonZIL: 'zil1apmtzy4x9729fp8du8euehttptr08yuzamfy9f',
-// __FightPlace: 'zil1qvjkueduc4rvpa78y6devycsfhsyl3c5x6dqst',
+
 export default {
   data() {
     return {
-      __netwrok: 'testnet',
-      __crowdSale: '',
-      __DragonZIL: '0x23f798775ebb21b2ab7c084bdf801960a0b89370',
-      __FightPlace: '0xcec71110893b3c90cddb93c80ffde0a445a64558',
-      __CrowdSaleForZLP: '0xcd7bdc3dd91f12c16c3e9dd5b3aa38f97f686c16',
-      __GenLab: '0x027cd20d9783b861763bcb6992658ad24320e436',
-      __ZLPStore: '0xf3d9a463f586260f1fcd57b96fd13d2ef8189d8a',
-      __ZLP: '0x391d69526c78d0a2d2f51406dbb7ecdb965512a9'
+      __netwrok: 'mainnet',
+      __crowdSale: '0xA5A05595997A4316e5fA73fbde6e24008Bd89653',
+      __DragonZIL: '0xe876b112A62f945484edE1f3cCdd6B0ac6F39382',
+      __FightPlace: '0x03256e65Bcc546C0f7c7269B9613104De04fc714',
+      __CrowdSaleForZLP: '0xb8E84fafE723140037b12e5783f6f91304dDa713',
+      __GenLab: '0xacd03b6aa260c49370ec8ad1FCB3637E59f45DBF',
+      __ZLPStore: '0x485b83D3b6903c33dFEEBbb929F3fF7edE6682EA',
+      __ZLP: '0xfbd07e692543d3064B9CF570b27faaBfd7948DA4'
     }
   },
   methods: {

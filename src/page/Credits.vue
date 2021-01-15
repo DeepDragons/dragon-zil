@@ -96,11 +96,7 @@ export default {
       const zlps = await this.__getStorebalance();
       const _zlps = Number(zlps) / 1000000000000000000
 
-      if (_zlps < 1) {
-        this.credits = _zlps.toFixed(13)
-      } else {
-        this.credits = _zlps.toLocaleString()
-      }
+      this.credits = _zlps.toLocaleString()
     },
     async buy() {
       this.loader = true
