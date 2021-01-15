@@ -50,6 +50,27 @@
         >
           Contract DragonZIL
         </a>
+        <a
+          href="https://viewblock.io/zilliqa/address/zil14ngrk64zvrzfxu8v3tglevmr0evlghdly0pwp4"
+          class="footer_link"
+          target="_blank"
+        >
+          GenLab
+        </a>
+        <a
+          href="https://viewblock.io/zilliqa/address/zil1fpdc85akjq7r8hlwhwujnull0m0xdqh2hd2xw6"
+          class="footer_link"
+          target="_blank"
+        >
+          StoreZLP
+        </a>
+        <a
+          href="https://viewblock.io/zilliqa/address/zil1hr5yltl8yv2qqda39etc8ahezvzdmfcnfscrl9"
+          class="footer_link"
+          target="_blank"
+        >
+          CrowdSaleZLP
+        </a>
       </div>
       <div class="div-block-3">
         <div class="social_links">
