@@ -586,13 +586,18 @@ export default {
           .blockchain
           .getSmartContractSubState(this.__GenLab, field2, [String(id)])
 
-        return result[field2][String(id)]
+          if (result && result[field2] && result[field2][String(id)]) {
+          return result[field2][String(id)]
+        }
+
+        return '1'
       }
       const [priceMultiplicator, startPrice, useCount] = await Promise.all([
         getPriceMultiplicator(),
         getStartPrice(),
         getUseCount()
       ])
+      console.log(priceMultiplicator, startPrice,useCount )
       const _priceMultiplicator = new BN(priceMultiplicator)
       const _startPrice = new BN(startPrice)
       const _useCount = new BN(useCount)
