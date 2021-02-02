@@ -5,15 +5,12 @@
         :stage="1"
         :id="tokenId"
       />
-      <div
+      <img
         v-show="selected"
-        class="b-menu__item"
+        class="heart-button"
+        src="/img/heart.svg"
+        @click="onBreed"
       >
-        <span
-          class="b-menu__item-icon"
-          @click="onFight"
-        />
-      </div>
       <Card
         flip
         :stage="1"
@@ -24,7 +21,7 @@
     <div class="buttleradar-001">
       <canvas
         id="combatRadar"
-        :width="width"
+        :width="320"
         height="410"
       />
     </div>
@@ -48,20 +45,6 @@
     title="Transaction error"
     name="tx-error"
   />
-  <Modal
-    title="Winner"
-    name="dragon-winner"
-  >
-    <div class="mydragons-wrapper">
-      <router-link :to="{ name: 'Dragon', params: { id: winnerID, stage: 1 } }">
-        <Card
-          class="dragon-card"
-          :stage="1"
-          :id="winnerID"
-        />
-      </router-link>
-    </div>
-  </Modal>
   <Loader v-if="loader">
     Confirmation...
   </Loader>
@@ -164,13 +147,13 @@ export default {
       this.myGens(myGens)
       this.printChart()
     },
-    async onFight() {
+    async onBreed() {
       this.loader = true
       const id0 = this.tokenId
       const id1 = this.selected
 
       try {
-        const tx = await this.__fightStart(id0, id1)
+        const tx = await this.__breedStart(id1, id0)
 
         const inter = setInterval(() => {
           window
@@ -178,19 +161,23 @@ export default {
             .blockchain
             .getTransaction(tx.TranID)
             .then((tx) => {
-              const { receipt } = tx
+              console.log(tx)
 
-              if (receipt && receipt.exceptions) {
-                this.error = 'Error threw transactions'
-                MicroModal.show('tx-error')
-              }
+              try {
+                if (tx.eventLogs && tx.eventLogs.length === 4) {
+                  const found = tx.eventLogs.find((e) => e._eventname === 'BirthSuccess')
+                  const tokenID = found.params[2].value
 
-              if (receipt && receipt.event_logs) {
-                const event = 'FightsResultsWinLose'
-                const foundEvent = receipt.event_logs.find((e) => e._eventname === event)
-                const foundWinner = foundEvent.params.find((p) => p.vname === 'token_id_winner')
-                this.winnerID = foundWinner.value
-                MicroModal.show('dragon-winner')
+                  this.$router.push({
+                    name: 'Dragon',
+                    params: {
+                      id: tokenID,
+                      stage: 0
+                    }
+                  })
+                }
+              } catch {
+                //
               }
 
               this.loader = false
@@ -210,6 +197,16 @@ export default {
 </script>
 
 <style>
+.heart-button {
+  cursor: pointer;
+  width: 150px;
+  height: 150px;
+  transition: all 0.2s ease-out;
+}
+.heart-button:hover {
+  width: 190px;
+  height: 190px;
+}
 .breed-page {
   display: flex;
   flex-direction: column;

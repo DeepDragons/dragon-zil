@@ -721,6 +721,39 @@ export default {
         }
       )
     },
+    async __breedStart(firstID, secondID) {
+      const zilPay = await this.__getZilPay()
+      const { contracts, utils } = zilPay
+      const contract = contracts.at(this.__BreedPlace)
+      const amount = utils.units.toQa('0', utils.units.Units.Zil)
+      const gasPrice = utils.units.toQa('2000', utils.units.Units.Li)
+      const isNet = await this.__net()
+
+      if (!isNet) {
+        return false
+      }
+
+      return await contract.call(
+        'BreedStart',
+        [
+          {
+            vname: 'who_id',
+            type: 'Uint256',
+            value: String(firstID)
+          },
+          {
+            vname: 'with_id',
+            type: 'Uint256',
+            value: String(secondID)
+          }
+        ],
+        {
+          amount,
+          gasPrice,
+          gasLimit: utils.Long.fromNumber(25000)
+        }
+      )
+    },
     __trim(string, length = 6) {
       if (!string) {
         return null
