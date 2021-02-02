@@ -161,8 +161,6 @@ export default {
             .blockchain
             .getTransaction(tx.TranID)
             .then((tx) => {
-              console.log(tx)
-
               try {
                 if (tx.eventLogs && tx.eventLogs.length === 4) {
                   const found = tx.eventLogs.find((e) => e._eventname === 'BirthSuccess')
