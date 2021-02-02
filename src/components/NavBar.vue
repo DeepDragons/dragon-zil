@@ -64,6 +64,12 @@
           >
             Fights
           </router-link>
+          <router-link
+            to="/breeding"
+            class="nav_link w-nav-link"
+          >
+            Breed
+          </router-link>
         </div>
         <div class="nav-buttons-wrapper">
           <a

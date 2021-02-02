@@ -10,7 +10,7 @@
       >
     </div>
     <p class="card-title logo_text">
-      #{{ id }}
+      #{{ id }} <slot />
     </p>
   </div>
 </template>

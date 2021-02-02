@@ -40,5 +40,7 @@ export default {
 </script>
 
 <style>
-
+a {
+  color: transparent;
+}
 </style>
