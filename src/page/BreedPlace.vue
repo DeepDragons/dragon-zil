@@ -12,7 +12,7 @@
       <router-link
         v-for="(item) of keys"
         :key="item"
-        :to="{ name: 'Dragon', params: { id: item, stage: list[item] } }"
+        :to="{ name: 'Breed', params: { id: item } }"
       >
         <Card
           :stage="Number(1)"

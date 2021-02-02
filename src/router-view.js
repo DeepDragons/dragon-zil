@@ -11,6 +11,7 @@ import ZLPStore from './page/ZLPStore'
 import Credits from './page/Credits'
 import GenLab from './page/GenLab'
 import BreedPlace from './page/BreedPlace'
+import Breed from './page/Breed'
 
 const routes = [
   {
@@ -37,6 +38,11 @@ const routes = [
     path: '/breeding',
     name: 'BreedPlace',
     component: BreedPlace
+  },
+  {
+    path: '/breed/:id',
+    name: 'Breed',
+    component: Breed
   },
   {
     path: '/credits',
