@@ -220,11 +220,7 @@ export default {
     },
     async addToBreed() {
       const minPriceQA = await this.__getMinBreedPrice()
-      const _100 = new BN('100')
-      const _percent = new BN('10')
-      const _amount = new BN(minPriceQA)
-      const _value = _amount.div(_100).mul(_percent)
-      const minAmount = Number(_value.add(_amount)) / (10 ** 18)
+      const minAmount = Number(minPriceQA) / (10 ** 18)
 
       this.minZLPForBreed = minAmount
       this.breadAmount = minAmount

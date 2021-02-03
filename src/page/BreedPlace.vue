@@ -19,7 +19,7 @@
           :id="item"
         >
           <b class="breed-amount">
-            {{ Number(list[item]) / 1000000000000000000 }} <span>ZLP</span>
+            {{ (Number(list[item]) / 1000000000000000000).toFixed() }} <span>ZLP</span>
           </b>
         </Card>
       </router-link>
