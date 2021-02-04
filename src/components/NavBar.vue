@@ -78,12 +78,11 @@
           >
             {{ address }}
           </a>
-          <router-link
-            to="/credits"
+          <a
             class="nav_btn w-button credits__btn"
           >
-            {{ zlps }} Credits
-          </router-link>
+            {{ zlps }} ZLP
+          </a>
         </div>
       </div>
     </nav>
@@ -171,7 +170,7 @@ export default {
 
       const zlps = await this.__getStorebalance()
       const _zlps = Number(zlps) / 1000000000000000000
-      
+
       this.zlps = _zlps.toLocaleString()
     }
   },

@@ -9,9 +9,8 @@ export default {
       __crowdSale: '0xA5A05595997A4316e5fA73fbde6e24008Bd89653',
       __DragonZIL: '0xe876b112A62f945484edE1f3cCdd6B0ac6F39382',
       __FightPlace: '0x03256e65Bcc546C0f7c7269B9613104De04fc714',
-      __CrowdSaleForZLP: '0xb8E84fafE723140037b12e5783f6f91304dDa713',
+      __CrowdSaleForZLP: '0x6f2094d3fc4b08e0a19347e9501f675fd58c2192',
       __GenLab: '0x295dd4be95d74fae4a57bad437e7c0b9ed2b4e92',
-      __ZLPStore: '0x485b83D3b6903c33dFEEBbb929F3fF7edE6682EA',
       __ZLP: '0xfbd07e692543d3064B9CF570b27faaBfd7948DA4',
       __BreedPlace: '0x54848cfe974bb800c35913445fcfb2c7d2f56ace'
     }
@@ -433,10 +432,10 @@ export default {
 
       const { base16 } = zilPay.wallet.defaultAccount
       const address = String(base16).toLowerCase()
-      const field = 'address_ZLP_balance';
+      const field = 'balances';
       const { result } = await zilPay
         .blockchain
-        .getSmartContractSubState(this.__ZLPStore, field, [address])
+        .getSmartContractSubState(this.__ZLP, field, [address])
 
       if (!result || !result[field] || !result[field][address]) {
         return '0'
@@ -447,69 +446,6 @@ export default {
       } catch (err) {
         return '0'
       }
-    },
-    async __buyCreadits(zlpAmount) {
-      const zilPay = await this.__getZilPay()
-      const { contracts, utils } = zilPay
-      const contract = contracts.at(this.__ZLP)
-      const amount = utils.units.toQa('0', utils.units.Units.Zil)
-      const gasPrice = utils.units.toQa('2000', utils.units.Units.Li)
-      const isNet = await this.__net()
-
-      if (!isNet) {
-        return false
-      }
-
-      return await contract.call(
-        'Transfer',
-        [
-          {
-            vname: 'to',
-            type: 'ByStr20',
-            value: this.__ZLPStore
-          },
-          {
-            vname: 'amount',
-            type: 'Uint128',
-            value: zlpAmount
-          }
-        ],
-        {
-          amount,
-          gasPrice,
-          gasLimit: utils.Long.fromNumber(5000)
-        }
-      )
-    },
-    async __withdrawCreadits() {
-      const zilPay = await this.__getZilPay()
-      const { contracts, utils } = zilPay
-      const contract = contracts.at(this.__ZLPStore)
-      const amount = utils.units.toQa('0', utils.units.Units.Zil)
-      const gasPrice = utils.units.toQa('2000', utils.units.Units.Li)
-      const isNet = await this.__net()
-
-      if (!isNet) {
-        return false
-      }
-
-      const { base16 } = zilPay.wallet.defaultAccount
-
-      return await contract.call(
-        'WithdrawZLP',
-        [
-          {
-            vname: 'to',
-            type: 'ByStr20',
-            value: base16
-          }
-        ],
-        {
-          amount,
-          gasPrice,
-          gasLimit: utils.Long.fromNumber(5000)
-        }
-      )
     },
     async __getZLPDragonPrice() {
       const zilPay = await this.__getZilPay()

@@ -8,7 +8,6 @@ import Fights from './page/Fights'
 import Fight from './page/Fight'
 import NotFound from './page/404'
 import ZLPStore from './page/ZLPStore'
-import Credits from './page/Credits'
 import GenLab from './page/GenLab'
 import BreedPlace from './page/BreedPlace'
 import Breed from './page/Breed'
@@ -43,11 +42,6 @@ const routes = [
     path: '/breed/:id',
     name: 'Breed',
     component: Breed
-  },
-  {
-    path: '/credits',
-    name: 'Credits',
-    component: Credits
   },
   {
     path: '/dragons',

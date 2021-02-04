@@ -14,11 +14,11 @@
           <span class="yelow">
             {{ zlps }}
           </span>
-          Credits
+          ZLP
         </h2>
         <hr>
         <h3 class="purple">
-          Current Price: {{ onePrice }} <span class="yelow">Credits</span>
+          Current Price: {{ onePrice }} <span class="yelow">ZLP</span>
         </h3>
         <br>
         <div class="form">
