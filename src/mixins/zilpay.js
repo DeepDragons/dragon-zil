@@ -1,6 +1,7 @@
 import MicroModal from 'micromodal'
 import BN from 'bn.js'
 
+// proxyZLP 0xd45bf0a7fed8a9825517a3ef6f723a7619cb2435
 export default {
   data() {
     return {
@@ -9,7 +10,7 @@ export default {
       __DragonZIL: '0xe876b112A62f945484edE1f3cCdd6B0ac6F39382',
       __FightPlace: '0x03256e65Bcc546C0f7c7269B9613104De04fc714',
       __CrowdSaleForZLP: '0xb8E84fafE723140037b12e5783f6f91304dDa713',
-      __GenLab: '0x6eF3Fc25dDB5E5c28C6d7C7B03c1081d3eb65C49',
+      __GenLab: '0x295dd4be95d74fae4a57bad437e7c0b9ed2b4e92',
       __ZLPStore: '0x485b83D3b6903c33dFEEBbb929F3fF7edE6682EA',
       __ZLP: '0xfbd07e692543d3064B9CF570b27faaBfd7948DA4',
       __BreedPlace: '0x54848cfe974bb800c35913445fcfb2c7d2f56ace'
