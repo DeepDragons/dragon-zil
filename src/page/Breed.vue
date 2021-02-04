@@ -86,13 +86,13 @@ export default {
   },
   methods: {
     enemyGens(opponentGens) {
-      const  label = 'Enemy'
+      const  label = 'Lover'
       const dataSet = this.__parseGens(
         this.tokenId,
         this.__genParse(opponentGens),
         label,
-        'rgba(255, 0, 85, 0.877)',
-        'rgba(255, 0, 85, 0.877)'
+        'rgb(148 0 255 / 88%)',
+        'rgb(148 0 255 / 88%)'
       );
       this.radarChartData.datasets = [dataSet];
     },

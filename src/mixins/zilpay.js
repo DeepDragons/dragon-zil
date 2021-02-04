@@ -1,27 +1,18 @@
 import MicroModal from 'micromodal'
 import BN from 'bn.js'
-// return {
-//   __netwrok: 'mainnet',
-//   __crowdSale: '0xA5A05595997A4316e5fA73fbde6e24008Bd89653',
-//   __DragonZIL: '0xe876b112A62f945484edE1f3cCdd6B0ac6F39382',
-//   __FightPlace: '0x03256e65Bcc546C0f7c7269B9613104De04fc714',
-//   __CrowdSaleForZLP: '0xb8E84fafE723140037b12e5783f6f91304dDa713',
-//   __GenLab: '0x6eF3Fc25dDB5E5c28C6d7C7B03c1081d3eb65C49',
-//   __ZLPStore: '0x485b83D3b6903c33dFEEBbb929F3fF7edE6682EA',
-//   __ZLP: '0xfbd07e692543d3064B9CF570b27faaBfd7948DA4'
-// }
+
 export default {
   data() {
     return {
-      __netwrok: 'testnet',
+      __netwrok: 'mainnet',
       __crowdSale: '0xA5A05595997A4316e5fA73fbde6e24008Bd89653',
-      __DragonZIL: '0x010862d308b91cbd3be0e3c86280d5350f7ea7a0',
+      __DragonZIL: '0xe876b112A62f945484edE1f3cCdd6B0ac6F39382',
       __FightPlace: '0x03256e65Bcc546C0f7c7269B9613104De04fc714',
       __CrowdSaleForZLP: '0xb8E84fafE723140037b12e5783f6f91304dDa713',
       __GenLab: '0x6eF3Fc25dDB5E5c28C6d7C7B03c1081d3eb65C49',
       __ZLPStore: '0x485b83D3b6903c33dFEEBbb929F3fF7edE6682EA',
-      __ZLP: '0xb35c886e7038b3bd91badc6d4959b2b2b24e734d',
-      __BreedPlace: '0x817b3a0857650F231D2F2AE024AdeD5bBf39Bd5E'
+      __ZLP: '0xfbd07e692543d3064B9CF570b27faaBfd7948DA4',
+      __BreedPlace: '0x54848cfe974bb800c35913445fcfb2c7d2f56ace'
     }
   },
   methods: {
