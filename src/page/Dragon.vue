@@ -24,9 +24,9 @@
         transfer
       </button>
       <button
-        class="nav_btn w-button top-btn danger-btn"
+        class="nav_btn w-button top-btn credits__btn"
         :disabled="stage < 1"
-        @click="placeToWaitList"
+        @click="showFightModal"
       >
         To Arena
       </button>
@@ -130,6 +130,39 @@
       </button>
     </div>
   </Modal>
+    <Modal
+    title="Add to fight place"
+    name="fight"
+  >
+    <div class="breed-modal">
+      <div class="breed-wrapper">
+        <img
+          src="/img/fight.svg"
+          alt="fight"
+          height="100"
+          width="100"
+        >
+        <p class="breed-des">
+          you can earn <span>ZLP</span> by putting your dragon in fights!
+        </p>
+      </div>
+      <label class="fight-amount">
+        <input
+          v-model="fightPrice"
+          type="number"
+          placeholder="Amount ZLP"
+          class="fight-btn"
+          :min="minFightPrice"
+        />
+      </label>
+      <button
+        class="nav_btn w-button top-btn fight-btn"
+        @click="placeToWaitList"
+      >
+        Place for battle
+      </button>
+    </div>
+  </Modal>
 </template>
 
 <script>
@@ -163,6 +196,8 @@ export default {
       showoner: null,
       id: null,
       minZLPForBreed: 0,
+      minFightPrice: 200,
+      fightPrice: 200,
       breadAmount: 0,
       radarChartData: {
         labels: [],
@@ -216,7 +251,11 @@ export default {
       this.__generateCharts(ctx, options)
     },
     placeToWaitList() {
-      this.__placeToWaitList(this.tokenId)
+      const _amount = new BN(String(this.fightPrice))
+      const _decimal = new BN('1000000000000000000')
+      const _value = _amount.mul(_decimal)
+
+      this.__placeToWaitList(this.tokenId, String(_value))
     },
     async addToBreed() {
       const minPriceQA = await this.__getMinBreedPrice()
@@ -226,6 +265,9 @@ export default {
       this.breadAmount = minAmount
 
       MicroModal.show('breed')
+    },
+    showFightModal() {
+      MicroModal.show('fight')
     },
     transferModal() {
       MicroModal.show('transfer')
@@ -409,7 +451,7 @@ export default {
 .breed-icon > path {
   fill: #d528d0;
 }
-.breed-btn {
+.breed-btn, .fight-btn {
   display: flex;
   align-items: center;
 
@@ -418,6 +460,16 @@ export default {
 }
 .breed-btn:hover .breed-icon > path {
   fill: #fff;
+}
+.fight-btn {
+  color: #7F3BD6;
+  border-color: rgb(127, 59, 214, .6);
+}
+.fight-btn:hover {
+  border-color: #7F3BD6;
+  background-color: #7F3BD6;
+  box-shadow: 0 16px 23px -13px rgb(213, 40, 208, .6);
+  color: #fff;
 }
 .breed-btn:hover {
   border-color: #d528d0;
@@ -443,7 +495,7 @@ export default {
   box-shadow: 0 16px 23px -13px rgb(32, 201, 151);
   color: #fff;
 }
-.breed-amount > input {
+.breed-amount > input, .fight-amount > input {
   padding: 10px 19px;
   align-self: center;
   border-style: solid;
@@ -454,6 +506,10 @@ export default {
   line-height: 19px;
   text-align: center;
   width: 100%;
+}
+.fight-amount > input {
+  border-color: #7F3BD6;
+  color: #7F3BD6;
 }
 .breed-amount > input:hover {
   background-color: transparent;

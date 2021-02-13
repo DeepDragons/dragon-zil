@@ -291,7 +291,7 @@ export default {
         return {}
       }
     },
-    async __placeToWaitList(token_id) {
+    async __placeToWaitList(token_id, price) {
       const zilPay = await this.__getZilPay()
       const { contracts, utils } = zilPay
       const contract = contracts.at(this.__FightPlace)
@@ -311,6 +311,11 @@ export default {
             vname: 'token_id',
             type: 'Uint256',
             value: String(token_id)
+          },
+          {
+            vname: 'fight_price',
+            type: 'Uint128',
+            value: String(price)
           }
         ],        {
           amount,
