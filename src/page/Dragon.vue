@@ -143,7 +143,7 @@
           width="100"
         >
         <p class="breed-des">
-          you can earn <span>ZLP</span> by putting your dragon in fights!
+          you can win <span>ZLP</span> by putting your dragon in fights!
         </p>
       </div>
       <label class="fight-amount">
@@ -250,12 +250,14 @@ export default {
       this.radarChartData.datasets[0] = dataSet
       this.__generateCharts(ctx, options)
     },
-    placeToWaitList() {
+    async placeToWaitList() {
       const _amount = new BN(String(this.fightPrice))
       const _decimal = new BN('1000000000000000000')
       const _value = _amount.mul(_decimal)
 
-      this.__placeToWaitList(this.tokenId, String(_value))
+      await this.__placeToWaitList(this.tokenId, String(_value))
+
+      document.querySelectorAll('#fight')[0].classList.remove('is-open')
     },
     async addToBreed() {
       const minPriceQA = await this.__getMinBreedPrice()

@@ -17,7 +17,11 @@
         <Card
           :stage="1"
           :id="item"
-        />
+        >
+          <b class="fight-amount">
+            {{ (Number(list[item]) / 1000000000000000000).toFixed() }} <span>ZLP</span>
+          </b>
+        </Card>
       </router-link>
     </div>
   </div>
@@ -89,7 +93,12 @@ export default {
   font-size: 22px;
   line-height: 65px;
 }
-
+.fight-amount > span{
+  color: #d0ab2f;
+}
+.fight-amount {
+  color: #8973d7;
+}
 .dragons-container {
   display: flex;
   flex-wrap: wrap;

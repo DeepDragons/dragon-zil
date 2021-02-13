@@ -21,6 +21,9 @@
         @click="trySelectDragon"
       />
     </div>
+    <p class="fight-description">
+      Winner will get <span>{{ fightPrice }} ZLP</span>
+    </p>
     <div class="buttleradar-001">
       <canvas
         id="combatRadar"
@@ -52,7 +55,7 @@
     title="Winner"
     name="dragon-winner"
   >
-    <div class="mydragons-wrapper">
+    <div class="fight-result-wrapper">
       <router-link :to="{ name: 'Dragon', params: { id: winnerID, stage: 1 } }">
         <Card
           class="dragon-card"
@@ -60,10 +63,28 @@
           :id="winnerID"
         />
       </router-link>
+      <h2
+        v-show="selected === winnerID"
+        class="breed-des result-text"
+      >
+        You win
+      </h2>
+      <h2
+        v-show="selected === tokenId"
+        class="breed-des result-text"
+      >
+        You lose
+      </h2>
     </div>
   </Modal>
   <Loader v-if="loader">
-    Confirmation...
+    <a
+      :href="'https://viewblock.io/zilliqa/tx/' + hash"
+      target="_blank"
+      class="nav_link w-nav-link"
+    >
+      Confirming TX
+    </a>
   </Loader>
 </template>
 
@@ -89,8 +110,10 @@ export default {
       selected: null,
       myDragons: [],
       loader: false,
+      hash: null,
       error: null,
       winnerID: null,
+      fightPrice: 0,
       radarChartData: {
         labels: [],
         datasets: []
@@ -146,6 +169,8 @@ export default {
       MicroModal.show('your-dragons')
     },
     async loadTokens() {
+      const fightPrice = await this.__getDragonForFight(this.tokenId)
+      this.fightPrice = Number(fightPrice) / 1000000000000000000
       const tokens = await this.__getTokensIds()
 
       this.myDragons = Object
@@ -173,6 +198,8 @@ export default {
       try {
         const tx = await this.__fightStart(id0, id1)
 
+        this.hash = tx.TranID
+
         const inter = setInterval(() => {
           window
             .zilPay
@@ -187,7 +214,7 @@ export default {
               }
 
               if (receipt && receipt.event_logs) {
-                const event = 'FightsResultsWinLose'
+                const event = 'AfterFightWinLose'
                 const foundEvent = receipt.event_logs.find((e) => e._eventname === event)
                 const foundWinner = foundEvent.params.find((p) => p.vname === 'token_id_winner')
                 this.winnerID = foundWinner.value
@@ -237,7 +264,20 @@ export default {
 .b-menu__item-icon:hover {
   transform: scale(1.2);
 }
-
+.fight-description {
+  color: #7F3BD6;
+  font-size: 22px;
+  line-height: 65px;
+}
+.fight-description > span {
+  color: #d0ab2f;
+}
+.fight-result-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 .b-menu__item-icon {
     cursor: pointer;
   transition: all 0.1s ease-out;
@@ -274,6 +314,11 @@ export default {
     background-image: url('/img/battle.png');
     background-repeat: no-repeat;
     background-position: center center;
+}
+.result-text {
+  text-align: center;
+  width: 100%;
+  font-size: 32px;
 }
 @media only screen and (max-width: 1000px) {
   .fights-wrapper {

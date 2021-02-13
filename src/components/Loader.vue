@@ -19,7 +19,7 @@ export default {
 <style>
 .block {
   background-color: rgba(0, 0, 0, 0.473);
-  z-index: 999;
+  z-index: 90;
 }
 .spinner-text {
   color: #6f42c1;
@@ -42,6 +42,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 99;
 }
 .flexbox > div {
   width: 300px;
