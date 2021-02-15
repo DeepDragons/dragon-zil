@@ -37,7 +37,7 @@
           Contract CrowdSale
         </a>
         <a
-          href="https://viewblock.io/zilliqa/address/zil1qvjkueduc4rvpa78y6devycsfhsyl3c5x6dqst?network=mainnet&tab=code"
+          href="https://viewblock.io/zilliqa/address/zil1s482xyx0tx2zpmsr08q4d67twnp24pgd876wun?network=mainnet&tab=code"
           class="footer_link"
           target="_blank"
         >

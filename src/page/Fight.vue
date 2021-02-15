@@ -170,7 +170,7 @@ export default {
     },
     async loadTokens() {
       const fightPrice = await this.__getDragonForFight(this.tokenId)
-      this.fightPrice = Number(fightPrice) / 1000000000000000000
+      this.fightPrice = (Number(fightPrice) / 1000000000000000000) * 2
       const tokens = await this.__getTokensIds()
 
       this.myDragons = Object
