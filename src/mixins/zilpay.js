@@ -8,7 +8,7 @@ export default {
       __netwrok: 'mainnet',
       __crowdSale: '0xA5A05595997A4316e5fA73fbde6e24008Bd89653',
       __DragonZIL: '0xe876b112A62f945484edE1f3cCdd6B0ac6F39382',
-      __FightPlace: '0x854ea310cf599420ee0379c156ebcb74c2aa850d',
+      __FightPlace: '0x3DD25E4E4a7753D7f21ECEC9d926c25dcf696169',
       __CrowdSaleForZLP: '0x6f2094d3fc4b08e0a19347e9501f675fd58c2192',
       __GenLab: '0x295dd4be95d74fae4a57bad437e7c0b9ed2b4e92',
       __ZLP: '0xfbd07e692543d3064B9CF570b27faaBfd7948DA4',
