@@ -94,8 +94,8 @@
         <input
           v-model="genNumber"
           type="number"
-          :max="22"
-          :min="1"
+          max="20"
+          min="1"
           placeholder="Select gen number"
         >
       </label>
