@@ -53,17 +53,20 @@
     </div>
     <div class="token-des">
       <p>
-        Owner: <span>{{ showoner }}</span>
+        <a
+          :href="`https://viewblock.io/zilliqa/address/${tokenOwner}`"
+          target="_blank"
+          class="nav_link owner-link"
+        >
+          Owner: <span>{{ showoner }}</span>
+        </a>
       </p>
       <p>
         DragonID: <span>#{{ tokenId }}</span>
       </p>
     </div>
     <div class="dragon container-dragon">
-      <Card
-        :stage="stage"
-        :id="tokenId"
-      />
+      <Card :id="tokenId" />
       <div class="radar">
         <canvas
           id="combat"
@@ -190,10 +193,12 @@ export default {
   data() {
     return {
       width: width,
+      stage: null,
       values: [],
       recipientAddress: '',
       owner: null,
       showoner: null,
+      tokenOwner: null,
       id: null,
       minZLPForBreed: 0,
       minFightPrice: 200,
@@ -208,9 +213,6 @@ export default {
   computed: {
     tokenId() {
       return this.$route.params.id
-    },
-    stage() {
-      return Number(this.$route.params.stage)
     },
     isValidAddress() {
       if (!this.recipientAddress) {
@@ -305,7 +307,10 @@ export default {
         return null
       }
 
-      this.showoner = this.__trim(toBech32Address(this.owner))
+      const bech32 = toBech32Address(this.owner)
+
+      this.showoner = this.__trim(bech32)
+      this.tokenOwner = bech32
     }
   },
   updated() {
@@ -328,25 +333,17 @@ export default {
   },
   mounted() {
     this.id = this.tokenId
+
     WalletStore.watch((address) => {
       if (address) {
         this.checkOwner()
       }
     })
+
     this
       .__getTokensIds()
       .then((tokens) => {
-        const curernt_stage = Number(tokens[this.tokenId])
-
-        if (curernt_stage !== Number(this.stage) && isNaN(Number(this.stage))) {
-          this.$router.push({
-            name: 'Dragon',
-            params: {
-              id: this.tokenId,
-              stage: curernt_stage
-            }
-          })
-        }
+        this.stage = Number(tokens[this.tokenId])
 
         return this.__getCombatGen(this.tokenId)
       })
@@ -374,6 +371,9 @@ export default {
   font-size: 15px;
   max-width: 220px;
   text-align: center;
+}
+.owner-link {
+  padding: 0;
 }
 .breed-des > span {
   color: #d528d0;

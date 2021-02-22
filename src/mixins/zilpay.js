@@ -1,5 +1,6 @@
 import MicroModal from 'micromodal'
 import BN from 'bn.js'
+import { updateURLs } from '@/store/urls'
 
 // proxyZLP 0xd45bf0a7fed8a9825517a3ef6f723a7619cb2435
 export default {
@@ -39,6 +40,23 @@ export default {
           k++
         }, 100)
       })
+    },
+    async __getTokenUris() {
+      const zilPay = await this.__getZilPay()
+      const isNet = await this.__net()
+      const field = 'token_uris'
+
+      if (!isNet) {
+        return false
+      }
+
+      const { result } = await zilPay
+        .blockchain
+        .getSmartContractSubState(this.__DragonZIL, field)
+
+      updateURLs(result[field])
+
+      return result[field]
     },
     async __buy(_amount) {
       const zilPay = await this.__getZilPay()

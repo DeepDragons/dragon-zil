@@ -14,10 +14,7 @@
         :key="item"
         :to="{ name: 'Dragon', params: { id: item } }"
       >
-        <Card
-          :stage="1"
-          :id="item"
-        >
+        <Card :id="item">
           <b class="fight-amount">
             {{ (Number(list[item]) / 1000000000000000000).toFixed() }} <span>ZLP</span>
           </b>
@@ -49,13 +46,6 @@ export default {
     }
   },
   methods: {
-    async loadFightes() {
-      const tokens = await this.__getWaitingList()
-
-      this.list = tokens
-
-      addDragons(tokens)
-    }
   },
   mounted() {
     this.loadFightes()

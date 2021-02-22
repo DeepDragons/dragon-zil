@@ -11,6 +11,7 @@ import ZLPStore from './page/ZLPStore'
 import GenLab from './page/GenLab'
 import BreedPlace from './page/BreedPlace'
 import Breed from './page/Breed'
+import MarketPlace from './page/MarketPlace'
 
 const routes = [
   {
@@ -34,6 +35,11 @@ const routes = [
     component: ZLPStore
   },
   {
+    path: '/trade',
+    name: 'Trade',
+    component: MarketPlace
+  },
+  {
     path: '/breeding',
     name: 'BreedPlace',
     component: BreedPlace
@@ -49,7 +55,7 @@ const routes = [
     component: Dragons
   },
   {
-    path: '/dragon/:id(.*)/:stage(.*)',
+    path: '/dragon/:id',
     name: 'Dragon',
     component: Dragon
   },

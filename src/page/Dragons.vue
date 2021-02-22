@@ -17,10 +17,7 @@
         :key="item"
         :to="{ name: 'Dragon', params: { id: item, stage: list[item] } }"
       >
-        <Card
-          :stage="Number(list[item])"
-          :id="item"
-        />
+        <Card :id="item" />
       </router-link>
     </div>
   </div>
@@ -61,9 +58,6 @@ export default {
 
       addDragons(tokens)
     }
-  },
-  updated() {
-    this.loadTokens()
   },
   mounted() {
     DragonsStore.watch((state) => this.list = state)

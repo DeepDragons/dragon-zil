@@ -14,10 +14,7 @@
         :key="item"
         :to="{ name: 'Fight', params: { id: item } }"
       >
-        <Card
-          :stage="1"
-          :id="item"
-        >
+        <Card :id="item" >
           <b class="fight-amount">
             {{ (Number(list[item]) / 1000000000000000000).toFixed() }} <span>ZLP</span>
           </b>

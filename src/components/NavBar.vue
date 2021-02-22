@@ -70,6 +70,12 @@
           >
             Breed
           </router-link>
+          <router-link
+            to="/trade"
+            class="nav_link w-nav-link"
+          >
+            Trade
+          </router-link>
         </div>
         <div class="nav-buttons-wrapper">
           <a

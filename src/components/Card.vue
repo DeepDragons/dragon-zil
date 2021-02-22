@@ -4,9 +4,8 @@
       <img
         :class="{ flip }"
         :src="imgSrc"
-        @error="onError"
-        onerror="this.onerror=null; this.src=''"
-        alt="img-dragon"
+        loading="lazy"
+        onerror="this.onerror=null;this.src='https://res.cloudinary.com/dragonseth/image/upload/v1607844286/sub.png';"
       >
     </div>
     <p class="card-title logo_text">
@@ -16,7 +15,8 @@
 </template>
 
 <script>
-const subURL = 'https://res.cloudinary.com/dragonseth/image/upload/v1607844286/sub.png'
+import { tokensURLSStore } from '@/store/urls'
+
 export default {
   name: 'Card',
   props: {
@@ -24,27 +24,26 @@ export default {
       type: String,
       required: true
     },
-    stage: {
-      type: Number,
-      required: true
-    },
     flip: {
       type: Boolean,
       required: false
     }
   },
+  data() {
+    return {
+      isError: false
+    }
+  },
   computed: {
     imgSrc() {
-      return `https://res.cloudinary.com/dragonseth/image/upload/${this.stage}_${this.id}.png`
+      const urls = tokensURLSStore.getState()
+
+      return urls[this.id]
     }
   },
   methods: {
-    onError(event) {
-      if (event.target.src === subURL) {
-        return null
-      }
-
-      event.target.src = subURL
+    onError($event) {
+      console.log($event)
     }
   }
 }

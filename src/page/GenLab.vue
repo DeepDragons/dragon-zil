@@ -1,10 +1,7 @@
 <template>
   <div class="GenLab">
     <div class="GenLab__wrapper">
-      <Card
-        :stage="1"
-        :id="tokenId"
-      />
+      <Card :id="tokenId" />
       <div>
         <div class="detail_wrap">
           <div class="detail_wings wings_01"></div>

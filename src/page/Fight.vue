@@ -1,10 +1,7 @@
 <template>
   <div class="fight-page">
     <div class="fights-wrapper">
-      <Card
-        :stage="1"
-        :id="tokenId"
-      />
+      <Card :id="tokenId" />
       <div
         v-show="selected"
         class="b-menu__item"
@@ -16,7 +13,6 @@
       </div>
       <Card
         flip
-        :stage="1"
         :id="selected"
         @click="trySelectDragon"
       />
@@ -41,7 +37,6 @@
         v-for="(dragon, index) of myDragons"
         class="dragon-card"
         :key="index"
-        :stage="1"
         :id="dragon"
         @click="onSelectedDragon(dragon)"
       />
@@ -59,7 +54,6 @@
       <router-link :to="{ name: 'Dragon', params: { id: winnerID, stage: 1 } }">
         <Card
           class="dragon-card"
-          :stage="1"
           :id="winnerID"
         />
       </router-link>

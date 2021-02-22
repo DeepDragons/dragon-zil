@@ -1,10 +1,7 @@
 <template>
   <div class="breed-page">
     <div class="fights-wrapper">
-      <Card
-        :stage="1"
-        :id="tokenId"
-      />
+      <Card :id="tokenId" />
       <img
         v-show="selected"
         class="heart-button"
@@ -13,7 +10,6 @@
       >
       <Card
         flip
-        :stage="1"
         :id="selected"
         @click="trySelectDragon"
       />
@@ -35,7 +31,6 @@
         v-for="(dragon, index) of myDragons"
         class="dragon-card"
         :key="index"
-        :stage="1"
         :id="dragon"
         @click="onSelectedDragon(dragon)"
       />
