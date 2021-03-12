@@ -6,10 +6,11 @@
         :src="imgSrc"
         loading="lazy"
         onerror="this.onerror=null;this.src='https://res.cloudinary.com/dragonseth/image/upload/v1607844286/sub.png';"
+        @click="$emit('select')"
       >
     </div>
-    <p class="card-title logo_text">
-      #{{ id }} <slot />
+    <p class="card-title">
+      {{ showID ? `#${id}` : '' }} <slot />
     </p>
   </div>
 </template>
@@ -27,6 +28,10 @@ export default {
     flip: {
       type: Boolean,
       required: false
+    },
+    showID: {
+      type: Boolean,
+      default: true
     }
   },
   data() {
@@ -65,6 +70,7 @@ img.flip {
 }
 .card-title {
   color: #e83e8c;
+  font-size: 18px;
 }
 .Card-content {
   display: flex;

@@ -64,6 +64,63 @@ export default {
 
       return result[field]
     },
+    async __buyOnMarketPlace(id, amount) {
+      const zilPay = await this.__getZilPay()
+      const { contracts, utils } = zilPay
+      const contract = contracts.at(this.__MarketPlace)
+      const gasPrice = utils.units.toQa('2000', utils.units.Units.Li)
+      const isNet = await this.__net()
+      let gasLimit = 5000;
+
+      if (!isNet) {
+        return false
+      }
+
+      return await contract.call(
+        'Purchase',
+        [
+          {
+            vname: 'purchase_order_id',
+            type: 'Uint256',
+            value: id
+          }
+        ],
+        {
+          amount,
+          gasPrice,
+          gasLimit: utils.Long.fromNumber(gasLimit)
+        }
+      )
+    },
+    async __cancelListing(id) {
+      const zilPay = await this.__getZilPay()
+      const { contracts, utils } = zilPay
+      const contract = contracts.at(this.__MarketPlace)
+      const amount = utils.units.toQa("0", utils.units.Units.Zil)
+      const gasPrice = utils.units.toQa('2000', utils.units.Units.Li)
+      const isNet = await this.__net()
+      let gasLimit = 5000;
+
+      if (!isNet) {
+        return false
+      }
+
+      return await contract.call(
+        'CancelListing',
+        [
+          {
+            vname: 'cancel_order_id',
+            type: 'Uint256',
+            value: id
+          }
+        ],
+        {
+          amount,
+          gasPrice,
+          gasLimit: utils.Long.fromNumber(gasLimit)
+        }
+      )
+    },
     async __getTokenApprovals(tokenId) {
       const zilPay = await this.__getZilPay()
       const isNet = await this.__net()
@@ -127,7 +184,7 @@ export default {
           gasPrice,
           gasLimit: utils.Long.fromNumber(gasLimit)
         }
-      )      
+      )
     },
     async __sendToMarketPlace(token_id, _amount) {
       const zilPay = await this.__getZilPay()
