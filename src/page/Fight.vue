@@ -14,6 +14,7 @@
       <Card
         flip
         :id="selected"
+        :showID="Boolean(selected)"
         @click="trySelectDragon"
       />
     </div>

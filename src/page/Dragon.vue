@@ -40,7 +40,7 @@
       <button
         v-if="!isApprovalMarket"
         class="nav_btn w-button top-btn"
-        @click="__setApprove(__MarketPlace, tokenId)"
+        @click="setApprove(tokenId)"
       >
         Unlock for sale
       </button>
@@ -80,7 +80,10 @@
       </p>
     </div>
     <div class="dragon container-dragon">
-      <Card :id="tokenId" />
+      <Card
+        :id="tokenId"
+        :showID="false"
+      />
       <div class="radar">
         <canvas
           id="combat"
@@ -206,12 +209,16 @@
       </button>
     </div>
   </Modal>
+  <Loader v-if="loader">
+    Confirmation...
+  </Loader>
 </template>
 
 <script>
 import MicroModal from 'micromodal'
 import Card from '@/components/Card'
 import Modal from '@/components/Modal'
+import Loader from '@/components/Loader'
 import BN from 'bn.js'
 
 import { WalletStore } from '@/store/wallet'
@@ -228,13 +235,15 @@ export default {
   mixins: [RadarMixin, ZilPayMixin],
   components: {
     Card,
-    Modal
+    Modal,
+    Loader
   },
   data() {
     return {
       width: width,
       stage: null,
       values: [],
+      loader: false,
       recipientAddress: '',
       sellAmount: null,
       owner: null,
@@ -314,6 +323,32 @@ export default {
       this.breadAmount = minAmount
 
       MicroModal.show('breed')
+    },
+    async setApprove(tokenId) {
+      this.loader = true
+      try {
+        const tx = await this.__setApprove(this.__MarketPlace, tokenId)
+        const inter = setInterval(() => {
+          window
+            .zilPay
+            .blockchain
+            .getTransaction(tx.TranID)
+            .then(() => {
+              this.loader = false
+              clearInterval(inter)
+              this
+                .__getTokenApprovals(this.tokenId)
+                .then((approvals) => {
+                  if (approvals) {
+                    this.approvals.push(approvals)
+                  }
+                }).catch(() => null);
+            })
+            .catch(() => null)
+        }, 10000)
+      } catch {
+        this.loader = false
+      }
     },
     showFightModal() {
       MicroModal.show('fight')
