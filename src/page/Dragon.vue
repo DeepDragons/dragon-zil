@@ -31,6 +31,20 @@
         To Arena
       </button>
       <button
+        v-if="isApprovalMarket"
+        class="nav_btn w-button top-btn"
+        @click="sellDragon"
+      >
+        Sell
+      </button>
+      <button
+        v-if="!isApprovalMarket"
+        class="nav_btn w-button top-btn"
+        @click="__setApprove(__MarketPlace, tokenId)"
+      >
+        Unlock for sale
+      </button>
+      <button
         class="nav_btn w-button top-btn breed-btn"
         :disabled="stage < 1"
         @click="addToBreed"
@@ -97,6 +111,32 @@
         @click="toTransfer"
       >
         Transfer
+      </button>
+    </div>
+  </Modal>
+  <Modal
+    title="NFT Trade(ZIL)"
+    name="sell"
+  >
+    <div class="transfer-modal">
+      <h2 class="dis">
+        Sell {{ stage > 0 ? 'dragon' : 'egg' }} #{{ tokenId }}.
+      </h2>
+      <label class="breed-amount">
+        <input
+          v-model="sellAmount"
+          type="number"
+          min="0"
+          class="breed-btn"
+          placeholder="Sell amount in ZIL"
+        >
+      </label>
+      <button
+        class="nav_btn w-button top-btn"
+        :disabled="Number(sellAmount) <= 0"
+        @click="toSellDragon"
+      >
+        Sell
       </button>
     </div>
   </Modal>
@@ -196,6 +236,7 @@ export default {
       stage: null,
       values: [],
       recipientAddress: '',
+      sellAmount: null,
       owner: null,
       showoner: null,
       tokenOwner: null,
@@ -207,12 +248,16 @@ export default {
       radarChartData: {
         labels: [],
         datasets: []
-      }
+      },
+      approvals: []
     }
   },
   computed: {
     tokenId() {
       return this.$route.params.id
+    },
+    isApprovalMarket() {
+      return this.approvals.includes(this.__MarketPlace)
     },
     isValidAddress() {
       if (!this.recipientAddress) {
@@ -275,6 +320,18 @@ export default {
     },
     transferModal() {
       MicroModal.show('transfer')
+    },
+    sellDragon() {
+      MicroModal.show('sell')
+    },
+    async toSellDragon() {
+      const _breedAmount = new BN(String(this.sellAmount))
+      const _decimal = new BN('1000000000000')
+      const _amount = _breedAmount.mul(_decimal)
+
+      await this.__sendToMarketPlace(this.tokenId, _amount);
+
+      document.querySelectorAll('#sell')[0].classList.remove('is-open')
     },
     async toBread() {
       const _breedAmount = new BN(String(this.breadAmount))
@@ -339,6 +396,14 @@ export default {
         this.checkOwner()
       }
     })
+
+    this
+      .__getTokenApprovals(this.tokenId)
+      .then((approvals) => {
+        if (approvals) {
+          this.approvals.push(approvals)
+        }
+      }).catch(() => null);
 
     this
       .__getTokensIds()

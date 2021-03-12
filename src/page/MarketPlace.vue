@@ -46,9 +46,14 @@ export default {
     }
   },
   methods: {
+    async loadDragonsForSale() {
+      const dragons = await this.__getDragonsForSale()
+
+      console.log(dragons)
+    }
   },
   mounted() {
-    this.loadFightes()
+    this.loadDragonsForSale()
   }
 }
 </script>
