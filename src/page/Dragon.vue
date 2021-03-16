@@ -461,8 +461,9 @@ export default {
       .then((gens) => {
         this.rarity = this.__getRarity(gens)
         document.querySelector('div.Card > div').style.boxShadow = `0 0 40px ${this.rarity.color}`;
+        console.log(this.rarity)
       })
-      .catch(() => null)
+      .catch((err) => console.error(err))
     this
       .__getTokensIds()
       .then((tokens) => {

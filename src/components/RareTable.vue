@@ -1,29 +1,32 @@
 <template>
-  <div
+  <table
     v-if="values"
     class="RareTable"
   >
-    <h3 class="RareTable-title pink">
-      Rarity of elements:
-    </h3>
-    <div class="RareTable-list">
-      <div
-        v-for="(key, index) of list"
-        :key="index"
-        :style="{
-          color: values[key].color
-        }"
-        class="RareTable-item"
-      >
-        <div class="RareTable-key">
-          {{ key }}
-        </div>
-        <span>
-          {{ values[key].name }}
-        </span>
-      </div>
-    </div>
-  </div>
+  <thead>
+    <tr class="RareTable-item">
+      <th scope="col" class="RareTable-key pink">Element</th>
+      <th scope="col" class="RareTable-key pink">Rarity</th>
+      <th scope="col" class="RareTable-key pink">Gen</th>
+      <th scope="col" class="RareTable-key pink">Chance</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr
+      v-for="(key, index) of list"
+      :key="index"
+      :style="{
+        color: values[key].color
+      }"
+      class="RareTable-item"
+    >
+      <td class="RareTable-key">{{ key }}</td>
+      <td class="RareTable-name">{{ values[key].name }}</td>
+      <td>{{ values[key].gen }}</td>
+      <td>{{ values[key].chance }}%</td>
+    </tr>
+  </tbody>
+  </table>
 </template>
 
 <script>
@@ -44,18 +47,23 @@ export default {
 </script>
 
 <style>
-.RareTable-title {
-  font-size: 19px;
+.RareTable {
+  width: 100%;
+  text-align: left;
+  margin: 30px;
+}
+.RareTable-name {
+  text-align: left;
 }
 .RareTable-item {
-  display: flex;
-  justify-content: space-between;
-  border: 1px solid;
+  /* border: 1px solid; */
   padding: 5px;
   margin: 5px;
+  width: 100%;
 }
 .RareTable-key {
   font-weight: bold;
   text-transform: capitalize;
+  line-height: 30px;
 }
 </style>
