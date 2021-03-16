@@ -76,6 +76,9 @@
         </a>
       </p>
       <p>
+        Rarity: <span :style="{ color: rarity.color }">{{ rarity.name }}</span>
+      </p>
+      <p>
         DragonID: <span>#{{ tokenId }}</span>
       </p>
     </div>
@@ -91,6 +94,12 @@
           height="410"
         />
       </div>
+    </div>
+    <div class="dragon-page-table">
+      <RareTable
+        v-if="rarity"
+        :values="rarity.values"
+      />
     </div>
   </div>
   <Modal
@@ -215,15 +224,17 @@
 </template>
 
 <script>
+import BN from 'bn.js'
 import MicroModal from 'micromodal'
 import Card from '@/components/Card'
 import Modal from '@/components/Modal'
 import Loader from '@/components/Loader'
-import BN from 'bn.js'
+import RareTable from '@/components/RareTable'
 
 import { WalletStore } from '@/store/wallet'
 import ZilPayMixin from '@/mixins/zilpay'
 import RadarMixin from '@/mixins/radar'
+import UtilsMixin from '@/mixins/utils'
 
 let width = 450
 
@@ -232,9 +243,10 @@ if (window.innerWidth <= 650) {
 }
 export default {
   name: 'Dragon',
-  mixins: [RadarMixin, ZilPayMixin],
+  mixins: [RadarMixin, ZilPayMixin, UtilsMixin],
   components: {
     Card,
+    RareTable,
     Modal,
     Loader
   },
@@ -242,6 +254,11 @@ export default {
     return {
       width: width,
       stage: null,
+      rarity: {
+        color: '',
+        name: '',
+        values: null
+      },
       values: [],
       loader: false,
       recipientAddress: '',
@@ -439,7 +456,13 @@ export default {
           this.approvals.push(approvals)
         }
       }).catch(() => null);
-
+    this
+      .__getVisualGen(this.tokenId)
+      .then((gens) => {
+        this.rarity = this.__getRarity(gens)
+        document.querySelector('div.Card > div').style.boxShadow = `0 0 40px ${this.rarity.color}`;
+      })
+      .catch(() => null)
     this
       .__getTokensIds()
       .then((tokens) => {
@@ -479,14 +502,16 @@ export default {
   color: #d528d0;
   font-weight: bold;
 }
+.dragon-page-table {
+  max-width: 300px;
+  width: 100%;
+}
 .container-dragon {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   width: 100%;
   height: 100%;
-  margin-bottom: 100px;
-  padding-bottom: 100px;
 }
 .token-des {
   text-align: left;
@@ -532,8 +557,6 @@ export default {
 .dragon > .Card > .Card-content {
   width: 400px;
   height: 400px;
-
-  box-shadow: 0 0 40px #d528d0;
 }
 .breed-wrapper {
   display: flex;

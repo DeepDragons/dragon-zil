@@ -6,9 +6,7 @@
           Dragon ZIL
         </div>
       </div>
-      <div
-        class="footer_links_block"
-      >
+      <div class="footer_links_block">
         <a
           href="https://t.me/joinchat/DEnpkgr31xVjG4io-wmwLQ"
           class="footer_link"
@@ -29,26 +27,33 @@
         >
           Terms of service
         </a>
+      </div>
+      <div class="logo_footer w-clearfix">
+        <div class="footer_logo_text">
+          Contracts
+        </div>
+      </div>
+      <div class="footer_links_block">
         <a
           href="https://viewblock.io/zilliqa/address/zil15ks9t9ve0fp3de06w0aaum3yqz9a39jnzgalet?network=mainnet&tab=code"
           class="footer_link"
           target="_blank"
         >
-          Contract CrowdSale
+          CrowdSale
         </a>
         <a
           href="https://viewblock.io/zilliqa/address/0x3DD25E4E4a7753D7f21ECEC9d926c25dcf696169?network=mainnet&tab=code"
           class="footer_link"
           target="_blank"
         >
-          Contract Fight
+          Fight
         </a>
         <a
           href="https://viewblock.io/zilliqa/address/zil1apmtzy4x9729fp8du8euehttptr08yuzamfy9f"
           class="footer_link"
           target="_blank"
         >
-          Contract DragonZIL
+          DragonZIL
         </a>
         <a
           href="https://viewblock.io/zilliqa/address/0x295dd4be95d74fae4a57bad437e7c0b9ed2b4e92"
@@ -63,6 +68,34 @@
           target="_blank"
         >
           StoreZLP
+        </a>
+        <a
+          href="https://viewblock.io/zilliqa/address/0x91a4212032ff3e36453d948e5560a63445abcbcc"
+          class="footer_link"
+          target="_blank"
+        >
+          NFT market
+        </a>
+        <a
+          href="https://viewblock.io/zilliqa/address/zil1l0g8u6f9g0fsvjuu74ctyla2hltefrdyt7k5f4"
+          class="footer_link"
+          target="_blank"
+        >
+          ZLP
+        </a>
+        <a
+          href="https://viewblock.io/zilliqa/address/0xd45bf0a7fed8a9825517a3ef6f723a7619cb2435"
+          class="footer_link"
+          target="_blank"
+        >
+          ZLP Proxy
+        </a>
+        <a
+          href="https://viewblock.io/zilliqa/address/0x6f2094d3fc4b08e0a19347e9501f675fd58c2192"
+          class="footer_link"
+          target="_blank"
+        >
+          ZLP CrowdSale
         </a>
       </div>
       <div class="div-block-3">
