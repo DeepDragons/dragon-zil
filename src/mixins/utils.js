@@ -63,7 +63,6 @@ function getRarity(genschain) {
     spots: "",
     tail: "",
     wings: "",
-    spins: "",
     body: "",
     eyes: "",
     head: ""
@@ -275,31 +274,6 @@ function getRarity(genschain) {
   }
   rarity_obj.wings.gen = wings_gen;
 
-  const spins_gen = genschain.substr(15, 1);
-  switch (spins_gen) {
-    case '0':
-      rarity_obj.spins = rarity.Uncommon;
-      rarity_obj.spins.chance = 30;
-      break;
-    case '1':
-      rarity_obj.spins = rarity.Rare;
-      rarity_obj.spins.chance = 10;
-      break;
-    case '2':
-      rarity_obj.spins = rarity.Common;
-      rarity_obj.spins.chance = 20;
-      break;
-    case '3':
-      rarity_obj.spins = rarity.Mythical;
-      rarity_obj.spins.chance = 5;
-      break;
-    case '4':
-      rarity_obj.spins = rarity.Legendary;
-      rarity_obj.spins.chance = 1;
-      break;
-  }
-  rarity_obj.spins.gen = spins_gen;
-
   const body_gen = genschain.substr(17, 1);
   switch (body_gen) {
     case '1':
@@ -358,12 +332,6 @@ function getRarity(genschain) {
   }
   rarity_obj.eyes.gen = eyes_gen;
 
-  // Head
-  // 1 - 70%
-  // 2 - 10%
-  // 3 - 10%
-  // 4 - 5%
-  // 5 - 5%
   const head_gen = genschain.substr(21, 1);
   switch (head_gen) {
     case '1':

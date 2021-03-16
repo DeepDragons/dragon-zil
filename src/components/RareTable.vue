@@ -8,7 +8,7 @@
       <th scope="col" class="RareTable-key pink">Element</th>
       <th scope="col" class="RareTable-key pink">Rarity</th>
       <th scope="col" class="RareTable-key pink">Gen</th>
-      <th scope="col" class="RareTable-key pink">Chance</th>
+      <!-- <th scope="col" class="RareTable-key pink">Chance</th> -->
     </tr>
   </thead>
   <tbody>
@@ -23,7 +23,7 @@
       <td class="RareTable-key">{{ key }}</td>
       <td class="RareTable-name">{{ values[key].name }}</td>
       <td>{{ values[key].gen }}</td>
-      <td>{{ values[key].chance }}%</td>
+      <!-- <td>{{ values[key].chance }}%</td> -->
     </tr>
   </tbody>
   </table>
