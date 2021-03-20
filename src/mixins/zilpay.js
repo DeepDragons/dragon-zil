@@ -13,7 +13,7 @@ export default {
       __CrowdSaleForZLP: '0x6f2094d3fc4b08e0a19347e9501f675fd58c2192',
       __GenLab: '0x295dd4be95d74fae4a57bad437e7c0b9ed2b4e92',
       __ZLP: '0xfbd07e692543d3064B9CF570b27faaBfd7948DA4',
-      __BreedPlace: '0x54848cfe974bb800c35913445fcfb2c7d2f56ace',
+      __BreedPlace: '0x5a4e6Ef3A6fff78bE5EDdc4f2c1D7100d78Bb4bf',
       __MarketPlace: '0x91a4212032ff3e36453d948e5560a63445abcbcc'
     }
   },

@@ -77,6 +77,13 @@
           NFT market
         </a>
         <a
+          href="https://viewblock.io/zilliqa/address/0x5a4e6Ef3A6fff78bE5EDdc4f2c1D7100d78Bb4bf"
+          class="footer_link"
+          target="_blank"
+        >
+          breed place
+        </a>
+        <a
           href="https://viewblock.io/zilliqa/address/zil1l0g8u6f9g0fsvjuu74ctyla2hltefrdyt7k5f4"
           class="footer_link"
           target="_blank"
