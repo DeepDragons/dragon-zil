@@ -151,7 +151,7 @@
         </div>
       </div>
       <div class="cr_block">
-        <div class="text-block-3">© DragonETH 2018</div>
+        <div class="text-block-3">© Dragon-Zil 2021</div>
       </div>
     </div>
   </div>
