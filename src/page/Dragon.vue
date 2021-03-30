@@ -207,7 +207,6 @@
           type="number"
           placeholder="Amount ZLP"
           class="fight-btn"
-          :min="minFightPrice"
         />
       </label>
       <button
@@ -268,7 +267,7 @@ export default {
       tokenOwner: null,
       id: null,
       minZLPForBreed: 0,
-      minFightPrice: 200,
+      minFightPrice: 1,
       fightPrice: 200,
       breadAmount: 0,
       radarChartData: {
