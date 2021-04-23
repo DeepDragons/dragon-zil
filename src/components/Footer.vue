@@ -144,7 +144,7 @@
             title="Discord"
           />
           <a
-            href="tg://join?invite=DEnpkgr31xVjG4io-wmwLQ"
+            href="http://t.me/Deep_Dragons"
             class="social telegram w-inline-block"
             title="Join Telegram chat"
           />
