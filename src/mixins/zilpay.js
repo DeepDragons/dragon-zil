@@ -17,7 +17,7 @@ export default {
       __netwrok: 'testnet',
       __crowdSale: '0x548510c718825e54ee048fce4dbf7c0de4f63225',
       __DragonZIL: '0xc172172f05ebf4df2a64cb35f9d85dac869f4150',
-      __FightPlace: '0x3DD25E4E4a7753D7f21ECEC9d926c25dcf696169',
+      __FightPlace: '0xfdeaf1eec4213508d4214592c7b38637d9490622',
       __GenLab: '0x1f206338cfdaba8fd42bb06680903be1568fec98',
       __ZLP: '0x6b54e53d7472429b220d23a4365592367ac22c88',
       __BreedPlace: '0x5a4e6Ef3A6fff78bE5EDdc4f2c1D7100d78Bb4bf',

@@ -109,6 +109,7 @@ export default {
       error: null,
       winnerID: null,
       fightPrice: 0,
+      allowances: 0,
       radarChartData: {
         labels: [],
         datasets: []
@@ -121,6 +122,12 @@ export default {
     }
   },
   methods: {
+    async getAllowances() {
+      const _allowances = await this.__getZLPAllowances(this.__FightPlace)
+      this.allowances = Number(_allowances) / 10**18
+
+      return this.allowances
+    },
     enemyGens(opponentGens) {
       const  label = 'Enemy'
       const dataSet = this.__parseGens(
@@ -191,6 +198,11 @@ export default {
       const id1 = this.selected
 
       try {
+        await this.getAllowances()
+
+        if (this.allowances < this.fightPrice) {
+          await this.__increaseAllowance(this.__FightPlace)
+        }
         const tx = await this.__fightStart(id0, id1)
 
         this.hash = tx.TranID
@@ -221,7 +233,9 @@ export default {
             })
             .catch(() => null)
         }, 10000)
-      } catch {
+      } catch (err) {
+        this.error = err.message
+        MicroModal.show('tx-error')
         this.loader = false
       }
     }

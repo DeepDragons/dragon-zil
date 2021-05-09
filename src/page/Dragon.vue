@@ -210,10 +210,18 @@
         />
       </label>
       <button
+        v-show="Number(fightAllowances) > 0"
         class="nav_btn w-button top-btn fight-btn"
         @click="placeToWaitList"
       >
         Place for battle
+      </button>
+      <button
+        v-show="Number(fightAllowances) <= 0"
+        class="nav_btn w-button top-btn"
+        @click="unlockFight"
+      >
+        Unlock
       </button>
     </div>
   </Modal>
@@ -268,7 +276,8 @@ export default {
       id: null,
       minZLPForBreed: 0,
       minFightPrice: 1,
-      fightPrice: 200,
+      fightAllowances: 0,
+      fightPrice: 10,
       breadAmount: 0,
       radarChartData: {
         labels: [],
@@ -321,6 +330,39 @@ export default {
       }
       this.radarChartData.datasets[0] = dataSet
       this.__generateCharts(ctx, options)
+    },
+    async updateAllowances() {
+      const _allowances = await this.__getZLPAllowances(this.__FightPlace)
+      this.fightAllowances = Number(_allowances) / 10**18
+    },
+    async unlockFight() {
+      this.loader = true
+
+      try {
+        const tx = await this.__increaseAllowance(this.__FightPlace)
+        const inter = window.setInterval(() => {
+          window
+            .zilPay
+            .blockchain
+            .getTransaction(tx.TranID)
+            .then((tx) => {
+              const { receipt } = tx
+
+              if (receipt && receipt.exceptions) {
+                MicroModal.show('tx-error')
+              }
+
+              this.updateAllowances()
+
+              this.loader = false
+              clearInterval(inter)
+            })
+            .catch(() => null)
+        }, 5000)
+      } catch {
+        this.loader = false
+      }
+      this.loader = false
     },
     async placeToWaitList() {
       const _amount = new BN(String(this.fightPrice))
@@ -447,6 +489,8 @@ export default {
         this.checkOwner()
       }
     })
+
+    this.updateAllowances()
 
     this
       .__getTokenApprovals(this.tokenId)
