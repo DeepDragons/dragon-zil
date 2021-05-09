@@ -21,7 +21,7 @@ export default {
       __GenLab: '0x1f206338cfdaba8fd42bb06680903be1568fec98',
       __ZLP: '0x6b54e53d7472429b220d23a4365592367ac22c88',
       __BreedPlace: '0x5a4e6Ef3A6fff78bE5EDdc4f2c1D7100d78Bb4bf',
-      __MarketPlace: '0x91a4212032ff3e36453d948e5560a63445abcbcc'
+      __MarketPlace: '0x9e3c6e89b4eb7e47f137a3b51ccaf99044d2ade7'
     }
   },
   methods: {
