@@ -80,6 +80,7 @@
 </template>
 
 <script>
+import BN from 'bn.js'
 import MicroModal from 'micromodal'
 import ZilPayMixin from '@/mixins/zilpay'
 import Loader from '@/components/Loader'
@@ -98,12 +99,14 @@ export default {
       onePrice: 0,
       count: 0,
       amount: 0,
-      zlps: 0
+      zlps: 0,
+      price: new BN('0')
     }
   },
   methods: {
     async updatePrice() {
       const price = await this.__getZLPDragonPrice()
+      this.price = new BN(price);
 
       this.onePrice = price / (10**18)
       this.amount = this.onePrice
@@ -118,7 +121,9 @@ export default {
     async buy() {
       this.loader = true
       try {
-        const tx = await this.__buyForZLP(this.count)
+        const _count = new BN(String(this.count));
+        const value = this.price.mul(_count)
+        const tx = await this.__buyForZLP(value)
 
         const inter = setInterval(() => {
           window

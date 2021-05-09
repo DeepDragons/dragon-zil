@@ -2,17 +2,24 @@ import MicroModal from 'micromodal'
 import BN from 'bn.js'
 import { updateURLs } from '@/store/urls'
 
-// proxyZLP 0xd45bf0a7fed8a9825517a3ef6f723a7619cb2435
+// __crowdSale: '0xA5A05595997A4316e5fA73fbde6e24008Bd89653',
+// __DragonZIL: '0xe876b112A62f945484edE1f3cCdd6B0ac6F39382',
+// __FightPlace: '0x3DD25E4E4a7753D7f21ECEC9d926c25dcf696169',
+// __CrowdSaleForZLP: '0x6f2094d3fc4b08e0a19347e9501f675fd58c2192',
+// __GenLab: '0x295dd4be95d74fae4a57bad437e7c0b9ed2b4e92',
+// __ZLP: '0xfbd07e692543d3064B9CF570b27faaBfd7948DA4',
+// __BreedPlace: '0x5a4e6Ef3A6fff78bE5EDdc4f2c1D7100d78Bb4bf',
+// __MarketPlace: '0x91a4212032ff3e36453d948e5560a63445abcbcc'
+
 export default {
   data() {
     return {
-      __netwrok: 'mainnet',
-      __crowdSale: '0xA5A05595997A4316e5fA73fbde6e24008Bd89653',
-      __DragonZIL: '0xe876b112A62f945484edE1f3cCdd6B0ac6F39382',
+      __netwrok: 'testnet',
+      __crowdSale: '0x548510c718825e54ee048fce4dbf7c0de4f63225',
+      __DragonZIL: '0xc172172f05ebf4df2a64cb35f9d85dac869f4150',
       __FightPlace: '0x3DD25E4E4a7753D7f21ECEC9d926c25dcf696169',
-      __CrowdSaleForZLP: '0x6f2094d3fc4b08e0a19347e9501f675fd58c2192',
       __GenLab: '0x295dd4be95d74fae4a57bad437e7c0b9ed2b4e92',
-      __ZLP: '0xfbd07e692543d3064B9CF570b27faaBfd7948DA4',
+      __ZLP: '0x6b54e53d7472429b220d23a4365592367ac22c88',
       __BreedPlace: '0x5a4e6Ef3A6fff78bE5EDdc4f2c1D7100d78Bb4bf',
       __MarketPlace: '0x91a4212032ff3e36453d948e5560a63445abcbcc'
     }
@@ -233,7 +240,13 @@ export default {
 
       return await contract.call(
         'Buy',
-        [],
+        [
+          {
+            vname: 'refAddr',
+            type: 'ByStr20',
+            value: '0x0000000000000000000000000000000000000000'
+          }
+        ],
         {
           amount,
           gasPrice,
@@ -384,6 +397,7 @@ export default {
     async __getIncrementer() {
       const zilPay = await this.__getZilPay()
       const isNet = await this.__net()
+      const field = 'zil_incrementer'
 
       if (!isNet) {
         return false
@@ -391,9 +405,9 @@ export default {
 
       const { result } = await zilPay
         .blockchain
-        .getSmartContractSubState(this.__crowdSale, 'incrementer')
+        .getSmartContractSubState(this.__crowdSale, field)
 
-      return result['incrementer']
+      return result[field]
     },
     async __getCombatGen(id) {
       if (isNaN(id)) {
@@ -678,7 +692,7 @@ export default {
     },
     async __getZLPDragonPrice() {
       const zilPay = await this.__getZilPay()
-      const field = 'current_price'
+      const field = 'zlp_price'
 
       await this.__connect()
       const isNet = await this.__net()
@@ -689,14 +703,14 @@ export default {
 
       const { result } = await zilPay
         .blockchain
-        .getSmartContractSubState(this.__CrowdSaleForZLP, field)
+        .getSmartContractSubState(this.__crowdSale, field)
 
       return result[field]
     },
-    async __buyForZLP(count) {
+    async __buyForZLP(ZLPamount) {
       const zilPay = await this.__getZilPay()
       const { contracts, utils } = zilPay
-      const contract = contracts.at(this.__CrowdSaleForZLP)
+      const contract = contracts.at(this.__ZLP)
       const amount = utils.units.toQa('0', utils.units.Units.Zil)
       const gasPrice = utils.units.toQa('2000', utils.units.Units.Li)
       const isNet = await this.__net()
@@ -706,18 +720,23 @@ export default {
       }
 
       return await contract.call(
-        'BuyForZLP',
+        'Transfer',
         [
           {
+            vname: 'to',
+            type: 'ByStr20',
+            value: this.__crowdSale
+          },
+          {
             vname: 'amount',
-            type: 'Uint32',
-            value: String(count)
+            type: 'Uint128',
+            value: String(ZLPamount)
           }
         ],
         {
           amount,
           gasPrice,
-          gasLimit: utils.Long.fromNumber(9000)
+          gasLimit: utils.Long.fromNumber(25000)
         }
       )
     },
