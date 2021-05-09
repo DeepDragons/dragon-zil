@@ -776,14 +776,13 @@ export default {
           return result[field2][String(id)]
         }
 
-        return '1'
+        return '0'
       }
       const [priceMultiplicator, startPrice, useCount] = await Promise.all([
         getPriceMultiplicator(),
         getStartPrice(),
         getUseCount()
       ])
-      console.log(priceMultiplicator, startPrice,useCount )
       const _priceMultiplicator = new BN(priceMultiplicator)
       const _startPrice = new BN(startPrice)
       const _useCount = new BN(useCount)

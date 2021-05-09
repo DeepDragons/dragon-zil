@@ -164,7 +164,6 @@ export default {
     },
     async updateAllowances() {
       const _allowances = await this.__getZLPAllowances(this.__GenLab)
-      console.log(_allowances)
       this.allowances = Number(_allowances) / 10**18
     },
     paintChart() {
