@@ -97,10 +97,18 @@
         >
       </label>
       <button
+        v-show="Number(allowances) >= Number(genPrice)"
         class="nav_btn w-button top-btn GenLab__btn"
         @click="changeGen"
       >
         Upgrade
+      </button>
+      <button
+        v-show="Number(allowances) < Number(genPrice)"
+        class="nav_btn w-button top-btn GenLab__btn"
+        @click="unlockZLP"
+      >
+        Unlock
       </button>
     </div>
   </Modal>
@@ -136,6 +144,7 @@ export default {
       values: [],
       genNumber: null,
       genPrice: 0,
+      allowances: 0,
       radarChartData: {
         labels: [],
         datasets: []
@@ -152,6 +161,11 @@ export default {
       const gens = await this.__getCombatGen(this.tokenId)
       this.values = this.__genParse(gens)
       this.paintChart()
+    },
+    async updateAllowances() {
+      const _allowances = await this.__getZLPAllowances(this.__GenLab)
+      console.log(_allowances)
+      this.allowances = Number(_allowances) / 10**18
     },
     paintChart() {
       let ctx = window.document.getElementById('GenLab_gens')
@@ -198,6 +212,35 @@ export default {
     showModal() {
       MicroModal.show('genlab-upgrade')
     },
+    async unlockZLP() {
+      this.loader = true
+
+      try {
+        const tx = await this.__increaseAllowance(this.__GenLab)
+        const inter = setInterval(() => {
+          window
+            .zilPay
+            .blockchain
+            .getTransaction(tx.TranID)
+            .then((tx) => {
+              const { receipt } = tx
+
+              if (receipt && receipt.exceptions) {
+                MicroModal.show('tx-error')
+              }
+
+              this.updateAllowances()
+
+              this.loader = false
+              clearInterval(inter)
+            })
+            .catch(() => null)
+        }, 5000)
+      } catch {
+        this.loader = false
+      }
+      this.loader = false
+    },
     async upgrade(index) {
       this.genNumber = index
       this.showModal()
@@ -207,7 +250,6 @@ export default {
 
       try {
         const tx = await this.__changeGen(this.genNumber, this.tokenId)
-
         const inter = setInterval(() => {
           window
             .zilPay
@@ -229,7 +271,7 @@ export default {
               clearInterval(inter)
             })
             .catch(() => null)
-        }, 10000)
+        }, 5000)
       } catch {
         this.loader = false
       }
@@ -239,6 +281,7 @@ export default {
   mounted() {
     this.updateGens()
     this.getPrice()
+    this.updateAllowances()
   }
 }
 </script>

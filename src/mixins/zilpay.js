@@ -18,7 +18,7 @@ export default {
       __crowdSale: '0x548510c718825e54ee048fce4dbf7c0de4f63225',
       __DragonZIL: '0xc172172f05ebf4df2a64cb35f9d85dac869f4150',
       __FightPlace: '0x3DD25E4E4a7753D7f21ECEC9d926c25dcf696169',
-      __GenLab: '0x295dd4be95d74fae4a57bad437e7c0b9ed2b4e92',
+      __GenLab: '0x1f206338cfdaba8fd42bb06680903be1568fec98',
       __ZLP: '0x6b54e53d7472429b220d23a4365592367ac22c88',
       __BreedPlace: '0x5a4e6Ef3A6fff78bE5EDdc4f2c1D7100d78Bb4bf',
       __MarketPlace: '0x91a4212032ff3e36453d948e5560a63445abcbcc'
@@ -791,6 +791,62 @@ export default {
       const _amount = _startPrice.mul(_multiplicator)
 
       return String(_amount)
+    },
+    async __getZLPAllowances(address) {
+      const zilPay = await this.__getZilPay()
+      const field = 'allowances'
+      const owner = String(zilPay.wallet.defaultAccount.base16).toLowerCase()
+
+      await this.__connect()
+      const isNet = await this.__net()
+
+      if (!isNet) {
+        return false
+      }
+
+      const { result } = await zilPay
+        .blockchain
+        .getSmartContractSubState(this.__ZLP, field, [owner, address])
+
+      if (!result || !result[field] || !result[field][owner] || !result[field][owner][address]) {
+        return '0'
+      }
+
+      return result[field][owner][address]
+    },
+    async __increaseAllowance(address) {
+      const zilPay = await this.__getZilPay()
+      const { contracts, utils } = zilPay
+      const contract = contracts.at(this.__ZLP)
+      const amount = utils.units.toQa('0', utils.units.Units.Zil)
+      const gasPrice = utils.units.toQa('2000', utils.units.Units.Li)
+      const isNet = await this.__net()
+      const balance = await this.__getZLPBalance()
+
+      if (!isNet) {
+        return false
+      }
+
+      return await contract.call(
+        'IncreaseAllowance',
+        [
+          {
+            vname: 'spender',
+            type: 'ByStr20',
+            value: address
+          },
+          {
+            vname: 'amount',
+            type: 'Uint128',
+            value: String(balance)
+          }
+        ],
+        {
+          amount,
+          gasPrice,
+          gasLimit: utils.Long.fromNumber(5000)
+        }
+      )
     },
     async __changeGen(genNum, tokenID) {
       const zilPay = await this.__getZilPay()
