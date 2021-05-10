@@ -15,12 +15,12 @@ export default {
   data() {
     return {
       __netwrok: 'testnet',
-      __crowdSale: '0x548510c718825e54ee048fce4dbf7c0de4f63225',
+      __crowdSale: '0x7a14cec5eb5bc4f5409e266b1f2d0a37697848cf',
       __DragonZIL: '0xc172172f05ebf4df2a64cb35f9d85dac869f4150',
-      __FightPlace: '0xfdeaf1eec4213508d4214592c7b38637d9490622',
+      __FightPlace: '0x7c17e8f1566bab32a210536a43a951ecf0d732e8',
       __GenLab: '0x1f206338cfdaba8fd42bb06680903be1568fec98',
       __ZLP: '0x6b54e53d7472429b220d23a4365592367ac22c88',
-      __BreedPlace: '0x5a4e6Ef3A6fff78bE5EDdc4f2c1D7100d78Bb4bf',
+      __BreedPlace: '0x1f7867122b2f9a1e28f5ed1bed393a23fa55bf32',
       __MarketPlace: '0x9e3c6e89b4eb7e47f137a3b51ccaf99044d2ade7'
     }
   },
@@ -919,6 +919,27 @@ export default {
 
       return result[field]
     },
+    async __getBreedPrice(tokenID) {
+      const zilPay = await this.__getZilPay()
+      const field = 'waiting_list'
+
+      await this.__connect()
+      const isNet = await this.__net()
+
+      if (!isNet) {
+        return false
+      }
+
+      const { result } = await zilPay
+        .blockchain
+        .getSmartContractSubState(this.__BreedPlace, field, [String(tokenID)])
+
+      if (!result || !result[field] || !result[field][String(tokenID)]) {
+        return '0'
+      }
+
+      return result[field][String(tokenID)]
+    },
     async __addToBreedPlace(zlpAmount, tokenId) {
       const zilPay = await this.__getZilPay()
       const { contracts, utils } = zilPay
@@ -932,7 +953,7 @@ export default {
       }
 
       return await contract.call(
-        'WaitListAddDel',
+        'Add',
         [
           {
             vname: 'token_id',

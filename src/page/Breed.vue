@@ -69,6 +69,8 @@ export default {
       myDragons: [],
       loader: false,
       error: null,
+      allowances: 0,
+      breedPrice: 250000,
       radarChartData: {
         labels: [],
         datasets: []
@@ -91,6 +93,12 @@ export default {
         'rgb(148 0 255 / 88%)'
       );
       this.radarChartData.datasets = [dataSet];
+    },
+    async getAllowances() {
+      const _allowances = await this.__getZLPAllowances(this.__BreedPlace)
+      this.allowances = Number(_allowances) / 10**18
+
+      return this.allowances
     },
     myGens(gens) {
       const  label = 'You'
@@ -124,7 +132,10 @@ export default {
       MicroModal.show('your-dragons')
     },
     async loadTokens() {
+      const breedPrice = await this.__getBreedPrice(this.tokenId)
       const tokens = await this.__getTokensIds()
+
+      this.breedPrice = (Number(breedPrice) / 1000000000000000000)
 
       this.myDragons = Object
         .keys(tokens)
@@ -149,6 +160,11 @@ export default {
       const id1 = this.selected
 
       try {
+        await this.getAllowances()
+
+        if (this.allowances < this.breedPrice) {
+          await this.__increaseAllowance(this.__BreedPlace)
+        }
         const tx = await this.__breedStart(id1, id0)
 
         const inter = setInterval(() => {
