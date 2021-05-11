@@ -12,7 +12,7 @@ export default {
       __GenLab: '0x8a30485597ebcc1be49e75261de83d30e4a9d1e7',
       __ZLP: '0xfbd07e692543d3064b9cf570b27faabfd7948da4',
       __BreedPlace: '0x71435501608be1993c4146f9cabfa3f547205f6f',
-      __MarketPlace: '0x26637d6daddbb936c64bd4e2d9b4d4d3db30ee21',
+      __MarketPlace: '0x7b9b80aaf561ecd4e89ea55d83d59ab7ac01a575',
       __MultiSig: '0x54fb9f7e7b6423677d4ffd67b53d452f6d0fa509'
     }
   },
@@ -195,6 +195,8 @@ export default {
       if (!isNet) {
         return false
       }
+
+      console.log(contract, _amount, String(token_id))
 
       return await contract.call(
         'Sell',
