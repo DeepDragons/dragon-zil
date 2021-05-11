@@ -14,15 +14,15 @@ import { updateURLs } from '@/store/urls'
 export default {
   data() {
     return {
-      __netwrok: 'testnet',
-      __crowdSale: '0x2d4d16d2278cda5b83ec261f7e3cb5a5d65401ab',
-      __DragonZIL: '0xc172172f05ebf4df2a64cb35f9d85dac869f4150',
-      __FightPlace: '0x7c17e8f1566bab32a210536a43a951ecf0d732e8',
-      __GenLab: '0x1f206338cfdaba8fd42bb06680903be1568fec98',
-      __ZLP: '0x6b54e53d7472429b220d23a4365592367ac22c88',
-      __BreedPlace: '0x38a1ba628116136c30e9a5f62cbfe22f8e4a600b',
+      __netwrok: 'mainnet',
+      __crowdSale: '0xb73c4a031caea57c453f61b6c37df98cd988436c',
+      __DragonZIL: '0xb4d83becb950c096b001a3d1c7abb10f571ae75f',
+      __FightPlace: '0x21b870dc77921b21f9a98a732786bf812888193c',
+      __GenLab: '0x8a30485597ebcc1be49e75261de83d30e4a9d1e7',
+      __ZLP: '0xfbd07e692543d3064b9cf570b27faabfd7948da4',
+      __BreedPlace: '0x71435501608be1993c4146f9cabfa3f547205f6f',
       __MarketPlace: '0x26637d6daddbb936c64bd4e2d9b4d4d3db30ee21',
-      __MultiSig: '0x119929d8c388DE3650Ea1B3DC7b9Fe0ceEFE862F'
+      __MultiSig: '0x54fb9f7e7b6423677d4ffd67b53d452f6d0fa509'
     }
   },
   methods: {
