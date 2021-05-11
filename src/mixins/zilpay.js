@@ -949,7 +949,7 @@ export default {
         return '0'
       }
 
-      return result[field][String(tokenID)]
+      return result[field][String(tokenID)].arguments[0]
     },
     async __cancelBreed(tokenId) {
       const zilPay = await this.__getZilPay()

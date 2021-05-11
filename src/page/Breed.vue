@@ -161,7 +161,6 @@ export default {
 
       try {
         await this.getAllowances()
-
         if (this.allowances < this.breedPrice) {
           await this.__increaseAllowance(this.__BreedPlace)
         }
