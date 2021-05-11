@@ -173,8 +173,8 @@ export default {
             .getTransaction(tx.TranID)
             .then((tx) => {
               try {
-                if (tx.eventLogs && tx.eventLogs.length === 4) {
-                  const found = tx.eventLogs.find((e) => e._eventname === 'BirthSuccess')
+                if (tx.eventLogs) {
+                  const found = tx.eventLogs.find((e) => e._eventname === 'MintSuccess')
                   const tokenID = found.params[2].value
 
                   this.$router.push({
