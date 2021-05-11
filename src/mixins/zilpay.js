@@ -382,9 +382,9 @@ export default {
 
       const { result } = await zilPay
         .blockchain
-        .getSmartContractSubState(this.__crowdSale, 'current_price')
+        .getSmartContractSubState(this.__crowdSale, 'zil_price')
 
-      return result['current_price']
+      return result['zil_price']
     },
     async __getIncrementer() {
       const zilPay = await this.__getZilPay()
