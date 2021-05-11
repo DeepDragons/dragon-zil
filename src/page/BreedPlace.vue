@@ -9,17 +9,27 @@
           There are no vended dragons yet, but you can add your own.
         </p>
       </div>
-      <router-link
-        v-for="(item) of keys"
-        :key="item"
-        :to="{ name: 'Breed', params: { id: item } }"
-      >
-        <Card :id="item" >
-          <b class="breed-amount">
-            {{ (Number(list[item]) / 1000000000000000000).toFixed() }} <span>ZLP</span>
+        <Card
+          v-for="(item, index) of list"
+          :key="index"
+          :id="item.id"
+          :showID="owner !== item.owner"
+          @select="onSelected(item.id)"
+        >
+          <b
+            v-show="owner !== item.owner"
+            class="breed-amount"
+          >
+            {{ (Number(item.price) / 1000000000000000000).toFixed() }} <span>ZLP</span>
           </b>
+          <button
+            v-show="owner === item.owner"
+            class="nav_btn w-button top-btn trade-btn"
+            @click="cancelSale(item)"
+          >
+            Cancel #{{ item.id }}
+          </button>
         </Card>
-      </router-link>
     </div>
   </div>
 </template>
@@ -37,7 +47,8 @@ export default {
   },
   data() {
     return {
-      list: {}
+      list: [],
+      owner: null
     }
   },
   computed: {
@@ -47,7 +58,20 @@ export default {
   },
   methods: {
     async loadTokens() {
+      const zilPay = await this.__getZilPay()
+      this.owner = String(zilPay.wallet.defaultAccount.base16).toLowerCase()
       this.list = await this.__getBreedingList()
+    },
+    onSelected(id) {
+      this.$router.push({
+        name: 'Breed',
+        params: {
+          id
+        }
+      })
+    },
+    async cancelSale(el) {
+      await this.__cancelBreed(el.id)
     }
   },
   mounted() {

@@ -20,8 +20,8 @@ export default {
       __FightPlace: '0x7c17e8f1566bab32a210536a43a951ecf0d732e8',
       __GenLab: '0x1f206338cfdaba8fd42bb06680903be1568fec98',
       __ZLP: '0x6b54e53d7472429b220d23a4365592367ac22c88',
-      __BreedPlace: '0x1f7867122b2f9a1e28f5ed1bed393a23fa55bf32',
-      __MarketPlace: '0x9e3c6e89b4eb7e47f137a3b51ccaf99044d2ade7'
+      __BreedPlace: '0x38a1ba628116136c30e9a5f62cbfe22f8e4a600b',
+      __MarketPlace: '0x26637d6daddbb936c64bd4e2d9b4d4d3db30ee21'
     }
   },
   methods: {
@@ -917,7 +917,18 @@ export default {
         .blockchain
         .getSmartContractSubState(this.__BreedPlace, field)
 
-      return result[field]
+      if (!result || !result[field]) {
+        return []
+      }
+
+
+      let list = result[field]
+      list = Object.keys(list).map((id) => ({
+        id,
+        price: list[id].arguments[0],
+        owner: list[id].arguments[1],
+      }))
+      return list
     },
     async __getBreedPrice(tokenID) {
       const zilPay = await this.__getZilPay()
@@ -939,6 +950,34 @@ export default {
       }
 
       return result[field][String(tokenID)]
+    },
+    async __cancelBreed(tokenId) {
+      const zilPay = await this.__getZilPay()
+      const { contracts, utils } = zilPay
+      const contract = contracts.at(this.__BreedPlace)
+      const amount = utils.units.toQa('0', utils.units.Units.Zil)
+      const gasPrice = utils.units.toQa('2000', utils.units.Units.Li)
+      const isNet = await this.__net()
+
+      if (!isNet) {
+        return false
+      }
+
+      return await contract.call(
+        'Cancel',
+        [
+          {
+            vname: 'token_id',
+            type: 'Uint256',
+            value: String(tokenId)
+          }
+        ],
+        {
+          amount,
+          gasPrice,
+          gasLimit: utils.Long.fromNumber(5000)
+        }
+      )
     },
     async __addToBreedPlace(zlpAmount, tokenId) {
       const zilPay = await this.__getZilPay()
