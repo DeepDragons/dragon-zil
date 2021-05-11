@@ -15,13 +15,14 @@ export default {
   data() {
     return {
       __netwrok: 'testnet',
-      __crowdSale: '0x7a14cec5eb5bc4f5409e266b1f2d0a37697848cf',
+      __crowdSale: '0x2d4d16d2278cda5b83ec261f7e3cb5a5d65401ab',
       __DragonZIL: '0xc172172f05ebf4df2a64cb35f9d85dac869f4150',
       __FightPlace: '0x7c17e8f1566bab32a210536a43a951ecf0d732e8',
       __GenLab: '0x1f206338cfdaba8fd42bb06680903be1568fec98',
       __ZLP: '0x6b54e53d7472429b220d23a4365592367ac22c88',
       __BreedPlace: '0x38a1ba628116136c30e9a5f62cbfe22f8e4a600b',
-      __MarketPlace: '0x26637d6daddbb936c64bd4e2d9b4d4d3db30ee21'
+      __MarketPlace: '0x26637d6daddbb936c64bd4e2d9b4d4d3db30ee21',
+      __MultiSig: '0x119929d8c388DE3650Ea1B3DC7b9Fe0ceEFE862F'
     }
   },
   methods: {
