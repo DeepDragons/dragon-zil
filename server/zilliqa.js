@@ -9,14 +9,6 @@ const testnet = 'https://dev-api.zilliqa.com';
 const provider = mainnet;
 const zilliqa = new Zilliqa(provider);
 
-if (!ZLP || !validation.isAddress(ZLP)) {
-  throw new Error('BAD ZLP contract address.');
-}
-
-zilliqa.wallet.addByPrivateKey(process.env.PRIVATE_KEY);
-
-console.log('publicKey:', zilliqa.wallet.defaultAccount.publicKey);
-
 module.exports = {
   validation,
   signMessage(msg) {
