@@ -6,7 +6,7 @@ export default {
   data() {
     return {
       __netwrok: 'mainnet',
-      __crowdSale: '0xb73c4a031caea57c453f61b6c37df98cd988436c',
+      __crowdSale: '0x4260353646067b5e54f906d4a3dcee8385904f01',
       __DragonZIL: '0xb4d83becb950c096b001a3d1c7abb10f571ae75f',
       __FightPlace: '0x21b870dc77921b21f9a98a732786bf812888193c',
       __GenLab: '0x8a30485597ebcc1be49e75261de83d30e4a9d1e7',
