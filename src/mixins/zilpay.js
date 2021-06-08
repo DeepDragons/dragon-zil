@@ -709,6 +709,8 @@ export default {
       const gasPrice = utils.units.toQa('2000', utils.units.Units.Li)
       const isNet = await this.__net()
 
+      ZLPamount = String(ZLPamount)
+
       if (!isNet) {
         return false
       }
